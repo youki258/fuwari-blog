@@ -1,0 +1,193 @@
+{
+  "$schema": "./schemas/export-manifest.schema.json",
+  "sourceVault": "D:/studio/服务器存放的笔记",
+  "site": {
+    "title": "舒钟渭的公开笔记",
+    "description": "从私人 Obsidian 笔记库白名单导出的技术文章。",
+    "author": "舒钟渭",
+    "language": "zh_CN"
+  },
+  "sensitive": {
+    "privatePaths": [
+      ".obsidian",
+      ".trash",
+      ".vscode",
+      "密码",
+      "密钥",
+      "日记",
+      "学校邮箱",
+      "26寒假学习/日记"
+    ],
+    "blockedExtensions": [
+      ".pem",
+      ".key",
+      ".p12",
+      ".pfx",
+      ".env",
+      ".zip",
+      ".7z",
+      ".rar",
+      ".docx",
+      ".pptx",
+      ".pdf"
+    ],
+    "reviewTerms": ["密码", "密钥", "pem", "token", "secret", "阿里云"]
+  },
+  "entries": [
+    {
+      "status": "publish",
+      "source": "博客备选笔记/初识k8s.md",
+      "slug": "intro-to-k8s",
+      "title": "初识 Kubernetes",
+      "description": "Kubernetes 基础概念、实验环境与入门理解整理。",
+      "date": "2026-05-27",
+      "category": "云原生",
+      "tags": ["Kubernetes", "学习笔记", "容器"]
+    },
+    {
+      "status": "publish",
+      "source": "blog/笔记/5.maven.md",
+      "slug": "maven-course-notes",
+      "title": "Maven 学习笔记",
+      "description": "Maven 项目结构、依赖管理和构建生命周期整理。",
+      "date": "2025-05-01",
+      "category": "后端",
+      "tags": ["Maven", "Java", "学习笔记"]
+    },
+    {
+      "status": "publish",
+      "source": "blog/笔记/6.单元测试.md",
+      "slug": "unit-test-course-notes",
+      "title": "单元测试学习笔记",
+      "description": "后端单元测试的基础概念、常用写法和实践记录。",
+      "date": "2025-05-01",
+      "category": "后端",
+      "tags": ["单元测试", "Java", "学习笔记"]
+    },
+    {
+      "status": "publish",
+      "source": "blog/笔记/7.SpringBoot.md",
+      "slug": "spring-boot-course-notes",
+      "title": "Spring Boot 学习笔记",
+      "description": "Spring Boot 入门、项目结构和常用配置整理。",
+      "date": "2025-05-12",
+      "category": "后端",
+      "tags": ["Spring Boot", "Java", "学习笔记"]
+    },
+    {
+      "status": "publish",
+      "source": "blog/笔记/8.MySQL.md",
+      "slug": "mysql-course-notes",
+      "title": "MySQL 学习笔记",
+      "description": "MySQL 基础语法、表结构和常用数据库操作整理。",
+      "date": "2025-06-21",
+      "category": "后端",
+      "tags": ["MySQL", "数据库", "学习笔记"]
+    },
+    {
+      "status": "publish",
+      "source": "blog/笔记/10.Restful&Apifox&增删改查.md",
+      "slug": "restful-apifox-crud",
+      "title": "RESTful、Apifox 与增删改查",
+      "description": "RESTful 接口设计、Apifox 调试和基础 CRUD 实践笔记。",
+      "date": "2025-05-14",
+      "category": "后端",
+      "tags": ["RESTful", "Apifox", "Spring Boot"]
+    },
+    {
+      "status": "review",
+      "source": "博客备选笔记/Cloudflare 如何实现一个 IP 承载数千网站？边缘应用.md",
+      "reason": "含云厂商和架构类描述，发布前人工确认是否需要补来源和脱敏。"
+    },
+    {
+      "status": "review",
+      "source": "博客备选笔记/LLM使用（关闭思考）.md",
+      "reason": "内容依赖实时 API 文档，发布前需要重新核对版本和官方参数。"
+    },
+    {
+      "status": "review",
+      "source": "博客备选笔记/GFW识别 CDN相关.md",
+      "reason": "涉及 GFW、代理识别和网络规避语境，首版先不公开。"
+    },
+    {
+      "status": "review",
+      "source": "博客备选笔记/代理相关.md",
+      "reason": "代理/中转/封禁语境，公开风险较高。"
+    },
+    {
+      "status": "review",
+      "source": "博客备选笔记/校园网/11.27.md",
+      "reason": "包含校园网、认证、代理和 OpenVPN 相关内容，发布前需要脱敏。"
+    },
+    {
+      "status": "review",
+      "source": "博客备选笔记/让虚拟机直接使用主机的clash.md",
+      "reason": "包含 Clash/TUN/透明网关内容，首版先不公开。"
+    },
+    {
+      "status": "review",
+      "source": "博客备选笔记/虚拟机网络配置.md",
+      "reason": "包含本机 VMware 网段/IP 和个人化排障上下文，发布前需要脱敏。"
+    },
+    {
+      "status": "review",
+      "source": "博客备选笔记/VMware虚拟机Linux固定IP配置（解决网卡未托管_无网问题）.md",
+      "reason": "包含固定内网 IP、网关和机器环境，发布前需要脱敏。"
+    },
+    {
+      "status": "review",
+      "source": "博客备选笔记/MCP配置快速参考.md",
+      "reason": "包含 token/密钥相关配置说明，发布前需要确认没有真实配置。"
+    },
+    {
+      "status": "review",
+      "source": "博客备选笔记/VSCode + SSH + Docker 完整配置流程.md",
+      "reason": "包含 SSH 密钥、密码登录等说明，发布前需要脱敏并改为示例值。"
+    },
+    {
+      "status": "review",
+      "source": "博客备选笔记/记一次linux root密码忘记改密码的过程.md",
+      "reason": "标题和正文涉及密码恢复过程，且当前文件已有未提交修改，先不导出。"
+    },
+    {
+      "status": "private",
+      "source": "密码/",
+      "reason": "密码类内容永不发布。"
+    },
+    {
+      "status": "private",
+      "source": "密钥/",
+      "reason": "密钥、SSH 私钥和凭据类内容永不发布。"
+    },
+    {
+      "status": "private",
+      "source": "日记/",
+      "reason": "私人日记永不进入公开站点。"
+    },
+    {
+      "status": "private",
+      "source": "26寒假学习/日记/",
+      "reason": "私人日记永不进入公开站点。"
+    },
+    {
+      "status": "private",
+      "source": "学校邮箱/",
+      "reason": "包含学校邮箱申请材料和截图，永不发布。"
+    },
+    {
+      "status": "private",
+      "source": ".obsidian/",
+      "reason": "Obsidian 工作区、插件和缓存配置不进入公开站点。"
+    },
+    {
+      "status": "private",
+      "source": ".trash/",
+      "reason": "回收站内容不进入公开站点。"
+    },
+    {
+      "status": "private",
+      "source": ".vscode/",
+      "reason": "本地编辑器配置不进入公开站点。"
+    }
+  ]
+}

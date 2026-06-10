@@ -2,41 +2,60 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import {
-  buildPolicy,
+  buildImportPolicy,
+  createSlug,
+  decideSource,
+  findCredentialHit,
   getLocalImagePath,
-  getPublishSource,
   getVaultRoot,
   postsDir,
-  safeJoin,
-  validateManifest
-} from "./export-vault-notes.mjs";
+  safeJoin
+} from "./import-vault-drafts.mjs";
 
 const manifest = JSON.parse(await readFile(new URL("../export-manifest.json", import.meta.url), "utf8"));
-const policy = buildPolicy(manifest);
-const validPublishEntry = manifest.entries.find((entry) => entry.status === "publish");
+const policy = buildImportPolicy(manifest);
 const vaultRoot = getVaultRoot(manifest);
 
-assert.ok(validPublishEntry, "manifest should contain at least one publish entry");
-assert.doesNotThrow(() => validateManifest(manifest, policy));
-assert.ok(policy.privatePaths.includes(".vscode"), "private manifest entries and sensitive paths should shape policy");
+assert.equal(manifest.entries.some((entry) => entry.status === "publish"), false, "manifest should not keep legacy publish entries");
+assert.ok(policy.excludedRoots.includes("public-notes"), "legacy public-notes output must not be imported");
+assert.ok(policy.excludedRoots.includes("密钥"), "secret directories must be excluded");
 
-assert.throws(
-  () => validateManifest({ ...manifest, entries: [{ ...validPublishEntry, slug: "../evil" }] }, policy),
-  /Invalid slug/
+assert.deepEqual(decideSource("public-notes/src/content/posts/demo.md", "hello", policy), {
+  status: "excluded",
+  reason: "excluded root: public-notes"
+});
+assert.deepEqual(decideSource("密钥/demo.md", "hello", policy), {
+  status: "excluded",
+  reason: "excluded root: 密钥"
+});
+assert.deepEqual(decideSource("学校邮箱/demo.md", "hello", policy), {
+  status: "excluded",
+  reason: "excluded root: 学校邮箱"
+});
+assert.deepEqual(decideSource("26寒假学习/日报.md", "hello", policy), {
+  status: "excluded",
+  reason: "personal note name: 日报"
+});
+assert.deepEqual(decideSource("blog/笔记/demo.md", "const jwt = request.getHeader('token')", policy), {
+  status: "import",
+  reason: "passed import policy"
+});
+assert.match(
+  decideSource("blog/笔记/demo.md", 'OPENAI_API_KEY = "sk-abcdefghijklmnopqrstuvwxyz"', policy).reason,
+  /credential or personal info/
 );
+assert.equal(findCredentialHit('password = "supersecret"'), "quoted secret assignment");
 
-assert.throws(
-  () => validateManifest({ ...manifest, entries: [{ ...validPublishEntry, source: "密钥/evil.md" }] }, policy),
-  /private path/
-);
-
-assert.throws(() => getPublishSource({ ...validPublishEntry, source: "blog/笔记/demo.zip" }, manifest, policy), /Blocked extension/);
+const slug = createSlug("blog/笔记/10.Restful&Apifox&增删改查.md", new Set());
+assert.equal(slug, "blog/notes/10-restful-apifox-crud");
+assert.match(slug, /^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?(?:\/[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)*$/);
+assert.equal(createSlug("blog/笔记/9.JDBC&Mybatis.md", new Set()), "blog/notes/09-jdbc-mybatis");
 
 const noteAbs = path.resolve(vaultRoot, "blog/笔记/10.Restful&Apifox&增删改查.md");
-assert.doesNotThrow(() => getLocalImagePath("10.Restful&Apifox.assets/17470516791332.png", noteAbs, manifest, policy));
-assert.throws(() => getLocalImagePath("../../日记/photo.png", noteAbs, manifest, policy), /private path/);
-assert.throws(() => getLocalImagePath("../8.MySQL.assets/photo.png", noteAbs, manifest, policy), /escapes expected root/);
-assert.throws(() => getLocalImagePath("inline.svg", noteAbs, manifest, policy), /Unsupported local image extension/);
+assert.doesNotThrow(() => getLocalImagePath("10.Restful&Apifox.assets/17470516791332.png", noteAbs, vaultRoot));
+assert.throws(() => getLocalImagePath("../../日记/photo.png", noteAbs, vaultRoot), /escapes expected root/);
+assert.throws(() => getLocalImagePath("../8.MySQL.assets/photo.png", noteAbs, vaultRoot), /escapes expected root/);
+assert.throws(() => getLocalImagePath("inline.svg", noteAbs, vaultRoot), /unsupported image extension/);
 assert.throws(() => safeJoin(postsDir, "../evil.md"), /escapes expected root/);
 
 console.log("Guard tests passed.");

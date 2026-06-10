@@ -90,6 +90,11 @@ function checkPath(filePath, policy) {
   return failures;
 }
 
+function isQuarantineSource(filePath) {
+  const relative = toPosix(path.relative(siteRoot, filePath));
+  return relative === "src/content/posts/quarantine" || relative.startsWith("src/content/posts/quarantine/");
+}
+
 async function checkContent(filePath) {
   const ext = path.extname(filePath).toLowerCase();
   if (![".md", ".html", ".js", ".css", ".json", ".xml", ".txt"].includes(ext)) {
@@ -120,6 +125,7 @@ async function main() {
   const warnings = [];
 
   for (const file of files) {
+    if (isQuarantineSource(file)) continue;
     failures.push(...checkPath(file, policy));
     const content = await checkContent(file);
     failures.push(...content.failures);

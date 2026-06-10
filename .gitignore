@@ -4,6 +4,9 @@ dist/
 # generated types
 .astro/
 
+# local quarantine drafts
+src/content/posts/quarantine/
+
 # dependencies
 node_modules/
 

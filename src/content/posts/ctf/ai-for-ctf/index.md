@@ -1,9 +1,9 @@
 ---
-title: "ctf的ai使用"
+title: “CTF中的AI自动化工作流：多Agent协作与Docker实践”
 published: 2026-04-21
 updated: 2026-04-21
-description: "复刻多 Agent CTF 工作流：tmux + AI CLI Agent + Docker 的资源地图与可操作清单 执行摘要 你看到的“满屏终端 + AI 自"
-tags: ["待整理"]
+description: “复刻多 Agent CTF 工作流：tmux + AI CLI Agent + Docker 的资源地图与可操作清单”
+tags: [“CTF”, “AI”, “自动化”, “多Agent”]
 category: "CTF"
 draft: true
 ---

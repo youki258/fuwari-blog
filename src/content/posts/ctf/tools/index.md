@@ -1,9 +1,9 @@
 ---
-title: "工具"
+title: "CTF解题中的工具链总结与改进"
 published: 2026-05-16
 updated: 2026-05-16
-description: "我之前用codex做了很多题目，也遇到了很多问题，请先帮我总结要做什么并自己制定怎么做，以下是各个题的问题对话 总结一下中间遇到的缺少工具等的问题，方便我后续改"
-tags: ["待整理"]
+description: "AI 辅助 CTF 解题中遇到的工具链缺失问题与改进方向"
+tags: ["CTF", "工具链", "逆向工程", "Ghidra"]
 category: "CTF"
 draft: true
 ---

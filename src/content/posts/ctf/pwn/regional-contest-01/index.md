@@ -1,9 +1,9 @@
 ---
-title: "区域赛1"
+title: "Pwn区域赛实战：checksec分析与漏洞利用"
 published: 2026-05-13
 updated: 2026-05-13
-description: "checksec file=notepad 使用本地虚拟环境"
-tags: ["待整理"]
+description: "Pwn 区域赛题目分析：checksec 检查与漏洞利用实战"
+tags: ["CTF", "Pwn", "漏洞利用", "区域赛"]
 category: "CTF"
 draft: true
 ---

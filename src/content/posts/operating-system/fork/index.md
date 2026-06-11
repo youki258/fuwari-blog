@@ -1,9 +1,9 @@
 ---
-title: "fork"
+title: "深入理解fork：进程创建与if/else分支的本质区别"
 published: 2026-04-08
 updated: 2026-04-08
-description: "核心结论（彻底解决你的疑惑） if/else 确实是「二选一」，但这是「同一个进程内部」的二选一！ 而 fork  之后，变成了 两个独立的进程，两个进程都会执"
-tags: ["待整理"]
+description: "fork() 系统调用详解：为什么 fork 后两个进程都会执行 if/else"
+tags: ["操作系统", "进程管理", "fork", "Linux"]
 category: "操作系统"
 draft: true
 ---

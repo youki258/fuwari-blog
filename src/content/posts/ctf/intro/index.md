@@ -1,9 +1,9 @@
 ---
-title: "初识CTF"
+title: "初识CTF：符号执行与逆向入门"
 published: 2026-04-15
 updated: 2026-04-15
-description: "符号执行 符号执行（Symbolic Execution）是一种程序分析技术，可以通过分析程序来得到让特定代码区域执行的输入。 使用符号执行分析一个程序时，该程"
-tags: ["待整理"]
+description: "符号执行基本概念与 CTF 逆向工程入门"
+tags: ["CTF", "符号执行", "逆向工程", "入门"]
 category: "CTF"
 draft: true
 ---

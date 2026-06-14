@@ -9,7 +9,7 @@ draft: true
 ---
 
 <!-- source: 码蹄杯/注意.md -->
-## **sort(first, last)**：
+## **sort(first, last)**
 
 - `first`：指向排序范围的起始位置（包含）。
 
@@ -19,21 +19,17 @@ draft: true
 
 - - 如果要降序排序，可以使用：
 
-		方法 1：greater<int>()
+  方法 1：greater<int>()
 
-		```cpp
-		sort(a, a + 4, greater<int>());  // 结果：{9, 5, 2, 1}
-		```
+  ```cpp
+  sort(a, a + 4, greater<int>());  // 结果：{9, 5, 2, 1}
+  ```
 
-		方法 2：Lambda 表达式（C++11）
+  方法 2：Lambda 表达式（C++11）
 
-		```cpp
-		sort(a, a + 4, [](int x, int y) { return x > y; });
-		```
-
-
-
-ISCC{chrIsauioleetalydoluwIy}
+  ```cpp
+  sort(a, a + 4, [](int x, int y) { return x > y; });
+  ```
 
 ## **max(res, nums[i])**
 
@@ -67,7 +63,7 @@ bool fun(int x) {
 
 在 C++ 中，`getline(cin, s)` 用于从标准输入（键盘）读取**一行字符串**，并存储到 `std::string` 变量 `s` 中。它比 `cin >> s` 更强大，可以读取包含空格的字符串。
 
-###  **混合 `cin >>` 和 `getline` 时要注意缓冲区**
+### **混合 `cin >>` 和 `getline` 时要注意缓冲区**
 
 如果先 `cin >>` 再 `getline`，`cin` 会留下 `\n` 在缓冲区，导致 `getline` 直接读取空行
 
@@ -75,7 +71,7 @@ bool fun(int x) {
 
 - 在 `cin >>` 后加 `cin.ignore()` 清除缓冲区：
 
-###  **`getline` 可以指定分隔符（默认 `\n`）**
+### **`getline` 可以指定分隔符（默认 `\n`）**
 
 ```cpp
 string data;
@@ -103,6 +99,7 @@ cout << c;    // 输出 7
 ```
 
 ## vector
+
 ![image-20250731112459215](./remote-01.png)
 
 ![image-20250731112731778](./remote-02.png)

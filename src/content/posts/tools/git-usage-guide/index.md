@@ -1,65 +1,166 @@
 ---
 title: "Git 使用指南"
 published: 2026-04-08
-updated: 2026-04-08
-description: "git下载 略 本地环境配置: 用户名,邮箱,ssh https://www.bilibili.com/video/BV1G8CFYvEjt 图形化工具:Sou"
+updated: 2026-06-14
+description: "Git 安装配置、基础工作流、分支管理、常用技巧速查"
 tags: ["Git","SSH","Sourcetree","版本控制"]
 category: "工具"
 draft: true
 ---
 
-<!-- source: git使用/git.md -->
-### git下载
+## 安装与配置
 
-略
+### 安装
 
-本地环境配置:
+- Windows：[git-scm.com](https://git-scm.com/download/win) 下载安装包，按向导完成
+- macOS：`brew install git` 或安装 Xcode Command Line Tools
 
-用户名,邮箱,ssh
+### 用户信息配置
 
-https://www.bilibili.com/video/BV1G8CFYvEjt
+```bash
+git config --global user.name "你的名字"
+git config --global user.email "你的邮箱"
+```
 
-图形化工具:Sourcetree
+### SSH Key 配置
 
-### Pycharm中使用Git进行版本控制和协作编辑:https://www.bilibili.com/video/BV1tfuKzzEE6/
+```bash
+# 生成密钥对
+ssh-keygen -t ed25519 -C "你的邮箱"
 
+# 查看公钥，复制到 GitHub/GitLab 的 SSH Keys 设置中
+cat ~/.ssh/id_ed25519.pub
 
-想把这个 **Obsidian 配置文件从 Git 跟踪中移除，但本地文件完全保留**，核心是用 `git rm --cached` 命令（**绝对不会删除本地文件**），再配合 `.gitignore` 永久禁止跟踪，两步就能搞定，我给你最直接、可复制的操作：
+# 测试连接
+ssh -T git@github.com
+```
 
----
+## 基础工作流
 
-## 一、核心操作（复制命令直接用）
+```bash
+# 初始化仓库
+git init
 
-### 1. 移除 Git 跟踪（保留本地文件）
+# 克隆远程仓库
+git clone git@github.com:user/repo.git
 
-在终端进入你的笔记仓库根目录，执行这条命令（**替换成你的配置文件实际路径**）：
+# 查看状态
+git status
+
+# 添加到暂存区
+git add .                # 所有文件
+git add file.txt         # 指定文件
+
+# 提交
+git commit -m "提交说明"
+
+# 推送到远程
+git push origin main
+
+# 拉取远程更新
+git pull origin main
+
+# 查看提交历史
+git log --oneline
+```
+
+## 分支管理
+
+```bash
+# 查看分支
+git branch
+
+# 创建并切换分支
+git checkout -b feature/xxx
+# 或用新版命令
+git switch -c feature/xxx
+
+# 切换分支
+git checkout main
+
+# 合并分支（在 main 上合并 feature）
+git merge feature/xxx
+
+# 删除分支
+git branch -d feature/xxx
+```
+
+### 解决合并冲突
+
+合并时如果出现冲突，手动编辑冲突文件，保留需要的内容，然后：
+
+```bash
+git add .
+git commit -m "解决合并冲突"
+```
+
+## 常用技巧
+
+### .gitignore
+
+在仓库根目录创建 `.gitignore` 文件，列出不需要跟踪的文件：
 
 ```
-# 格式：git rm --cached 你的配置文件路径
-# Obsidian 配置通常在 .obsidian/ 文件夹下，示例：
+# 依赖目录
+node_modules/
+__pycache__/
+
+# 编辑器配置
+.vscode/
+.idea/
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 构建产物
+dist/
+build/
+```
+
+### 移除跟踪但保留本地文件
+
+```bash
+# 从 Git 跟踪中移除（不会删除本地文件）
 git rm --cached .obsidian/app.json
-```
 
-✅ 关键：`--cached` 是**只移除跟踪、不删文件**的核心参数，千万别丢！
+# 或移除整个目录
+git rm --cached -r .obsidian/
 
-### 2. 永久加入忽略列表（防止再次被跟踪）
-
-编辑仓库根目录的 `.gitignore` 文件，把这个配置文件加进去：
-
-在 `.gitignore` 里添加一行（**写你的配置文件路径**）：
-
-
-```
-# 单个配置文件忽略
-.obsidian/app.json
-
-# 👉 推荐：直接忽略整个 Obsidian 配置文件夹（更省心）
-.obsidian/
-```
-
-### 3. 提交变更
-
-```
+# 加入 .gitignore 防止再次跟踪
+echo ".obsidian/" >> .gitignore
 git add .gitignore
-git commit -m "移除配置文件Git跟踪，添加到忽略列表"
+git commit -m "移除配置文件跟踪"
 ```
+
+### stash 暂存工作区
+
+```bash
+# 暂存当前修改
+git stash
+
+# 恢复暂存
+git stash pop
+
+# 查看暂存列表
+git stash list
+```
+
+### 撤销操作
+
+```bash
+# 撤销工作区修改（未 add）
+git checkout -- file.txt
+
+# 撤销暂存（已 add 未 commit）
+git reset HEAD file.txt
+
+# 撤销最近一次提交（保留修改）
+git reset --soft HEAD~1
+```
+
+## 图形化工具
+
+- **Sourcetree**：免费 Git GUI，适合初学者 — [下载](https://www.sourcetreeapp.com/)
+- **PyCharm 集成**：内置 Git 支持，VCS 菜单直接操作
+- **VSCode 集成**：左侧源代码管理面板，支持 diff、提交、推送

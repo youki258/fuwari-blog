@@ -1,6 +1,6 @@
 ---
 title: "可靠传输协议笔记"
-published: 2026-04-08
+published: 2025-08-01
 updated: 2026-04-08
 description: "CRC 差错检测、停止-等待协议、回退N帧协议、选择重传协议、PPP协议"
 tags: ["计算机网络","可靠传输","CRC","GBN","SR","PPP"]

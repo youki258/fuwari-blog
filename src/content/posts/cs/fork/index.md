@@ -1,6 +1,6 @@
 ---
 title: "深入理解fork：进程创建与if/else分支的本质区别"
-published: 2026-04-08
+published: 2025-08-01
 updated: 2026-04-08
 description: "fork() 系统调用详解：为什么 fork 后两个进程都会执行 if/else"
 tags: ["操作系统", "进程管理", "fork", "Linux"]

@@ -1,6 +1,6 @@
 ---
 title: "初识 Kubernetes"
-published: 2026-05-26
+published: 2026-05-27
 updated: 2026-05-26
 description: "1. Service：一个虚拟的、稳定的“门牌号” 你创建 Service 的时候，Kubernetes 会在集群内部为它分配一个固定的虚拟 IP（Cluste"
 tags: ["Kubernetes","K8s","容器编排"]

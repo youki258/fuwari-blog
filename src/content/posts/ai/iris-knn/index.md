@@ -1,6 +1,6 @@
 ---
 title: "机器学习入门：从 ML 概述到 KNN 分类"
-published: 2026-04-08
+published: 2025-08-15
 updated: 2026-04-08
 description: "机器学习基本概念、KNN 分类算法原理与 scikit-learn 实现、参数调优实战"
 tags: ["机器学习", "KNN", "Python", "scikit-learn"]

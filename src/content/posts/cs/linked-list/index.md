@@ -1,6 +1,6 @@
 ---
 title: "链表基础与 LeetCode 练习"
-published: 2026-04-08
+published: 2025-07-15
 updated: 2026-04-08
 description: "链表基础概念、五大操作、LeetCode 经典题解（反转链表、设计链表、扁平化多级链表等）"
 tags: ["数据结构", "C++", "链表", "LeetCode"]

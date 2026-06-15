@@ -1,6 +1,6 @@
 ---
 title: "Cloudflare 边缘应用：一个 IP 承载数千网站"
-published: 2026-04-21
+published: 2026-04-10
 updated: 2026-04-21
 description: "https://github.com/XTLS/BBS/issues/23 这涉及到CDN 的核心技术架构： 1. 反向代理（Reverse Proxy）+ S"
 tags: ["Cloudflare","CDN","边缘计算"]

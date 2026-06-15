@@ -1,6 +1,6 @@
 ---
 title: "VLAN 与 IPv4 地址笔记"
-published: 2026-04-08
+published: 2025-08-01
 updated: 2026-04-08
 description: "MAC 多播地址、IEEE 802.1Q VLAN 实现、交换机端口类型、IPv4 地址分类与子网划分"
 tags: ["计算机网络","VLAN","IPv4","MAC","组播"]

@@ -1,6 +1,6 @@
 ---
 title: "计算机网络基础：OSI 模型与网络设备"
-published: 2026-04-08
+published: 2025-08-01
 updated: 2026-04-08
 description: "OSI 七层模型、TCP/IP 四层模型、集线器/交换机/路由器原理、计算机网络性能指标"
 tags: ["计算机网络", "OSI", "TCP/IP", "网络设备"]

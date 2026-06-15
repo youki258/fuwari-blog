@@ -1,6 +1,6 @@
 ---
 title: "CDMA 与 CSMA 协议笔记"
-published: 2026-04-08
+published: 2025-08-01
 updated: 2026-04-08
 description: "码分多址复用、CSMA/CD 碰撞检测、CSMA/CA 碰撞避免、介质访问控制协议"
 tags: ["计算机网络","CDMA","CSMA","MAC","以太网","无线局域网"]

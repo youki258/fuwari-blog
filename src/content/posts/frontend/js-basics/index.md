@@ -83,8 +83,8 @@ let 对象名 = {
     }
 
     console.log(user.name);
-    user.eat();
-<script>
+    user.sing();
+</script>
 ```
 **注意：在定义对象中的方法时，尽量不要使用箭头函数（this）。**
 #### 5. JSON  
@@ -123,17 +123,17 @@ alert(JSON.parse(personJson).name);
   - 操作DOM对象的属性或方法 (查阅文档)
 
 代码演示：
-```javascript
+```html
 <!DOCTYPE html>
-<html lang="en
+<html lang="en">
 <head>
-  <meta charset="UTF-8
-  <meta name="viewport" content="width=device-width, initial-scale=1.0
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>JS-DOM</title>
 </head>
 <body>
 
-  <h1 id="title111111</h1>
+  <h1 id="title1">11111</h1>
   <h1>22222</h1>
   <h1>33333</h1>
 

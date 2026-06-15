@@ -1,7 +1,7 @@
 ---
 title: "HTML、CSS 基础与页面布局笔记"
-published: 2025-05-11
-updated: 2025-05-11
+published: 2025-04-11
+updated: 2025-04-11
 description: "整理 CSS 引入方式、颜色写法、选择器、路径、盒子模型、Flex 布局和表单标签。"
 tags: ["HTML", "CSS", "前端", "布局"]
 category: "前端"
@@ -46,9 +46,9 @@ draft: true
   - 绝对磁盘路径：`<img src="C:\Users\Administrator\Desktop\HTML\img\logo.png">`（不要使用）
   - 绝对网络路径：`<img src="https://i2.sinaimg.cn/dy/deco/2012/0613/yocc20120613img01/news_logo.png">`
 - 相对路径:
- 
+
  ​        ./ : 当前目录 , ./ 可以省略的
- 
+
  ​        ../: 上一级目录
 
 ### 盒子模型
@@ -61,15 +61,15 @@ draft: true
 
 - `<div>`标签：
 
- 	- 一行只显示一个（独占一行）
- 	- 宽度默认是父元素的宽度，高度默认由内容撑开
- 	- 可以设置宽高（width、height）
+  - 一行只显示一个（独占一行）
+  - 宽度默认是父元素的宽度，高度默认由内容撑开
+  - 可以设置宽高（width、height）
 
 - `<span>`标签：
 
- 	- 一行可以显示多个
- 	- 宽度和高度默认由内容撑开
- 	- 不可以设置宽高（width、height）
+  - 一行可以显示多个
+  - 宽度和高度默认由内容撑开
+  - 不可以设置宽高（width、height）
 
 - `<hr>` 标签：水平分割线
 - `<br>` 标签：换行

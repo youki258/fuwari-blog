@@ -2,7 +2,7 @@
 title: "LLM 使用：关闭思考模式"
 published: 2026-03-13
 updated: 2026-03-13
-description: "根据阿里云百炼（DashScope）最新的官方接口文档，Qwen3.5 系列模型（包括 qwen3.5flash）在默认情况下是强制开启混合思考模式的。 当模型"
+description: "关闭 Qwen3.5 等模型的强制思考模式：enable_thinking 参数、采样调优、Prompt 标签截断三种途径"
 tags: ["LLM","AI","思考模式"]
 category: "AI"
 draft: true
@@ -41,9 +41,7 @@ Qwen 团队官方文档指出，在使用“指示模式（即非思考模式）
 
 请在你的 System Prompt 的**最末尾**，加上以下内容（注意保留 `</think>` 这个标签）：
 
-Plaintext
-
-```
+```text
 </think>
 直接输出最终的中文翻译结果，严禁输出任何分析、解释或多余的标点。
 ```

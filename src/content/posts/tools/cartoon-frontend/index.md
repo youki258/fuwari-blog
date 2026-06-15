@@ -2,14 +2,15 @@
 title: "卡通风格的前端"
 published: 2026-06-01
 updated: 2026-06-01
-description: "根据你提供的四个仓库，我帮你梳理了与卡通/漫画/视觉艺术相关的前端 skill： 🎯 最推荐：JimLiu/baoyuskills 这个仓库有最贴合卡通风格的"
+description: "卡通/漫画/视觉艺术相关的前端 Claude skill 盘点与选型对比"
 tags: ["前端","CSS","UI"]
 category: "工具"
 draft: true
 ---
 
 <!-- source: 博客备选笔记/卡通风格的前端.md -->
-根据你提供的四个仓库，我帮你梳理了与**卡通/漫画/视觉艺术**相关的前端 skill：
+
+下面梳理几个与**卡通/漫画/视觉艺术**相关的前端 Claude skill，按推荐度排序。
 
 ---
 
@@ -19,7 +20,7 @@ draft: true
 
 ### 1. `baoyu-comic` — 漫画创作者
 专门生成教育漫画/卡通内容，支持多种艺术风格：
-- **`ligne-claire`** —  uniform线条、平涂色，欧洲漫画传统（丁丁风格）
+- **`ligne-claire`** —  均匀线条、平涂色，欧洲漫画传统（丁丁风格）
 - **`manga`** — 大眼睛、日式漫画表现
 - **`ink-brush`** — 水墨笔触效果
 - **`chalk`** — 黑板手绘风格

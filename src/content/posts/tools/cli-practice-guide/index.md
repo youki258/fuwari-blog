@@ -2,7 +2,7 @@
 title: "CLI 工具实践指南"
 published: 2026-04-25
 updated: 2026-04-29
-description: "1.自定义环境https://docs.github.com/zh/copilot/howtos/copilotcli/clibestpractices1cus"
+description: "CLI 命令行工具实践指南：自定义环境、常用命令与效率技巧"
 tags: ["CLI","命令行","工具"]
 category: "工具"
 draft: true

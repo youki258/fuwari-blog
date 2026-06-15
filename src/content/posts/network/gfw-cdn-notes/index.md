@@ -2,14 +2,16 @@
 title: "GFW 识别 CDN 相关笔记"
 published: 2026-04-08
 updated: 2026-04-08
-description: "GFW 大战 Cloudflare，以及积至公司推荐的火爆翻墙项目免费且速度很快https://github.com/XTLS/BBS/issues/23 1."
+description: "GFW 识别 Cloudflare CDN 代理的多重手段：SNI 明文、DNS 情报、流量指纹"
 tags: ["GFW","CDN","网络"]
 category: "网络与架构"
 draft: true
 ---
 
 <!-- source: 博客备选笔记/GFW识别 CDN相关.md -->
-[GFW 大战 Cloudflare，以及积至公司推荐的火爆翻墙项目免费且速度很快](https://github.com/XTLS/BBS/issues/23)
+
+参考讨论：[GFW 大战 Cloudflare，以及积至公司推荐的火爆翻墙项目](https://github.com/XTLS/BBS/issues/23)
+
 ## 1. SNI（服务器名称指示）—— 明文的"门牌号"
 
 ### 什么是 SNI？
@@ -106,8 +108,12 @@ GFW 识别 Workers 代理的多重手段：
    → 精准识别
 ```
 
-说起来Hysteria协议都出来好久了，咋没看见有什么机场用
+## 补充：为什么机场较少用 Hysteria
 
-1.Hysteria 比较新，原有机场原来协议正常使用压根没必要换
-2.Hysteria 是 quic，运营商 qos 限流严重，尤其是高峰期，自己可以建一个试试
-3.Vless+reality 就是目前抗审查能力最强的方式，vless 开销小，也好用
+一个常见疑问：Hysteria 协议出来挺久了，为什么少见机场采用？大致原因：
+
+1. **迁移成本**：Hysteria 较新，原有机场既有协议用得好，没必要冒风险换。
+2. **QUIC 被限流**：Hysteria 基于 QUIC（UDP），运营商对 UDP 的 QoS 限流比较狠，高峰期尤其明显，自己建一个对比测速就能感受到。
+3. **替代方案够强**：目前抗审查能力很强的组合是 **VLESS + Reality**——VLESS 开销小，Reality 伪装到位，对机场来说够用且稳定。
+
+所以选型不是"新就一定好"，而是在抗审查、稳定性、带宽开销之间权衡。

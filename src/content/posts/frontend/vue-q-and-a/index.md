@@ -2,14 +2,13 @@
 title: "Vue.js 常见问题速查"
 published: 2025-06-27
 updated: 2025-06-27
-description: "6.20 1. {{}} 是什么？ 文本插值语法 Vue 模板中使用双大括号 {{}} 进行文本插值，将数据绑定到 HTML 中。 示例： 说明： messag"
+description: "Vue.js 常见问题速查：插值语法、v-if、ref、onMounted、TypeScript 速记"
 tags: ["Vue","v-if","模板语法","前端"]
 category: "前端"
 draft: true
 ---
 
 <!-- source: blog/笔记/blog记录/问题.md -->
-6.20
 
 ### 1. `{{}}` 是什么？
 
@@ -29,7 +28,7 @@ const message = "Hello Vue!";
 
 **说明：**
 
-- [message](javascript:void(0)) 是响应式数据，若值变化，视图会自动更新。
+- `message` 是响应式数据，若值变化，视图会自动更新。
 - **注意：** 插值内容会被自动转义，防止 XSS 攻击。
 
 ------
@@ -61,7 +60,7 @@ const isVisible = true;
 ### 3. `const count = ref(0);` 是什么？
 
 **声明响应式变量**
-使用 [ref()](javascript:void(0)) 创建一个响应式引用，常用于基础类型（如数字、字符串）。
+使用 `ref()` 创建一个响应式引用，常用于基础类型（如数字、字符串）。
 **示例：**
 
 ```vue
@@ -78,7 +77,7 @@ const count = ref(0);
 
 **说明：**
 
-- [ref(0)](javascript:void(0)) 返回一个响应式对象，通过 `.value` 访问/修改值（在 JavaScript 中），但在模板中直接使用变量名。
+- `ref(0)` 返回一个响应式对象，通过 `.value` 访问/修改值（在 JavaScript 中），但在模板中直接使用变量名。
 - 当 `count` 变化时，视图会自动更新。
 
 ------

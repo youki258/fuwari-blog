@@ -2,7 +2,7 @@
 title: "让虚拟机直接使用主机的 Clash"
 published: 2026-03-07
 updated: 2026-05-22
-description: "这是 Windows 上实现透明网关/全局路由的方案，核心思路是：让 Windows 热点的上游不是物理网卡，而是 Clash 的 TUN 虚拟网卡。这样手机连"
+description: "让手机/虚拟机连 Windows 热点直接走 Clash TUN：透明网关配置与 ICS 共享要点"
 tags: ["虚拟机","Clash","代理"]
 category: "网络与架构"
 draft: true

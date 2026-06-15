@@ -2,7 +2,7 @@
 title: "前后端分离开发笔记"
 published: 2025-06-21
 updated: 2025-06-21
-description: "所以我们目前基本都是采用的前后台分离开发方式，如下图所示： 我们将原先的工程分为前端工程和后端工程这2个工程，然后前端工程交给专业的前端人员开发，后端工程交给专"
+description: "前后端分离开发笔记：工程拆分、Vue Router 路由、Axios 接口调用与跨域处理"
 tags: ["Vue","前后端分离","Vue Router","API"]
 category: "前端"
 draft: true

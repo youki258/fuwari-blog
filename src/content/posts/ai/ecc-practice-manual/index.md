@@ -2,8 +2,8 @@
 title: "ECC 深度使用实战手册"
 published: 2026-03-21
 updated: 2026-03-21
-description: "Everything Claude Code 深度使用实战手册（Windows 版） 1. 这份手册解决什么问题 你已经完成了 ECC 的大规模安装，但真正拉开"
-tags: ["ECC","加密","实战"]
+description: "Everything Claude Code 深度使用实战手册：规则、技能、代理、执行四层能力与标准作业流"
+tags: ["ECC","Claude Code","AI工作流","实战"]
 category: "AI"
 draft: true
 ---

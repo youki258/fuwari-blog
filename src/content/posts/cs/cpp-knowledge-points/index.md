@@ -2,7 +2,7 @@
 title: "C++ 知识点速查"
 published: 2025-07-31
 updated: 2026-05-01
-description: "sortfirst, last： first：指向排序范围的起始位置（包含）。 last：指向排序范围的末尾的下一个位置（不包含）。 因此，sortsum, s"
+description: "C++ 竞赛常用知识点速查：sort、max、getline、按位运算、vector"
 tags: ["C++","STL","sort","语法"]
 category: "计算机基础"
 draft: true

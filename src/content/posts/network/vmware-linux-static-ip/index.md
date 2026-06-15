@@ -2,7 +2,7 @@
 title: "VMware 虚拟机 Linux 固定 IP 配置"
 published: 2026-04-14
 updated: 2026-05-22
-description: "VMware虚拟机Linux固定IP配置（解决网卡未托管/无网问题） 一、问题背景 VMware虚拟机（Linux系统，网卡名ens160）初始状态： 网卡始终"
+description: "VMware Linux 虚拟机固定 IP 配置：解决网卡未托管/无网问题，nmcli 设置静态 IP"
 tags: ["VMware","Linux","静态IP","网络"]
 category: "网络与架构"
 draft: true

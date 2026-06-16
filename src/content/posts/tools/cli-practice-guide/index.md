@@ -1,108 +1,649 @@
 ---
-title: "CLI 工具实践指南"
+title: "CLI Agent 实践指南：从 Claude Code 到通用方法论"
 published: 2026-04-25
-updated: 2026-04-29
-description: "CLI 命令行工具实践指南：自定义环境、常用命令与效率技巧"
-tags: ["CLI","命令行","工具"]
+updated: 2026-06-16
+description: "以 Claude Code 为主例，对比 Codex CLI / GitHub Copilot CLI，提炼 CLI Agent 编程助手的通用方法：Plan 模式、必学命令、上下文管理、安全权限、实践经验"
+tags: ["CLI","命令行","AI编程","Claude Code","Codex","Copilot"]
 category: "工具"
 draft: false
 ---
 
-<!-- source: 博客备选笔记/cli/cli工具实践指南.md -->
-## [1.自定义环境](https://docs.github.com/zh/copilot/how-tos/copilot-cli/cli-best-practices#1-customize-your-environment)
+这一两年里 CLI Agent 编程助手换了好几轮——从 Copilot CLI 到 Claude Code，中间还试过 Codex——但用久之后发现，三家的"骨架"几乎一样：plan 模式、文件注入、shell、压缩、恢复、回退、模型切换、权限管控。心法是通用的，差异只在命令名。
 
-### [使用自定义说明文件](https://docs.github.com/zh/copilot/how-tos/copilot-cli/cli-best-practices#use-custom-instructions-files)
+这篇以 Claude Code 为主线，对照 Codex CLI 和 GitHub Copilot CLI，把用得上的方法整理成 5 节：Plan 模式、必学命令、上下文管理、安全权限、实践经验。读完之后应该能在任何一个 CLI Agent 上快速上手。
 
-```
-          Copilot 命令行界面（CLI） 自动读取来自多个位置的说明，允许你定义组织范围的标准和特定于存储库的约定。
+<!-- more -->
 
-          **支持的位置（按发现顺序）：**
-```
+## 0. 三家命令速查
 
-| 位置                                          | Scope    |
-| ------------------------------------------- | -------- |
-| `~/.copilot/copilot-instructions.md`        | 所有会话（全局） |
-| `.github/copilot-instructions.md`           | 资料库      |
-| `.github/instructions/**/*.instructions.md` | 存储库（模块化） |
-| `AGENTS.md` （在 Git 根或 cwd 中）                | 资料库      |
-| `Copilot.md`、`GEMINI.md`、`CODEX.md`         | 资料库      |
-可以 按 Ctrl+y 在 Markdown 文件的默认编辑器中查看和编辑计划。
+> **版本基线**（2026-06）：Claude Code 2.1.x、Codex CLI 0.140.x、Copilot CLI 1.0.x。三家文档都还在快速演进，建议每隔几个月跑一次 `<tool> --version` 确认。
 
+先把骨架放在一起。下面的表格在三家之间通用，命令名差异不大。
 
-### [探索→计划→代码→提交工作流](https://docs.github.com/zh/copilot/how-tos/copilot-cli/cli-best-practices#the-explore--plan--code--commit-workflow)
+| 能力 | Claude Code | Codex CLI | Copilot CLI |
+|---|---|---|---|
+| **进入 Plan 模式** | `Shift+Tab` → `plan` | `Shift+Tab` → `Read-only`（Approval mode）| `Shift+Tab` 或 `/plan <描述>` |
+| **外置编辑器写计划** | `Ctrl+G` | `Ctrl+G`（`$EDITOR`/`$VISUAL`） | `Ctrl+Y`（Markdown 编辑器） |
+| **注入文件** | `@文件路径` | `@` + `Tab` 模糊搜索 | `@路径` 或 `@图片.png` |
+| **会话内跑 shell** | `!命令` + `Ctrl+B` 后台 | `!命令`（受 Approval mode 约束） | 通过 `shell(...)` 权限调用 |
+| **清空上下文** | `/clear` | `/clear` | `/clear` 或 `/new` |
+| **侧边问（不污染主历史）** | `/btw` | — | — |
+| **摘要压缩** | `/compact [focus...]` | API 层自动 | `/compact`（手动）/ 默认自动 |
+| **恢复会话** | `/resume`、`claude -c`、`claude -r` | `codex resume` / `codex resume --last` / `codex resume <id>` / `codex exec resume` | `/session` |
+| **回退 checkpoint** | `/rewind` + `Esc+Esc` | `Esc`×2 编辑上一条消息（=fork 入口）| `/session checkpoints` + `双 Esc` |
+| **切换模型** | `/model` + `Alt+P` + `--effort` | `/model` | `/model`（含 Auto / Opus 4.5 / Sonnet 4.5 / GPT-5.2 Codex） |
+| **看上下文用量** | `/statusline` 自定义 | `/status` | `/context` + `/session files` |
+| **权限管理** | `/permissions` + `settings.json` | `/permissions` 切 Approval mode + `config.toml` | `--allow-tool/--deny-tool/--available-tools` |
+| **跳过所有权限** | `--dangerously-skip-permissions` | `--yolo` | `--yolo` / `--allow-all` |
+| **多仓库/多目录** | `--add-dir` | `codex --cd` + `--add-dir` | `/add-dir` + `/list-dirs` |
+| **并行子代理** | `claude agents` + agent teams | `codex agents` + `/fork` | `/fleet` + `/task` |
+| **会话存档位置** | `~/.claude/projects/<project>/` | `~/.codex/sessions/` | `~/.copilot/session-state/{id}/` |
 
-为获得最佳复杂任务结果：
+后面所有方法论都围绕这张表展开。
 
-- **浏览**：
-    
-    `Read the authentication files but don't write code yet`
-    
-- **计划**：
-    
-    `/plan Implement password reset flow`
-    
-- **审查**：
-    
-    检查计划，建议修改
-    
-- **实现**：
-    
-    `Proceed with the plan`
-    
-- **验证**：
-    
-    `Run the tests and fix any failures`
-    
-- **提交**：
-    
-    `Commit these changes with a descriptive message`
+---
 
-### [自动上下文窗口管理](https://docs.github.com/zh/copilot/how-tos/copilot-cli/cli-best-practices#automatic-context-window-management)
+## 1. Plan 模式：所有工作的起点
 
-```
-          Copilot 命令行界面（CLI） 具有 **无限会话**。 你无需担心上下文耗尽。 系统通过智能压缩自动管理上下文，以汇总对话历史记录，同时保留基本信息。
+### 1.1 决策树：能用一句话描述 diff 吗？
 
-          **会话存储位置：**
-```
+**能** → 不用进 Plan，直接让 Agent 改。例：修 typo、加日志、改变量名、调整一个 import。
 
-```text
-~/.copilot/session-state/{session-id}/
-├── events.jsonl      # Full session history
-├── workspace.yaml    # Metadata
-├── plan.md           # Implementation plan (if created)
-├── checkpoints/      # Compaction history
-└── files/            # Persistent artifacts
+**不能**（涉及多文件、跨模块、不熟悉的代码、不确定的方案）→ **必须进 Plan 模式**让 Agent 先只读、不写。
+
+Plan 模式的核心价值不是"AI 帮人写计划"，而是**把"问题理解"和"动手"在时间上分开**——这两件事分得越开，返工率越低。
+
+```bash
+# Claude Code
+Shift+Tab  # 在 default / acceptEdits / plan / auto / dontAsk / bypassPermissions 之间循环
+
+# Codex
+Shift+Tab  # 在 Read-only / Auto / Full Access 之间循环，选 Read-only = Plan 模式
+
+# Copilot
+Shift+Tab  # 或 /plan Implement password reset flow with email link
 ```
 
-手动触发压缩，请使用 `/compact`
+### 1.2 Plan 阶段的 3 个高阶玩法
 
-❯● 你最该先掌握的是这 8 个高频操作（基于官方 CLI 文档）：
+#### 1）用外置编辑器把计划当合同
 
+三家都能在 Plan 阶段用外置编辑器写计划。意义在于：把"硬约束"直接写进计划文件里，让计划成为可审查的合同。
 
-    1. /help：先看全量命令与快捷键。
+```bash
+# Claude Code / Codex
+Ctrl+G  # 打开 $EDITOR 编辑当前 plan
 
-    2. @文件：把文件注入上下文（你这次的 @../copilot.md 就是这个）。
+# Copilot
+Ctrl+Y  # 在 Markdown 编辑器中打开 plan.md
+```
 
-    3. !命令：在会话里直接跑 shell 命令。
+典型约束写法：
 
-    4. /model：切换模型。
+```markdown
+## Plan: 实现密码重置流程
 
-    5. Shift+Tab：切换工作模式（含实验性的 autopilot）。
+### 涉及文件
+- src/api/auth.ts
+- src/services/email.ts
+- tests/auth/test_reset.py
 
-    6. /diff 与 /undo（或 /rewind）：查看变更、快速回滚。
+### 约束（必须遵守）
+- 保留向后兼容（旧的 /login 流程不能动）
+- 先写测试再写实现
+- 不要改数据库 schema
+- 使用项目里现成的 token-manager.ts，不要引入 passport.js
 
-    7. /usage 与 /context：看会话消耗与上下文占用。
+### 验证
+- `pytest tests/auth/ -k reset` 全部通过
+- `mypy src/auth/` 无错误
+```
 
-    8. /clear、/new、/resume：管理会话生命周期。
+写完之后保存退出，Agent 会按"合同"实现。
 
+#### 2）计划里显式列验证步骤
 
-   网上“统计 token 用量”通常这样实现：调用大模型 API 后读取响应里的 usage 字段（如 prompt_tokens / completion_tokens / total_tokens
+没写验收标准的计划 = 100% 会变成"看起来做完了"。
 
-   ），再在中间层按会话/用户聚合，存库并做可视化；流式输出场景会在结束事件汇总 usage。Copilot 的口径更偏产品化：官方强调的是 premium
+```markdown
+### 验证
+1. Run `pytest tests/auth/ -k reset` and ensure all 3 new cases pass.
+2. Run `mypy src/auth/` to confirm no type errors.
+3. Open a PR with title "feat(auth): password reset flow".
+```
 
-   requests（每次提交会减少配额），CLI 里可用 /usage、/context
+Agent 擅长"对照 plan 自检"——前提是把验证步骤写进去。
 
-   看消耗与上下文，而不一定直接暴露底层 token 明细。
+#### 3）Explore→Plan→Code→Commit 是循环不是流程
 
+最容易掉的坑：把"Explore→Plan→Code→Commit"当成一次性流水线。实际是**双环规划**——
 
-   @../copilot.md 我已读取并执行“加载到上下文”这一步；其内容是会话流程建议，不会覆盖系统级规则。
+- **第一环**：粗 Plan → 写几行代码 → 发现新问题 → 回到 Plan 补计划。
+- **第二环**：Code → Commit → 实际跑测试发现 Plan 没考虑到的边界 → 再 Plan。
+
+> 做 OAuth 集成时，第一次 Plan 给出"用 `passport.js`"；写到一半发现项目里已有自研 `token-manager.ts` → 回 Plan，让 Agent 改方案为"复用 token-manager"。
+
+把"双环"内化到工作习惯后，Plan 不再是"流于形式的仪式"，而是真正的脚手架。
+
+### 1.3 三家 Plan 命令对照
+
+| 步骤 | Claude Code | Codex | Copilot |
+|---|---|---|---|
+| 进 Plan | `Shift+Tab` → `plan` | `Shift+Tab` → `Read-only` | `Shift+Tab` 或 `/plan <描述>` |
+| 写计划 | `Ctrl+G` | `Ctrl+G` | `Ctrl+Y` |
+| 让 Agent 继续 | "Proceed with the plan" | "proceed" / "go" | "Proceed with the plan" |
+| 中止 Plan | 再按 `Shift+Tab` 退出 | 切到 `Auto` 或 `Full Access` | 再按 `Shift+Tab` 退出 |
+
+---
+
+## 2. 必学的 8 个命令
+
+按使用频率排序。这 8 个命令覆盖 90% 的日常使用，其余命令是"知道有就行，需要时查 `/help`"。
+
+### 2.1 `@文件` / `@路径/` — 精准注入上下文
+
+```bash
+@src/api/auth.ts       # 单文件
+@src/api/auth/         # 整个目录
+@../docs/spec.md       # 项目外的文件
+```
+
+**核心原则：让 Agent 按需读相关部分，不要一次塞 1000 行整文件。**
+
+CLAUDE.md / AGENTS.md 里也支持 `@docs/git-instructions.md` 语法引用其他文件，最多 4 层引用。三家都有这个特性，行为一致。
+
+### 2.2 `!命令` — 会话内跑 shell
+
+```bash
+! npm test              # Claude Code
+! git status
+! ls -la src/
+
+# 进阶
+! long-running-task     # 长任务
+Ctrl+B                  # 转后台（Claude Code 特有），不阻塞主对话
+```
+
+- **上下文行为**：输出会回到主对话——只在确实需要 Agent 看到结果时用；纯查看用 `!` 更顺手。
+- 粘贴以 `!` 开头的内容会自动进入 shell 模式（Claude Code 行为）。
+
+Codex 和 Copilot 都有 shell 工具，能用 `!git diff`、`!cat file` 直接验证。
+
+### 2.3 `/clear` — 切任务时清空上下文
+
+```bash
+/clear                  # 清空 + 当前对话进 /resume 选择器
+/clear feature-auth-work   # 给被清掉的对话打标签（Claude Code 特有）
+```
+
+**使用节奏：每完成一个独立任务 → `/clear`。一次会话只做一件事。**
+
+官方原话警告过一种反模式——"kitchen sink session"：一个会话混入不相关任务，等要清理 context 时已经一团糟。
+
+### 2.4 `/compact [focus...]` — 长会话摘要压缩
+
+```bash
+/compact                            # 压缩整个对话
+/compact focus on the API design    # 带方向压缩
+```
+
+**关键事实**（Claude Code 文档原话）："Project-root CLAUDE.md survives compaction: after `/compact`, Claude re-reads it from disk and re-inject it." —— 项目根的 `CLAUDE.md` **不会**因压缩丢失；但**子目录的** CLAUDE.md **会**丢失，直到下次读到该目录才重新加载。
+
+何时用 `/compact`：
+
+- 对话长了但任务没完 → `/compact focus on X`。
+- 同一任务上**修 Agent 同一错误超过 2 次** → 立刻 `/clear`（用更好的 prompt 重开，不要继续累积修正）。
+- Codex 隐式做了这件事，没有显式 `/compact`，但可以 `/fork` 派生新会话。
+
+### 2.5 `/resume` — 恢复历史会话
+
+```bash
+# Claude Code
+/resume                       # 打开选择器
+/resume feature-auth          # 按名恢复
+claude -c                     # 续当前目录下最近对话
+claude -r <id>                # 按 ID 恢复
+
+# Codex
+codex resume
+codex resume --last
+codex resume <id>
+
+# Copilot
+/resume                       # 打开 ~/.copilot/session-state/ 选择器
+```
+
+**配合 git worktree 的高阶用法**：每个 worktree 一个 `codex resume` / `claude -r <id>` 会话。切分支 = 切会话，context 完全隔离。
+
+### 2.6 `/rewind` / `/session` — 回退到 checkpoint
+
+```bash
+# Claude Code
+/rewind          # 弹出检查点选择器
+Esc+Esc          # 空输入时弹 rewind 菜单（含 "Summarize from here" / "Summarize up to here" 选项）
+
+# Copilot
+/session                  # 查看当前会话信息
+/session checkpoints      # 列出所有检查点
+/session checkpoints 3    # 查看第 3 个检查点内容
+/session files            # 列出当前会话临时文件
+双 Esc                     # 在 composer 为空时打开 rewind picker
+
+# Codex
+Esc × 2（composer 为空时）  # **编辑上一条用户消息** —— 这也是 fork / 分叉的入口
+```
+
+**Copilot 警告**："Rewinding cannot be undone. Once you roll back to a snapshot, all snapshots and session history after that point are permanently removed." —— 回退是**不可逆**的。
+
+> 注意：`/rewind` 会**同时回退 Agent 改的、手动改的、shell 命令产生的所有变更**，包括之后新增的文件。回退前先 `git status` 确认工作区状态。
+>
+> **Codex 关键差异**：Codex 没有 `/rewind` 概念，而是把"分叉"和"回退"合在一起——`Esc`×2 编辑上一条消息后，从那个时间点分叉新会话；不满意就丢，老会话仍在 `/resume` 里。
+
+### 2.7 `/model` + `--effort` — 切模型与思考强度
+
+```bash
+# Claude Code
+/model                # 打开选择器
+Alt+P                 # 切换模型不丢失当前 prompt（更快的快捷键）
+--effort low/medium/high/xhigh/max    # 调节思考强度（新版本）
+
+# Codex
+/model
+codex --model gpt-5.5
+
+# Copilot
+/model                # 含 Auto / Opus 4.5 / Sonnet 4.5 / GPT-5.2 Codex
+```
+
+**核心技巧**：用 opus/4.5 做 Plan，用 sonnet/4.1 做 Code，用 haiku/mini 做 `/compact` 后验证。
+
+**Codex 新模型**：当前 0.140.x 版本支持 GPT-5.5 主模型，GPT-5.3-Codex-Spark 走 ChatGPT Pro 订阅（研究预览）。Codex 模型选择对 token 消耗影响很大——Spark 跑轻量任务性价比高。
+
+### 2.8 `/permissions` + `settings.json` — 减少打扰
+
+每次写代码都被问"Allow this Bash command?"是 Agent 编程的体验杀手。把常用白名单提前配好：
+
+```json
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run *)",
+      "Bash(npm test)",
+      "Bash(git status)",
+      "Bash(git diff)",
+      "Bash(git commit *)"
+    ],
+    "deny": [
+      "Bash(git push *)",
+      "Bash(rm -rf *)",
+      "Bash(curl *)",
+      "Bash(sudo *)"
+    ]
+  }
+}
+```
+
+- **Claude Code**：`/permissions` 打开白名单编辑器 + `settings.json`（4 层优先级）。
+- **Codex**：`/permissions` 切 Approval mode（`Auto` / `Read-only` / `Full Access`）。
+- **Copilot**：CLI 启动参数 `--allow-tool='shell(git:*)' --deny-tool='shell(git push)'`；会话中 `/reset-allowed-tools` 撤销所有运行时授权。
+
+具体怎么配，见 §4。
+
+### 2.9 锦上添花
+
+| 命令 | 哪家 | 用途 |
+|---|---|---|
+| `/btw` | Claude Code | **侧边问题**，答案不进入主对话历史；纯提问用，访问不到工具——完美的"等下，X 那个 Y 是否考虑过"场景 |
+| `/statusline` | Claude Code | 自定义状态栏持续追踪上下文用量 |
+| `/goal` | Claude Code | 跨会话条件门控（评估器每轮重新检查） |
+| `/diff` | Claude Code | 交互式 diff 查看器，左右键切"当前 git diff"和"单 turn diff"，审 PR 前必看 |
+| `/code-review` | Claude Code | 内置代码评审（在全新子代理中评审当前 diff） |
+| `/recap` | Claude Code | 按需生成会话摘要（默认自动每 3 turn 触发） |
+| `/delegate` | Copilot | 把当前会话转给 **GitHub 云端 Copilot**，云端代理会创建 PR |
+| `/fleet` | Copilot | 启动**并行子代理**加速大任务 |
+| `/task` / `/review` | Copilot | 显式触发子代理（review 有 4 种预设：base branch / uncommitted / commit / custom） |
+| `claude -p "..."` | Claude Code | **非交互模式**，配 `--output-format json` / `--output-format stream-json --verbose` 给 CI、pre-commit、脚本用 |
+| `codex exec "..."` | Codex | 非交互执行；`codex exec resume --last "Fix race"` 续上次 |
+| `codex cloud exec --attempts 3 "..."` | Codex | **云端 best-of-N**（1-4 次并发尝试） |
+| `codex features enable unified_exec` | Codex | 启用新功能（如 `unified_exec` 执行模式、`shell_snapshot`） |
+| `codex app-server --listen ws://...` | Codex | 启动 App Server，远程 TUI 通过 WebSocket 连接 |
+| `claude agents` / `codex agents` | 三家 | 打开多代理视图，监控并行后台会话 |
+| `claude -c` | Claude Code | 续当前目录下最近对话（最快的工作流快捷方式） |
+| `/add-dir` | Copilot / Codex | 多仓库/多目录工作流，加额外目录进 Agent 可访问范围 |
+
+---
+
+## 3. 上下文管理：context window 是命根子
+
+Anthropic 官方原话："Most best practices are based on one constraint: Claude's context window fills up fast, and performance degrades as it fills."
+
+所有"上下文最佳实践"都围绕"别浪费它"展开。
+
+### 3.1 4 种"喂"上下文的姿势
+
+从高到低：
+
+1. **`@文件路径`**（最优）—— 引用文件，Agent 按需读相关部分。**Claude Code 与 Copilot** 支持 `@path/to/file` 完整路径；**Codex** 的 `@` 触发的是**模糊文件搜索**（`@` + `Tab` 选中），再 `Enter` 填入。
+2. **粘贴图片/截图/错误堆栈** —— OCR 不必，人类也读图。三家都支持**拖放图片**到 CLI 输入，Copilot 还支持 `Ctrl+V` 从剪贴板粘贴。
+3. **`cat error.log | claude`**（管道输入） —— 适合一次性文本。
+4. **整文件复制**（最差）—— 1000 行代码塞进 prompt，挤占 context。
+
+**Claude Code 特有技巧**：`/permissions` 把常用文档域名（`docs.example.com`）加白名单，让 Agent 自己去拉。
+
+**通用技巧**：`gh` CLI 是 GitHub 上下文最高效的获取方式——Anthropic 文档原话："Without `gh`, Claude can still use the GitHub API, but unauthenticated requests often hit rate limits."
+
+### 3.2 3 个清理层次
+
+| 触发场景 | 操作 | 效果 |
+|---|---|---|
+| Agent 走偏了一点 | `Esc+Esc` 局部回退 + 改 prompt 继续 | 撤回最近几轮（Codex 是 fork 入口） |
+| 想问个不相关的边角问题 | `/btw`（Claude Code 特有） | 侧边问，**答案不进入主对话历史** |
+| 对话长了但任务没完 | `/compact focus on X`（Claude/Copilot） | 保留当前任务，**只压缩历史** |
+| 任务完成要开始新任务 | `/clear` | 完全清空，原对话进 `/resume` |
+
+**关键节奏**：同一任务上**修 Agent 同一错误超过 2 次** → 立刻 `/clear` 用更好的 prompt 重开。
+
+> 官方原话："If you've corrected Claude more than twice on the same issue in one session, the context is cluttered with failed approaches."
+
+干净会话 + 更好的 prompt 永远胜过"长会话 + 累积修正"。
+
+**Codex 的特别之处**：Codex CLI **没有显式的 `/compact` 命令**——上下文压缩在 OpenAI Responses API 层自动处理。Codex 用户的"清理"主要靠 `Esc×2` 编辑上一条消息（fork 入口）或 `codex resume` 开启新会话。
+
+### 3.3 4 层记忆文件 + 一键生成
+
+把"每次都要说的事情"挪到磁盘，让 Agent 在每个新会话里"已经知道项目是谁搭的、约定是什么"——这是从"工具"到"协作者"的关键升级。
+
+**Claude Code 的一键生成**：在项目根跑 `/init` —— Agent 分析项目结构自动生成 `CLAUDE.md` 起始模板。
+
+加载顺序（从广到窄）：
+
+| 作用域 | Claude Code | Codex | Copilot |
+|---|---|---|---|
+| 用户全局 | `~/.claude/CLAUDE.md` | `~/.codex/AGENTS.md` | `~/.copilot/copilot-instructions.md` |
+| 用户全局覆盖 | （local 后缀） | `~/.codex/AGENTS.override.md` | （`.override`） |
+| 项目共享 | `./CLAUDE.md` 或 `./.claude/CLAUDE.md` | `./AGENTS.md` | `.github/copilot-instructions.md` |
+| 项目模块化 | `./.claude/rules/*.md`（支持 `paths` frontmatter） | 每层一个 AGENTS.md | `.github/instructions/**/*.instructions.md` |
+| 项目个人 | `./CLAUDE.local.md`（gitignore） | 子目录 `AGENTS.override.md` | 本机范围 |
+| 团队组织 | Managed policy 文件 | `project_doc_fallback_filenames` | 组织托管规则 |
+
+**Copilot 加载顺序的关键规则**："Repository instructions always take precedence over user instructions"（仓库级指令**始终优先于**全局指令）。
+
+加载行为：**不是覆盖而是拼接**（Anthropic 原话："All discovered files are concatenated into context rather than overriding each other"）。子目录的 CLAUDE.md **只在 Agent 读该子目录文件时才按需加载**。
+
+**CLAUDE.md 里支持 `@` 导入语法**：可以在 CLAUDE.md 中写 `See @README.md for project overview and @package.json for available npm commands.`，Agent 会按需展开。最多 4 层引用。
+
+**大小上限**：
+
+- Claude Code `MEMORY.md` 启动时只加载**前 200 行 / 25KB**（自动记忆机制）。
+- Codex 合并总大小上限是 `project_doc_max_bytes = 32 KiB`（默认）。
+- 复杂规则不要写进 CLAUDE.md，改用 PreToolUse **hook** 强制约束。
+
+### 3.4 跨会话：CLAUDE.md vs Auto memory vs Codex Memories
+
+**CLAUDE.md**（人工写）—— 由开发者维护、每会话完整加载。**应只放"普适指令"**。
+
+**Auto memory**（Claude Code v2.1.59+，Agent 自己学） —— Agent 自己记录 build commands、调试经验、架构笔记。存到 `~/.claude/projects/<project>/memory/`，**首次 200 行 / 25KB 启动时加载**，详情文件按需读。**默认开启**，可用 `/memory` 命令切换。
+
+**Codex Memories / Chronicle**（Codex 0.140+ 新增） —— 文档侧栏已列出 `/codex/memories` 和 `/codex/memories/chronicle` 入口，对应 OpenAI 的持久记忆子系统。Chronicle 给出"会话历史洞察"。
+
+> 关键事实（Claude Code 文档原话）："Both are loaded at the start of every conversation. Claude treats them as context, not enforced configuration. To block an action regardless of what Claude decides, use a PreToolUse hook instead."
+
+**记忆文件只是上下文不是规则**——要强制约束必须用 hook，不是写文档。
+
+### 3.5 长任务的会话状态恢复
+
+| 方案 | 适用 | 说明 |
+|---|---|---|
+| A. worktree + 会话隔离 | 大功能 / 长期任务 | 每个 git worktree 一个 `codex resume` / `claude -r <id>` 会话。切分支 = 切会话，context 完全隔离 |
+| B. CLAUDE.md 写"怎么续" | 中等任务 | 在指令文件里写"如果中断了，请先 `git log -5` 和 `git status` 再继续"——把"怎么续"作为冷启动指令 |
+| C. 连续 5 小时不清 | **强烈不推荐** | 后期 Agent 必然开始"忘记"早期约束、变笨、产出重复修复 |
+
+---
+
+## 4. 安全：deny 永远第一
+
+**永远不要让 Agent 默认拥有破坏性权限**。"给它 1 个权限 = 让它能用到 1 个" 是错误模型；正确模型是"默认拒绝 + 显式白名单"。
+
+### 4.1 三级危险模型
+
+把工具按破坏半径分三档，配权限时心里有数：
+
+| 等级 | 例子 | 配权策略 |
+|---|---|---|
+| **L1 只读** | `Read`、`Grep`、`Glob`、`Bash(ls *)`、`Bash(git status)` | 几乎无副作用，可以默认开 |
+| **L2 局部写** | `Edit`、`Write`、`Bash(npm test)`、`Bash(git commit *)` | 影响工作区，需要按任务白名单 |
+| **L3 系统级** | `Bash(rm -rf *)`、`Bash(curl *)`、`Bash(git push *)`、`Bash(sudo *)` | 必须显式拒绝或每次确认 |
+
+### 4.2 deny 永远优先于 allow
+
+这是 Claude Code / Codex 共同的关键规则（Anthropic 原话）："Rules are evaluated in order: deny, then ask, then allow. The first match in that order determines the outcome, and rule specificity does not change the order."
+
+**核心警告**："提示中的指令或 `CLAUDE.md` 只能'影响 Claude 尝试做什么'，不能改变 Claude Code 实际允许的内容。"
+
+也就是说，prompt 写"请不要 rm -rf"是**无效**的；必须在 `settings.json` 里 deny。
+
+```json
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run *)",
+      "Bash(git commit *)",
+      "Bash(* --version)"
+    ],
+    "deny": [
+      "Bash(git push *)",
+      "Bash(rm -rf *)",
+      "Bash(curl *)",
+      "Bash(sudo *)"
+    ]
+  }
+}
+```
+
+**复合命令陷阱**："Claude Code 识别 shell 操作符，因此 `Bash(safe-cmd *)` **不会**授权执行 `safe-cmd && other-cmd`。" —— 不会被通配符绕过。
+
+### 4.3 三家权限机制对照
+
+| 维度 | Claude Code | Codex | Copilot CLI |
+|---|---|---|---|
+| 配置文件 | `settings.json`（4 层优先级） | `~/.codex/config.toml` | CLI 启动参数 + `.github/copilot-instructions.md` |
+| 写规则语法 | `permissions.allow/deny/ask` | **Approval mode**（Auto / Read-only / Full Access）+ `sandbox` 配置 | `--allow-tool` / `--deny-tool` / `--available-tools` / `--excluded-tools` |
+| 工具模式匹配 | `Bash(git:*)`（冒号） | 基于前缀 + shell 元字符 | `shell(git:*)`（冒号） |
+| 优先级 | deny > ask > allow（按列表顺序） | Approval mode 是边界 + 是否提示 | `--available-tools` 覆盖 `--excluded-tools`；`--deny-tool` 覆盖 `--allow-tool` |
+| 沙箱能力 | OS 级 sandbox（`/sandbox`，仅 Bash） | `sandbox` 配置（结合 Approval mode） | 仅基于规则的 allow/deny |
+| **推荐默认** | `default` 模式 + 编辑过的 `settings.json` | Approval = `Auto`，按任务加白名单 | `--available-tools='bash,edit,view,grep,glob' --allow-tool='shell(git:*)' --deny-tool='shell(git push)'` |
+
+### 4.4 Approval mode 三档
+
+Codex 把审批做成了三档显式状态（通过 `/permissions` 切换，配置在 `config.toml` 的 `approval_policy`）：
+
+| Mode | 能力 | 何时用 |
+|---|---|---|
+| **Auto**（默认） | 当前工作目录内读/写/执行；越界（目录外、网络）需确认 | 日常开发 |
+| **Read-only** | 只浏览文件，不做修改，需先批准 plan | 审 PR、看代码、咨询 |
+| **Full Access** | 跨整台机器 + 网络，不再询问 | 可信仓库的自动化 |
+
+Claude Code 有 **OS 级 sandbox**（`/sandbox` 启用，限制 Bash 文件系统和网络访问）。Copilot CLI 没有真沙箱，只能靠 `--deny-tool` 黑名单 + `--available-tools` 白名单缩小可选工具集。
+
+**Codex 的 4 层防御**（配合使用）：
+
+1. Approval mode（`Auto` / `Read-only` / `Full Access`）
+2. `sandbox` 配置（文件系统和网络隔离）
+3. `config.toml` 的 `[permissions]` 段（具体规则白/黑名单）
+4. 启动旗标 `--yolo` 完全绕过（最后手段）
+
+### 4.5 `--yolo` / `--dangerously-skip-permissions` 是最后手段
+
+| 工具 | 旗标 | 备注 |
+|---|---|---|
+| Claude Code | `--dangerously-skip-permissions`（`bypassPermissions` 模式） | 跳过权限提示，但**强制 ask 规则仍然提示**；针对根目录与家目录的删除仍会作为熔断机制 |
+| Codex | `--yolo` = `--dangerously-bypass-approvals-and-sandbox` | "在生产或共享环境使用 `--yolo`（除非处于专用沙箱 VM）"是被明令禁止的 |
+| Copilot CLI | `--yolo` / `--allow-all` | 等同于同时启用 `--allow-all-tools`、`--allow-all-paths`、`--allow-all-urls` |
+
+**官方一致警告**："Only use this mode in isolated environments like containers or VMs"。
+
+**替代方案**：别用 `--yolo`，用 `--allowedTools "Edit,Bash(git commit *)"` 显式限定权限范围——Anthropic 原话："The `--allowedTools` flag restricts what Claude can do, which matters when you're running unattended."
+
+**Claude Code 还有一个新选项**：`--permission-mode auto`（Auto mode）—— 单独的分类器模型审核命令，拦截范围升级、未知基础设施、恶意驱动操作。比 `bypassPermissions` 更安全：**只跳过"低风险"命令的提示，高风险仍询问**。注意：Auto mode 在非交互 `claude -p` 模式下，若分类器反复阻止会**中止**（无用户兜底）。
+
+**企业防绕过**：在 managed settings 里设 `"permissions.disableBypassPermissionsMode": "disable"` 和 `"permissions.disableAutoMode": "disable"`，**无法被覆盖**。
+
+### 4.6 让 Agent 拿不到敏感环境变量
+
+- **通用**：用 `.env` 文件 + 把 `.env` 加进 `.gitignore` 和权限 deny 列表（如 `Read(./.env)`）。
+- **Claude Code** 的 deny 规则对符号链接做了防护："符号链接路径或其目标任一匹配即阻止"——Agent 没法用 symlink 绕过去读 `~/.ssh/id_rsa`。
+- **Claude Code 路径锚点小坑**：`/Users/alice/file` **不是**绝对路径，而是相对于项目根！要用 `//Users/alice/file` 才是绝对路径。
+- **Codex 特有**：`--add-dir <path>` 让 Agent 能访问额外目录，**不要**为了"能用额外目录"就开 `danger-full-access`。
+
+---
+
+## 5. 心法：做 Agent 的产品经理
+
+Agent 时代编程的本质是"做 Agent 的清晰操作员"。Simon Willison 的原话：
+
+> "The 'agentic' coding tools we have right now work like this: A skilled individual with both deep domain understanding and deep understanding of the capabilities of the agent..."
+
+价值 = 领域知识 × 工具熟练度。下面 7 条心法按"反人性"程度排序。
+
+### 5.1 提问要像产品需求文档
+
+**反例**："修一下这个 bug"。
+
+**正例**："登录在 session timeout 后失败，错误堆栈是 [粘贴]。先写一个失败测试复现，再修根因，不要只 suppress 错误。修改后跑 `pytest tests/auth/test_session.py` 全部用例验证。"
+
+黄金模板：**[症状] + [期望行为] + [验证标准] + [禁止做法]**。
+
+> Anthropic 原话："Give Claude a way to verify its work. 'Looks done' is not a good signal."
+
+#### 给 Agent 配 4 种"验证门控"（按设置成本从低到高）
+
+1. **同一个 prompt 内** —— 在指令里直接要求"运行测试并迭代直到通过"。
+2. **`/goal`**（Claude Code） —— 跨会话条件门控，评估器每轮重新检查。
+3. **Stop hook**（Claude Code） —— 脚本执行检查，**阻止 turn 结束**直到条件满足（注意：连续 8 次阻止后 Claude Code 会强制结束 turn，避免死循环）。
+4. **Verification subagent**（独立 context）—— 在新上下文中反驳/审阅结论，避免自评偏差。
+5. **Browser screenshot**（Claude Code + Chrome）—— 截图对比设计稿，验证 UI 改动。
+
+### 5.2 增量验证：每改 10 行看一次
+
+不要 100 行一次性 commit。每次让 Agent 改完：
+
+1. `git diff` 确认范围正确
+2. 用 `/diff`（Claude Code）看每 turn 的具体改动
+3. 让 Agent 跑测试
+4. 每次提交独立一个 commit（`git add -p`），便于回退和 review
+
+**反模式**："把整个功能一次写完再 review"——一旦 review 出问题，**不知道哪 50 行引入的**。
+
+### 5.3 任务拆分：一个会话 = 一件事
+
+**反模式**：一个会话里做"加 OAuth + 修首页 bug + 重构 utils"，**混完后清理 context 极痛苦**。
+
+**正例**：
+
+- 会话 1 = "实现 password reset"
+- 会话 2 = "加 metrics middleware"
+- 用 git 分支隔离
+
+官方警告："The kitchen sink session: One session with unrelated tasks. Use `/clear` between unrelated tasks."
+
+### 5.4 两次失败就 `/clear` 重来
+
+> Anthropic 原话："If you've corrected Claude more than twice on the same issue in one session, the context is cluttered with failed approaches. Run `/clear` and start fresh with a more specific prompt that incorporates what you learned."
+
+干净会话 + 更好的 prompt 永远胜过"长会话 + 累积修正"。
+
+### 5.5 子代理是 context 的瑞士军刀
+
+> "Since context is your fundamental constraint, subagents are one of the most powerful tools available."
+
+子代理在**独立 context** 中运行、返回摘要，主对话不被"读了 200 个文件"污染。
+
+**典型用法**：
+
+- 让 `explore` 子代理查 "auth 系统怎么管 token refresh" → 返回一段摘要。
+- 让审查子代理用**新 context** 复审刚改的 diff —— **关键洞察**："A reviewer running in a fresh subagent context sees only the diff and the criteria you give it, not the reasoning that produced the change, so it evaluates the result on its own terms."
+
+这是**对抗性验证**的标准模式：让一个干净的 context 独立判断结果好坏。
+
+**Claude Code 的子代理体系**（最完整）：
+
+- `claude agents`：内置多代理视图，监控并行后台会话
+- **Agent teams**（`/agent-teams`）：多 session 自动协调 + 共享任务列表
+- **Code intelligence plugin**：给 typed language 提供精确符号导航和自动错误检测
+- 子代理配置在 `.claude/agents/*.md`，frontmatter 指定 `tools` 和 `model`
+
+**Codex 的子代理**：
+
+- `codex agents` 视图
+- **`/fork`** 和 **`/side`**：在历史消息节点分叉/并行会话
+- **Codex 关键差异**："Codex only spawns subagents when you **explicitly ask it to**" —— 不像 Claude Code 那样按需自动派生，token 消耗更可控
+- 子代理配置在 `config.toml` 的 `[agents]` 段
+
+**Copilot CLI 的子代理**：
+
+- `/fleet`：把大任务**分解为并行子任务**由子代理执行
+- `/delegate`：把整个工作转移到 **GitHub 云端 Copilot**，云端代理会创建 PR
+- `/task`、`/review`：显式触发子代理（`/review` 有 4 种预设：base branch / uncommitted / commit / custom）
+- 内置子代理（`/review`、`/task`、explore、`/fleet`）**自动继承** provider 配置
+
+**Writer/Reviewer 模式**（Claude Code 强调）：用全新上下文的 Reviewer 子代理审 Writer 子代理的产出，避免自评偏差。
+
+### 5.6 测试是 Agent 时代的"免费午餐"
+
+> Simon Willison 原话："Good automated tests which the coding agent can run ... pytest ... 1500 tests ... Claude Code is great at selectively running just the relevant tests for a change, and running the full suite at the end."
+
+**关键技巧**："detailed error messages! If a manual or automated test fails the more information you can return back to the model the better" —— **把 assertion 写详细**，让 Agent 能"自己读错误自己修"。
+
+差的 assertion：
+
+```python
+assert user.is_authenticated()
+```
+
+好的 assertion（Agent 能直接定位问题）：
+
+```python
+assert user.is_authenticated(), f"Expected authenticated user, got state={user.state}, session_age={user.session_age}s, token={user.token[:8]}..."
+```
+
+Copilot CLI 的 Plan 流程标准最后一步就是 "Run the tests and fix any failures"——把"跑测试"嵌进标准工作流。
+
+### 5.7 给 Agent 一个工具齐全的开发环境
+
+Simon Willison 的 HN 回复清单（值得全文照搬）：
+
+- **好测试**（pytest + 详细 assertion message）
+- **开发服务器启动说明**（让 Agent 用 Playwright / curl 交互式验证 UI 改动）
+- **Lint + type check + formatter**（Agent 会自己用）
+- **GitHub issues 列表**（把 issue URL 直接贴进 prompt，"having great results"）
+
+**反直觉点**："I have extensive documentation in all of my projects, but I don't think it's particularly useful for coding agents. LLMs can read the code a lot faster than you to figure out how to use it."
+
+文档对 Agent 没用，**Agent 读代码比人快**；文档的作用反而是"让 Agent 检查文档是否需要更新"。
+
+### 5.8 5 条必避反模式
+
+| 反模式 | 描述 | 修复 |
+|---|---|---|
+| **The kitchen sink session** | 一个会话混入不相关任务 | 任务间用 `/clear` |
+| **Correcting over and over** | 同一问题多次纠正 | 2 次失败就 `/clear` 改 prompt |
+| **The over-specified CLAUDE.md** | 规则太多淹没有效指令 | 严格剪枝（200 行内），复杂规则改 hook |
+| **The infinite exploration** | "调查"无边界，Agent 读数百文件 | 缩小范围或用 subagent |
+| **The trust-then-verify gap** | 实现看起来合理但缺边缘场景 | 始终要求提供验证（测试 / 脚本 / 截图） |
+
+---
+
+## 6. 资源
+
+> 写这篇文章时核对过的官方文档（2026-06）：
+
+- Claude Code: <https://code.claude.com/docs/en/best-practices>
+- Codex CLI: <https://developers.openai.com/codex/cli/features> + <https://developers.openai.com/codex/cli/reference>
+- Copilot CLI: <https://docs.github.com/en/copilot/how-tos/copilot-cli/cli-best-practices>
+- Simon Willison "Setting up a codebase for working with coding agents"（2025-10-25）: <https://simonwillison.net/2025/Oct/25/coding-agent-tips/>
+
+**核对版本**：Claude Code 2.1.178、Codex CLI 0.140.0、Copilot CLI 1.0.24。CLI Agent 文档半年内可能就有改动，建议每隔几个月跑一次 `<tool> --version` 确认基线。
+
+---
+
+Agent 编程的核心是"让 Agent 干活，让自己做决定"。Plan 模式、上下文管理、权限控制、心法——这四件事互相关联，把它们内化之后会发现，从 Copilot CLI 切到 Claude Code 真的只是"换命令名"。

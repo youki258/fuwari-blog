@@ -5,7 +5,7 @@ updated: 2025-05-12
 description: "MyBatis 持久层框架基础：单元测试、日志配置、注解与 XML 映射 CRUD"
 tags: ["MyBatis","JDBC","Java","Spring Boot"]
 category: "Java 全栈"
-draft: true
+draft: false
 ---
 
 ### 1.介绍MyBatis
@@ -89,7 +89,7 @@ public void deleteById(Integer id);
 1. ##### 新增
 
 - 需求：添加一个用户
-- SQL：insert into user(username,password,name,age) values('zhouyu','123456','周瑜',20);
+- SQL：insert into user(username,password,name,age) values('zhouyu','******','周瑜',20);
 - Mapper接口：
 
 ```Java
@@ -105,7 +105,7 @@ public void insert(User user);
 1. ##### 修改
 
 - 需求：根据ID更新用户信息
-- SQL：update user set username = 'zhouyu', password = '123456', name = '周瑜', age = 20 where id = 1；
+- SQL：update user set username = 'zhouyu', password = '******', name = '周瑜', age = 20 where id = 1；
 - Mapper接口方法：
 
 ```Java
@@ -121,7 +121,7 @@ public void update(User user);
 1. ##### 查询
 
 - 需求：根据用户名和密码查询用户信息
-- SQL：select* fromuser whereusername = 'zhouyu' and password = '123456'
+- SQL：select* fromuser whereusername = 'zhouyu' and password = '******'
 - Mapper接口方法：
 
 ```Java
@@ -238,7 +238,7 @@ resultType 属性的值，与查询返回的单条记录封装的类型一致。
 user:
   name: zhangsan
   age: 18
-  password: 123456
+  password: ******
 ```
 
 - 数组/List/Set集合

@@ -34,3 +34,4 @@ yarn.lock
 # ide
 .idea
 *.iml
+.workbuddy/

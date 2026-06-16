@@ -5,7 +5,7 @@ updated: 2026-02-23
 description: "Trap 与中断的区别、系统调用完整流程（从库函数到内核态返回）"
 tags: ["操作系统","Trap","中断","系统调用"]
 category: "计算机基础"
-draft: true
+draft: false
 ---
 
 ## 操作系统

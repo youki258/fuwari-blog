@@ -5,7 +5,7 @@ updated: 2026-02-12
 description: "如何上手一门编程语言：逐行注释项目、刷 LeetCode easy、不纠结笔记"
 tags: ["学习方法","LeetCode","编程入门"]
 category: "随笔"
-draft: true
+draft: false
 ---
 
 ### 如何上手练习一门语言

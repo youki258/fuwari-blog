@@ -5,7 +5,7 @@ updated: 2026-04-08
 description: "MAC 多播地址、IEEE 802.1Q VLAN 实现、交换机端口类型、IPv4 地址分类与子网划分"
 tags: ["计算机网络","VLAN","IPv4","MAC","组播"]
 category: "网络与架构"
-draft: true
+draft: false
 ---
 
 ## 1. MAC 地址与多播

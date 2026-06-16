@@ -5,7 +5,7 @@ updated: 2025-06-22
 description: "整理 Vue 工程化、create-vue、npm、项目结构和 Element Plus 组件使用。"
 tags: ["Vue","Element Plus","前端工程化","npm"]
 category: "前端"
-draft: true
+draft: false
 ---
 
 <!-- source: blog/笔记/16.vue工程化&ELementPlus.md -->

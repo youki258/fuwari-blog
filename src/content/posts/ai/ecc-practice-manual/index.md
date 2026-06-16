@@ -5,7 +5,7 @@ updated: 2026-03-21
 description: "Everything Claude Code 深度使用实战手册：规则、技能、代理、执行四层能力与标准作业流"
 tags: ["ECC","Claude Code","AI工作流","实战"]
 category: "AI"
-draft: true
+draft: false
 ---
 
 <!-- source: 博客备选笔记/ECC深度使用实战手册.md -->

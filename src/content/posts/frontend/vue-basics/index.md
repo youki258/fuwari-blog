@@ -5,7 +5,7 @@ updated: 2025-05-12
 description: "整理 Vue 渐进式框架概念、数据驱动视图、插值表达式、常用指令和生命周期。"
 tags: ["Vue","前端","JavaScript","数据驱动"]
 category: "前端"
-draft: true
+draft: false
 ---
 
 <!-- source: blog/笔记/4.vue.md -->

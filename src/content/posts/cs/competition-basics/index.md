@@ -5,7 +5,7 @@ updated: 2025-07-26
 description: "竞赛编程入门必备知识：输入输出、常用函数、变量命名惯例、链表基础、常见踩坑记录"
 tags: ["C++","码蹄杯","排序","输入输出"]
 category: "计算机基础"
-draft: true
+draft: false
 ---
 
 <!-- source: 码蹄杯/记录1.md -->

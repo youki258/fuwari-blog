@@ -5,7 +5,7 @@ updated: 2026-06-01
 description: "卡通/漫画/视觉艺术相关的前端 Claude skill 盘点与选型对比"
 tags: ["前端","CSS","UI"]
 category: "工具"
-draft: true
+draft: false
 ---
 
 <!-- source: 博客备选笔记/卡通风格的前端.md -->

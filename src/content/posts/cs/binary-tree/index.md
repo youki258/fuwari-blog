@@ -5,7 +5,7 @@ updated: 2025-12-16
 description: "二叉树的顺序存储、链式存储、线索二叉树详解"
 tags: ["数据结构","二叉树","408"]
 category: "计算机基础"
-draft: true
+draft: false
 ---
 
 本文整理二叉树的存储方式和线索二叉树的核心知识点。

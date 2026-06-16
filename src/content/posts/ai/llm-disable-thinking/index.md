@@ -5,7 +5,7 @@ updated: 2026-03-13
 description: "关闭 Qwen3.5 等模型的强制思考模式：enable_thinking 参数、采样调优、Prompt 标签截断三种途径"
 tags: ["LLM","AI","思考模式"]
 category: "AI"
-draft: true
+draft: false
 ---
 
 <!-- source: 博客备选笔记/LLM使用（关闭思考）.md -->

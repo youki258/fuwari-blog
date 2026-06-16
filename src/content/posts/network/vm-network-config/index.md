@@ -5,7 +5,7 @@ updated: 2026-03-07
 description: "VMware NAT 网络下为虚拟机配置静态 IP 的最佳实践：避开 DHCP 池，用 nmcli 一步到位"
 tags: ["虚拟机","VMware","网络配置"]
 category: "网络与架构"
-draft: true
+draft: false
 ---
 
 <!-- source: 博客备选笔记/虚拟机网络配置.md -->

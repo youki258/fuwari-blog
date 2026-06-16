@@ -5,7 +5,7 @@ updated: 2026-04-08
 description: "链表基础概念、五大操作、LeetCode 经典题解（反转链表、设计链表、扁平化多级链表等）"
 tags: ["数据结构", "C++", "链表", "LeetCode"]
 category: "计算机基础"
-draft: true
+draft: false
 ---
 
 <!-- source: 25暑假/1/链表.md + 25暑假/2/链表2.md + 25暑假/3/链表3.md -->
@@ -16,6 +16,9 @@ draft: true
 	- 数组：连续内存空间，随机访问高效（O(1)），但插入/删除需移动元素（O(n)）
 	- 链表：**节点离散存储**，通过指针连接（逻辑连续，物理非连续）
 	- **访问效率**：链表只能顺序访问（O(n)），但插入/删除只需修改指针（O(1)）
+
+	![数组与单链表对比](./part3-remote-01.jpg)
+
 2. **节点结构（C++实现）**
 
 ```cpp
@@ -238,6 +241,22 @@ public:
 };
 ```
 
+**迭代步骤详解**（每轮循环的指针状态变化）：
+
+| 步骤 | 状态描述 | 图示 |
+|---|---|---|
+| 1 | cur=1, tmp=2, pre=null，反转 1→null | ![step1](./remote-02.png) |
+| 2 | pre=cur 进行中，准备进入下一步 | ![step2](./remote-03.png) |
+| 3 | pre=1, cur=2, tmp=3，1→null 已反转 | ![step3](./remote-04.png) |
+| 4 | pre=cur 进行中，准备进入下一步 | ![step4](./remote-05.png) |
+| 5 | pre=2, cur=3, tmp=4，2→1→null | ![step5](./remote-06.png) |
+| 6 | pre=cur 进行中，准备进入下一步 | ![step6](./remote-07.png) |
+| 7 | pre=3, cur=4, tmp=5，3→2→1→null | ![step7](./remote-08.png) |
+| 8 | pre=cur 进行中，准备进入下一步 | ![step8](./remote-09.png) |
+| 9 | pre=4, cur=5, tmp=null，4→3→2→1→null | ![step9](./remote-10.png) |
+| 10 | pre=cur 进行中，准备进入下一步 | ![step10](./remote-11.png) |
+| 11 | 循环结束：5→4→3→2→1→null，返回 pre | ![step11](./remote-12.png) |
+
 **递归法**：
 
 ```cpp
@@ -284,67 +303,57 @@ typedef struct {
 - size维护：避免多余遍历
 - 指针安全：每次操作前检查NULL
 
-#### 4. 扁平化多级双向链表（LeetCode 430）
+#### 4. K 个一组翻转链表（LeetCode 25）
 
-**DFS 解法**：
+**问题描述**：给你链表的头节点 `head` ，每 `k` 个节点一组进行翻转，请你返回修改后的链表。如果节点总数不是 `k` 的整数倍，那么请将最后剩余的节点保持原有顺序。
 
-![扁平化图解](./part3-remote-02.png)
+![K个一组翻转图解](./part3-remote-02.png)
 
 ```plaintext
-原始结构：
- 1---2---3---4---5---6--NULL
-         |
-         7---8---9---10--NULL
-             |
-             11--12--NULL
+原始链表：1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9
+按 k=4 分组：
+  组1: 1 → 2 → 3 → 4
+  组2: 5 → 6 → 7 → 8 → 9 (剩余不足 4 个，保持原序)
 
-扁平化后：
-1-2-3-7-8-11-12-9-10-4-5-6-NULL
+翻转后：4 → 3 → 2 → 1 → 5 → 6 → 7 → 8 → 9
 ```
 
 ```cpp
 class Solution {
-private:
-    Node* dfs(Node* node) {
-        Node* cur = node;
-        Node* last = nullptr;
-
-        while (cur) {
-            Node* next = cur->next;
-
-            if (cur->child) {
-                Node* child_last = dfs(cur->child);
-                next = cur->next;
-
-                cur->next = cur->child;
-                cur->child->prev = cur;
-
-                if (next) {
-                    child_last->next = next;
-                    next->prev = child_last;
-                }
-
-                cur->child = nullptr;
-                last = child_last;
-            } else {
-                last = cur;
-            }
-
+public:
+    // 翻转 [a, b) 区间内的链表节点（不包含 b）
+    ListNode* reverse(ListNode* a, ListNode* b) {
+        ListNode *pre = nullptr, *cur = a, *next;
+        while (cur != b) {
+            next = cur->next;
+            cur->next = pre;
+            pre = cur;
             cur = next;
         }
-
-        return last;
+        return pre;  // 返回翻转后的新头
     }
 
-public:
-    Node* flatten(Node* head) {
-        dfs(head);
-        return head;
+    ListNode* reverseKGroup(ListNode* head, int k) {
+        if (head == nullptr) return nullptr;
+
+        ListNode *a = head, *b = head;
+        // 前进 k 步，找到本组尾部
+        for (int i = 0; i < k; i++) {
+            if (b == nullptr) return head;  // 不足 k 个，保持原序
+            b = b->next;
+        }
+
+        // 翻转前 k 个
+        ListNode* newHead = reverse(a, b);
+        // 递归处理后续链表
+        a->next = reverseKGroup(b, k);
+        return newHead;
     }
 };
 ```
 
 **关键点**：
-- 深度优先处理嵌套结构
-- 三步操作：保存next → 处理child → 重新连接
-- 时间复杂度 O(n)，空间复杂度 O(深度)
+- 使用 `[a, b)` 半开区间翻转，避免对尾节点做特殊处理
+- 递归处理后续分组，每次处理 k 个节点
+- 不足 k 个的剩余节点保持原序（不翻转）
+- 时间复杂度 O(n)，空间复杂度 O(n/k) 的递归栈

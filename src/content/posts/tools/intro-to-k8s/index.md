@@ -5,7 +5,7 @@ updated: 2026-05-26
 description: "从 Service、CoreDNS 到调用链，理解 K8s 服务发现与单机部署的本质区别"
 tags: ["Kubernetes","K8s","容器编排"]
 category: "工具"
-draft: true
+draft: false
 ---
 
 <!-- source: 博客备选笔记/初识k8s.md -->

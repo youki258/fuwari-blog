@@ -5,7 +5,7 @@ updated: 2025-11-14
 description: "带头结点的链队列 C 语言实现：初始化、入队、出队、判空与释放，附二级指针用法详解"
 tags: ["数据结构","C","队列","链队列","二级指针"]
 category: "计算机基础"
-draft: true
+draft: false
 ---
 
 <!-- source: 数据结构/10.13.md -->

@@ -5,7 +5,7 @@ updated: 2026-04-21
 description: “复刻多 Agent CTF 工作流：tmux + AI CLI Agent + Docker 的资源地图与可操作清单”
 tags: [“CTF”, “AI”, “自动化”, “多Agent”]
 category: "CTF"
-draft: true
+draft: false
 ---
 
 <!-- source: CTF/ctf的ai使用.md -->

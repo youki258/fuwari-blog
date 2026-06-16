@@ -5,7 +5,7 @@ updated: 2026-04-08
 description: "OSI 七层模型、TCP/IP 四层模型、集线器/交换机/路由器原理、计算机网络性能指标"
 tags: ["计算机网络", "OSI", "TCP/IP", "网络设备"]
 category: "网络与架构"
-draft: true
+draft: false
 ---
 
 <!-- source: 25暑假/4/计算机网络/OSI.md + 25暑假/5/计算机网络.md -->

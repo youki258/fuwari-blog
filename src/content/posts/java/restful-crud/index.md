@@ -5,7 +5,7 @@ updated: 2025-05-14
 description: "整理 REST 风格 URL、HTTP 动词、Apifox 接口调试和基础 CRUD 接口实现。"
 tags: ["RESTful","Apifox","CRUD","Spring Boot"]
 category: "Java 全栈"
-draft: true
+draft: false
 ---
 
 <!-- source: blog/笔记/10.Restful&Apifox&增删改查.md -->

@@ -5,7 +5,7 @@ updated: 2026-04-08
 description: "机器学习基本概念、KNN 分类算法原理与 scikit-learn 实现、参数调优实战"
 tags: ["机器学习", "KNN", "Python", "scikit-learn"]
 category: "AI"
-draft: true
+draft: false
 ---
 
 <!-- source: 25暑假/5/鸢尾花/1选择器.md + 2knn.md + 3.md -->

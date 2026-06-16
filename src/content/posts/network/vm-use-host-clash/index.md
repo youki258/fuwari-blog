@@ -5,7 +5,7 @@ updated: 2026-05-22
 description: "让手机/虚拟机连 Windows 热点直接走 Clash TUN：透明网关配置与 ICS 共享要点"
 tags: ["虚拟机","Clash","代理"]
 category: "网络与架构"
-draft: true
+draft: false
 ---
 
 <!-- source: 博客备选笔记/让虚拟机直接使用主机的clash.md -->

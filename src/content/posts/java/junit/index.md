@@ -5,7 +5,7 @@ updated: 2025-05-01
 description: "整理测试阶段划分、JUnit 入门、参数化测试、断言和常见注解。"
 tags: ["JUnit","单元测试","Java","后端"]
 category: "Java 全栈"
-draft: true
+draft: false
 ---
 
 <!-- source: blog/笔记/6.单元测试.md -->

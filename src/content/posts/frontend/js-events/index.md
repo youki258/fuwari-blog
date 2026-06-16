@@ -5,7 +5,7 @@ updated: 2025-05-03
 description: "整理 HTML 事件、addEventListener 语法、常见事件类型和表单交互。"
 tags: ["JavaScript","事件监听","前端","DOM"]
 category: "前端"
-draft: true
+draft: false
 ---
 
 <!-- source: blog/笔记/3.js监听.md -->

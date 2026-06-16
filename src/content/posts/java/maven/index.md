@@ -5,7 +5,7 @@ updated: 2025-05-01
 description: "整理 Maven 的项目结构、坐标、依赖配置、仓库模型和构建生命周期。"
 tags: ["Maven","Java","后端","构建工具"]
 category: "Java 全栈"
-draft: true
+draft: false
 ---
 
 <!-- source: blog/笔记/5.maven.md -->

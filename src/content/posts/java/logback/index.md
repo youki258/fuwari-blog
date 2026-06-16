@@ -5,7 +5,7 @@ updated: 2025-05-14
 description: "整理为什么需要日志框架、Logback 基础配置、日志级别和配置文件写法。"
 tags: ["Logback", "日志", "Java", "Spring Boot"]
 category: "Java 全栈"
-draft: true
+draft: false
 ---
 
 <!-- source: blog/笔记/11.日志.md -->

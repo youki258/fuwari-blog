@@ -5,7 +5,7 @@ updated: 2026-05-16
 description: "AI 辅助 CTF 解题中遇到的工具链缺失问题与改进方向"
 tags: ["CTF", "工具链", "逆向工程", "Ghidra"]
 category: "CTF"
-draft: true
+draft: false
 ---
 
 <!-- source: CTF/工具.md -->

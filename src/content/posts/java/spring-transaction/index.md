@@ -5,7 +5,7 @@ updated: 2025-06-21
 description: "整理事务一致性问题、@Transactional 注解、回滚规则和 Spring 事务控制。"
 tags: ["Spring","事务","Java","后端"]
 category: "Java 全栈"
-draft: true
+draft: false
 ---
 
 <!-- source: blog/笔记/13.事务管理.md -->

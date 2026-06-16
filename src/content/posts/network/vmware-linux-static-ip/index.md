@@ -5,7 +5,7 @@ updated: 2026-05-22
 description: "VMware Linux 虚拟机固定 IP 配置：解决网卡未托管/无网问题，nmcli 设置静态 IP"
 tags: ["VMware","Linux","静态IP","网络"]
 category: "网络与架构"
-draft: true
+draft: false
 ---
 
 <!-- source: 博客备选笔记/VMware虚拟机Linux固定IP配置（解决网卡未托管_无网问题）.md -->

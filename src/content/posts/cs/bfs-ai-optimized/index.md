@@ -5,7 +5,7 @@ updated: 2026-04-05
 description: "BFS 广度优先搜索、贪心算法、前缀和与差分、字典序最小序列构造"
 tags: ["BFS","算法","C++","贪心","前缀和","差分"]
 category: "计算机基础"
-draft: true
+draft: false
 ---
 
 ## 1. BFS 广度优先搜索

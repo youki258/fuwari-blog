@@ -5,7 +5,7 @@ updated: 2025-11-14
 description: "Git 安装配置、基础工作流、分支管理、常用技巧速查"
 tags: ["Git","SSH","Sourcetree","版本控制"]
 category: "工具"
-draft: true
+draft: false
 ---
 
 ## 安装与配置

@@ -5,7 +5,7 @@ updated: 2025-05-12
 description: "整理 HTTP 请求响应、Spring Boot Web 入门、分层解耦、Bean 声明和组件扫描。"
 tags: ["Spring Boot","Java","HTTP","后端"]
 category: "Java 全栈"
-draft: true
+draft: false
 ---
 
 <!-- source: blog/笔记/7.SpringBoot.md -->

@@ -5,7 +5,7 @@ updated: 2025-04-11
 description: "整理 CSS 引入方式、颜色写法、选择器、路径、盒子模型、Flex 布局和表单标签。"
 tags: ["HTML", "CSS", "前端", "布局"]
 category: "前端"
-draft: true
+draft: false
 ---
 
 <!-- source: blog/笔记/1.html 笔记.md -->

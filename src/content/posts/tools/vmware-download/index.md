@@ -5,7 +5,7 @@ updated: 2026-04-08
 description: "VMware Workstation Pro 下载与中文界面配置指南，个人使用免费"
 tags: ["VMware","虚拟机","下载"]
 category: "工具"
-draft: true
+draft: false
 ---
 
 <!-- source: 26寒假学习/日记系统开发/VMware workstation下载.md -->

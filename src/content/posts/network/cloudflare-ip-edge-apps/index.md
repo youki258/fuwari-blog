@@ -5,7 +5,7 @@ updated: 2026-04-21
 description: "Cloudflare 一个 IP 承载数千网站的原理：SNI/Host 路由、Anycast、边缘计算"
 tags: ["Cloudflare","CDN","边缘计算"]
 category: "网络与架构"
-draft: true
+draft: false
 ---
 
 <!-- source: 博客备选笔记/Cloudflare 如何实现一个 IP 承载数千网站？边缘应用.md -->

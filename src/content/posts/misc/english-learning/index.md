@@ -5,7 +5,7 @@ updated: 2026-02-08
 description: "英语作为筛选机制、入门门槛与核心能力的分析"
 tags: ["英语","学习方法","考研"]
 category: "随笔"
-draft: true
+draft: false
 ---
 
 本文整理一份关于"英语学习逻辑与长期价值"的深度笔记。

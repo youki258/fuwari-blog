@@ -5,7 +5,7 @@ updated: 2026-04-29
 description: "CLI 命令行工具实践指南：自定义环境、常用命令与效率技巧"
 tags: ["CLI","命令行","工具"]
 category: "工具"
-draft: true
+draft: false
 ---
 
 <!-- source: 博客备选笔记/cli/cli工具实践指南.md -->

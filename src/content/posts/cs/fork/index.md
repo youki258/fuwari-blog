@@ -5,7 +5,7 @@ updated: 2026-04-08
 description: "fork() 系统调用详解：为什么 fork 后两个进程都会执行 if/else"
 tags: ["操作系统", "进程管理", "fork", "Linux"]
 category: "计算机基础"
-draft: true
+draft: false
 ---
 
 <!-- source: 操作系统/fork.md -->

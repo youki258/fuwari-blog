@@ -61,15 +61,15 @@ HTTP协议又分为：请求协议和响应协议
 
 	- 常见的HTTP请求头有:
 
-		- | 请求头          | 含义                                                         |
-			| --------------- | ------------------------------------------------------------ |
-			| Host            | 表示请求的主机名                                             |
-			| User-Agent      | 浏览器版本。 例如：Chrome浏览器的标识类似Mozilla/5.0 ...Chrome/79 ，IE浏览器的标识类似Mozilla/5.0 (Windows NT ...)like Gecko |
-			| Accept          | 表示浏览器能接收的资源类型，如text/*，image/*或者*/*表示所有； |
-			| Accept-Language | 表示浏览器偏好的语言，服务器可以据此返回不同语言的网页；     |
-			| Accept-Encoding | 表示浏览器可以支持的压缩类型，例如gzip, deflate等。          |
-			| Content-Type    | 请求主体的数据类型                                           |
-			| Content-Length  | 数据主体的大小（单位：字节）                                 |
+		| 请求头          | 含义                                                         |
+		| --------------- | ------------------------------------------------------------ |
+		| Host            | 表示请求的主机名                                             |
+		| User-Agent      | 浏览器版本。 例如：Chrome浏览器的标识类似Mozilla/5.0 ...Chrome/79 ，IE浏览器的标识类似Mozilla/5.0 (Windows NT ...)like Gecko |
+		| Accept          | 表示浏览器能接收的资源类型，如text/*，image/*或者*/*表示所有； |
+		| Accept-Language | 表示浏览器偏好的语言，服务器可以据此返回不同语言的网页；     |
+		| Accept-Encoding | 表示浏览器可以支持的压缩类型，例如gzip, deflate等。          |
+		| Content-Type    | 请求主体的数据类型                                           |
+		| Content-Length  | 数据主体的大小（单位：字节）                                 |
 
 ##### **POST方式的请求协议：**
 - **请求行**：包含请求方式、资源路径、协议/版本

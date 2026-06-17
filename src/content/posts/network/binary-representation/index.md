@@ -3,7 +3,7 @@ title: "二进制表示与数制转换"
 published: 2025-09-11
 updated: 2025-09-11
 description: "数制转换、原码反码补码移码详解"
-tags: ["网络管理","二进制","原码","数制转换"]
+tags: ["数制转换","二进制","原码"]
 category: "网络与架构"
 draft: false
 ---

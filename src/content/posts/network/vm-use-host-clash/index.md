@@ -8,14 +8,11 @@ category: "网络与架构"
 draft: false
 ---
 
-![image-20260307193418433](./remote-01.png)
+![Clash网络配置](./remote-01.png)
 
-![image-20260307193434144](./remote-02.png)
+![TUN模式设置](./remote-02.png)
 
-![image-20260307193657763](./remote-03.png)
-
-
-
+![热点共享设置](./remote-03.png)
 
 这是 Windows 上实现**透明网关/全局路由**的方案，核心思路是：**让 Windows 热点的上游不是物理网卡，而是 Clash 的 TUN 虚拟网卡**。这样手机连上热点后无需任何代理设置，所有流量强制经过 TUN。
 

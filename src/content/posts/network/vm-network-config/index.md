@@ -52,7 +52,6 @@ sudo nmcli connection modify ens160 ipv4.method manual
 
 # 5. 重启网卡让配置生效
 sudo nmcli connection down ens160 && sudo nmcli connection up ens160
-
 ```
 
 ---

@@ -78,7 +78,7 @@ alter table emp  add  constraint  fk_dept_id  foreign key (dept_id)  references 
 
 **一对一 ：在任意一方加入外键，关联另外一方的主键，并且设置外键为唯一的(UNIQUE)**
 
-### 1. 多对多
+### 2. 多对多
 
 - 实现关系：建立第三张中间表，中间表至少包含两个外键，分别关联两方主键
 

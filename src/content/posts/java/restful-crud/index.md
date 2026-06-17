@@ -1,4 +1,4 @@
----
+﻿---
 title: "RESTful、Apifox 与 CRUD 接口实践"
 published: 2025-05-14
 updated: 2025-05-14
@@ -54,8 +54,6 @@ draft: false
 
 作用：接口文档管理、接口请求测试、Mock服务。
 
-
-
 #### 1. 接口测试
 
 经过测试，我们发现，现在我们其实是可以通过任何方式的请求来访问查询部门的这个接口的。 而在接口文档中，明确要求该接口的请求方式为GET，那么如何限制请求方式呢？
@@ -64,9 +62,7 @@ draft: false
 
 - 方式二：在controller方法上使用，@RequestMapping的衍生注解 @GetMapping。 该注解就是标识当前方法，必须以GET方式请求。
 
-- 
-
-- ```Java
+```Java
 	@RestController
 	public class DeptController {
 	
@@ -150,15 +146,6 @@ mybatis:
 > 2. ^~ /api/：表示精确匹配，即只匹配以/api/开头的路径。
 > 3. rewrite：该指令用于重写匹配到的uri路径。
 > 4. proxy_pass：该指令用于代理转发，它将匹配到的请求转发给位于后端的指令服务器。
-
-
-
-
-
-
-
-
-
 
 
 ## 1. 删除部门

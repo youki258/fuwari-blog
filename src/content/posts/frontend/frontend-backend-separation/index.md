@@ -61,8 +61,6 @@ VueRouter主要由以下三个部分组成，如下所示：
 - 使用 `<router-view>` 组件来渲染根据路由动态变化的内容。
 - 确保每个 `<el-menu-item>` 的 `index` 属性值与你想要导航到的路径相匹配。
 
-- 
-
 ```HTML
 <script setup>
 // 无需额外导入，因为我们只是使用了 Element Plus 和 Vue Router 的基本功能

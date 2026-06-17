@@ -8,8 +8,6 @@ category: "网络与架构"
 draft: false
 ---
 
-# VMware虚拟机Linux固定IP配置（解决网卡未托管/无网问题）
-
 ## 一、问题背景
 
 VMware虚拟机（Linux系统，网卡名ens160）初始状态：

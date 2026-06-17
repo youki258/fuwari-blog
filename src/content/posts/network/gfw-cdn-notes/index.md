@@ -40,8 +40,6 @@ draft: false
     
 - 即使你用自定义域名（如 `my-proxy.com`），如果 GFW 发现这个域名指向 Cloudflare Workers IP 且有异常流量模式，也会被标记
 
-
-
 **长时间连接检测：**
 
 - 正常 HTTPS 连接平均持续 30-60 秒
@@ -76,9 +74,6 @@ draft: false
     
 
 **结论：阻断该连接，或限速，或记录你的 IP 进行重点监控。**
-
-
-
 
 ```plain
 GFW 识别 Workers 代理的多重手段：

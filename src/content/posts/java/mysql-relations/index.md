@@ -8,8 +8,6 @@ category: "Java 全栈"
 draft: false
 ---
 
-<!-- source: blog/笔记/12.多表关系.md -->
-
 这篇笔记整理数据库表关系和后端查询实现，重点是理解外键约束、逻辑外键以及多表查询在业务代码中的落地方式。公开前建议再复核示例字段是否需要脱敏。
 
 ## 本文要点
@@ -59,7 +57,7 @@ alter table emp  add  constraint  fk_dept_id  foreign key (dept_id)  references 
 
 外键约束（foreign key）：保证了数据的完整性和一致性。
 
-1. #### 物理外键与逻辑外键
+#### 1. 物理外键与逻辑外键
 
 - 物理外键
 	- 概念：使用foreign key定义外键关联另外一张表。
@@ -74,13 +72,13 @@ alter table emp  add  constraint  fk_dept_id  foreign key (dept_id)  references 
 
 在现在的企业开发中，很少会使用物理外键，都是使用逻辑外键。 甚至在一些数据库开发规范中，会明确指出禁止使用物理外键 foreign key 
 
-1. ### 一对一
+### 1. 一对一
 
 其实一对一我们可以看成一种特殊的一对多。一对多我们是怎么设计表关系的？是不是在多的一方添加外键。同样我们也可以通过外键来体现一对一之间的关系，我们只需要在任意一方来添加一个外键就可以了。
 
 **一对一 ：在任意一方加入外键，关联另外一方的主键，并且设置外键为唯一的(UNIQUE)**
 
-1. ### 多对多
+### 1. 多对多
 
 - 实现关系：建立第三张中间表，中间表至少包含两个外键，分别关联两方主键
 
@@ -124,9 +122,9 @@ insert into tb_student_course(student_id, course_id) values (1,1),(1,2),(1,3),(2
 
 
 
-1. ## 多表查询
+## 1. 多表查询
 
-1. #### 介绍
+#### 1. 介绍
 
 多表查询：查询时从多张表中获取所需数据
 
@@ -148,7 +146,7 @@ insert into tb_student_course(student_id, course_id) values (1,1),(1,2),(1,3),(2
 select * from emp , dept where emp.dept_id = dept.id ;
 ```
 
-1. #### 分类
+#### 1. 分类
 
 多表查询可以分为：
 
@@ -161,7 +159,7 @@ select * from emp , dept where emp.dept_id = dept.id ;
 		- 右外连接：查询右表所有数据(包括两张表交集部分数据)
 2. 子查询
 
-1. ### 内连接
+### 1. 内连接
 
 内连接查询：查询两表或多表中交集部分数据。
 
@@ -226,7 +224,7 @@ select e.id, e.name, d.name from emp as e , dept as d where e.dept_id = d.id and
 
 **注意事项:** 一旦为表起了别名，就不能再使用表名来指定对应的字段了，此时只能够使用别名来指定字段。
 
-1. ### 外连接
+### 1. 外连接
 
 外连接分为两种：左外连接 和 右外连接。
 
@@ -270,9 +268,9 @@ select e.name , d.name  from emp as e left join dept as d on e.dept_id = d.id wh
 
 左外连接和右外连接是可以相互替换的，只需要调整连接查询时SQL语句中表的先后顺序就可以了。而我们在日常开发使用时，更偏向于左外连接。
 
-1. ### 子查询
+### 1. 子查询
 
-1. #### 介绍
+#### 1. 介绍
 
 SQL语句中嵌套select语句，称为嵌套查询，又称子查询。
 
@@ -297,7 +295,7 @@ SELECT  *  FROM   t1   WHERE  column1 =  ( SELECT  column1  FROM  t2 ... );
 
 子查询的要点是，先对需求做拆分，明确具体的步骤，然后再逐条编写SQL语句。 最终将多条SQL语句合并为一条。
 
-1. #### 标量子查询
+#### 1. 标量子查询
 
 子查询返回的结果是单个值(数字、字符串、日期等)，最简单的形式，这种子查询称为**标量子查询**。
 
@@ -329,7 +327,7 @@ select * from emp where entry_date > '2015-01-01';
 select * from emp where entry_date > (select entry_date from emp where name = '阮小五');
 ```
 
-1. #### 列子查询
+#### 1. 列子查询
 
 子查询返回的结果是一列(可以是多行)，这种子查询称为列子查询。
 
@@ -353,7 +351,7 @@ select * from emp where dept_id in(3,2);
 select * from emp where dept_id in (select id from dept where name = '教研部' or name = '咨询部');
 ```
 
-1. #### 行子查询
+#### 1. 行子查询
 
 子查询返回的结果是一行(可以是多列)，这种子查询称为行子查询。
 
@@ -372,7 +370,7 @@ select * from emp where (salary, job) = (5000,5);
 select * from emp where (salary, job) = (select salary , job from emp where name = '李忠');
 ```
 
-1. #### 表子查询
+#### 1. 表子查询
 
 子查询返回的结果是多行多列，常作为临时表，这种子查询称为**表子查询**。
 
@@ -387,7 +385,7 @@ select * from emp e , (select dept_id, max(salary) max_sal from emp group by dep
     where e.dept_id = a.dept_id and e.salary = a.max_sal;
 ```
 
-1. #### 案例
+#### 1. 案例
 
 根据需求，完成多表查询的SQL语句的编写。
 
@@ -426,25 +424,25 @@ select e.* from emp e , (select dept_id, avg(salary) avg_sal from emp group by d
           where e.dept_id = a.dept_id and e.salary < a.avg_sal;
 ```
 
-1. ### 分页查询
+### 1. 分页查询
 
 要想从数据库中进行分页查询，我们要使用`LIMIT`关键字，格式为：limit  开始索引  每页显示的条数。
 
 1). 查询第1页数据的SQL语句是：
 
-```Java
+```SQL
 select * from emp  limit 0,10;
 ```
 
 2). 查询第2页数据的SQL语句是：
 
-```Java
+```SQL
 select * from emp  limit 10,10;
 ```
 
 3). 查询第3页的数据的SQL语句是：
 
-```Java
+```SQL
 select * from emp  limit 20,10;
 ```
 
@@ -477,7 +475,7 @@ public class PageResult {
 }
 ```
 
-1. #### 接口描述
+#### 1. 接口描述
 
 **1). 基本信息**
 
@@ -531,9 +529,9 @@ public class PageResult {
 | \|- createTime | string    | 非必须   | 创建时间                                                     |
 | \|- updateTime | string    | 非必须   | 更新时间                                                     |
 
-1. #### PageHelper分页插件
+#### 1. PageHelper分页插件
 
-1. ##### 介绍
+##### 1. 介绍
 
 前面我们已经完了基础的分页查询，大家会发现：分页查询功能编写起来比较繁琐。 而分页查询的功能是非常常见的，我们查询员工信息需要分页查询，将来在做其他项目时，查询用户信息、订单信息、商品信息等等都是需要进行分页查询的。
 
@@ -565,7 +563,7 @@ public class PageResult {
 	- 需要根据页码、每页展示记录数，手动的计算起始索引。
 	- 无需手动计算起始索引，直接告诉PageHelper需要查询那一页的数据，每页展示多少条记录即可。
 
-1. ##### 代码实现
+##### 1. 代码实现
 
 当使用了PageHelper分页插件进行分页，就无需再Mapper中进行手动分页了。 在Mapper中我们只需要进行正常的列表查询即可。在Service层中，调用Mapper的方法之前设置分页参数，在调用Mapper方法执行查询之后，解析分页结果，并将结果封装到PageResult对象中返回。
 
@@ -607,25 +605,14 @@ public PageResult page(Integer page, Integer pageSize) {
 }
 ```
 
-1). 在pom.xml引入依赖
-
-```XML
-<!--分页插件PageHelper-->
-<dependency>
-    <groupId>com.github.pagehelper</groupId>
-    <artifactId>pagehelper-spring-boot-starter</artifactId>
-    <version>1.4.7</version>
-</dependency>
-```
-
 **注意：**
 
 - PageHelper实现分页查询时，SQL语句的结尾一定一定一定不要加分号(;).。
 - PageHelper只会对紧跟在其后的第一条SQL语句进行分页处理。
 
-1. ### 条件分页查询
+### 1. 条件分页查询
 
-感觉用不上
+> 条件分页查询在实际项目中非常常用，建议掌握。
 
 ## 小结
 

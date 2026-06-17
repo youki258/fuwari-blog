@@ -8,12 +8,9 @@ category: "工具"
 draft: false
 ---
 
-<!-- source: 博客备选笔记/VSCode + SSH + Docker 完整配置流程.md -->
 以下是一份**完整的、可复用的配置流程**，从一台全新的 Linux 机器到 VSCode 免密管理 Docker，按顺序执行即可。
 
 ---
-
-# VSCode + SSH + Docker 完整配置流程
 
 ## 一、Linux 端准备
 

@@ -69,9 +69,9 @@ mybatis.configuration.log-impl=org.apache.ibatis.logging.stdout.StdOutImpl
 
 
 
-1. #### 增删改查操作
+#### 1. 增删改查操作
 
-1. ##### 删除
+##### 1. 删除
 
 - 需求：根据ID删除用户信息
 - SQL：delete from user where id = 5;
@@ -86,7 +86,7 @@ public void deleteById(Integer id);
 
 在Mybatis中，我们可以通过参数占位符号 `#{...}` 来占位，在调用`deleteById`方法时，传递的参数值，最终会替换占位符。
 
-1. ##### 新增
+##### 1. 新增
 
 - 需求：添加一个用户
 - SQL：insert into user(username,password,name,age) values('zhouyu','******','周瑜',20);
@@ -100,9 +100,9 @@ public void deleteById(Integer id);
 public void insert(User user);
 ```
 
-如果在SQL语句中，我们需要传递多个参数，我们可以把多个参数封装到一个对象中。然后在SQL语句中，我们可以通过`#{对象``属性``名}`的方式，获取到对象中封装的属性值。
+如果在SQL语句中，我们需要传递多个参数，我们可以把多个参数封装到一个对象中。然后在SQL语句中，我们可以通过`#{对象属性名}`的方式，获取到对象中封装的属性值。
 
-1. ##### 修改
+##### 1. 修改
 
 - 需求：根据ID更新用户信息
 - SQL：update user set username = 'zhouyu', password = '******', name = '周瑜', age = 20 where id = 1；
@@ -118,10 +118,10 @@ public void update(User user);
 
 
 
-1. ##### 查询
+##### 1. 查询
 
 - 需求：根据用户名和密码查询用户信息
-- SQL：select* fromuser whereusername = 'zhouyu' and password = '******'
+- SQL：select * from user where username = 'zhouyu' and password = '******'
 - Mapper接口方法：
 
 ```Java
@@ -146,7 +146,7 @@ public User findByUsernameAndPassword(@Param("username") String username, @Param
 
 ![img](./02.png)
 
-1. ##### XML配置文件实现
+##### 1. XML配置文件实现
 
 **第1步： 创建XML映射文件**
 
@@ -207,7 +207,7 @@ resultType 属性的值，与查询返回的单条记录封装的类型一致。
 
 
 
-1. ## SpringBoot配置文件
+## 1. SpringBoot配置文件
 
 我们可以来对比一下，采用 `application.properties` 和 `application.yml` 来配置同一段信息(数据库连接信息)，两者之间的配置对比：
 
@@ -215,7 +215,7 @@ resultType 属性的值，与查询返回的单条记录封装的类型一致。
 
 ![img](./07.png)
 
-1. ### 语法
+### 1. 语法
 
 简单的了解过springboot所支持的配置文件，以及不同类型配置文件之间的优缺点之后，接下来我们就来了解下yml配置文件的基本语法：
 

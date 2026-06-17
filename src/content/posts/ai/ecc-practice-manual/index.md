@@ -8,7 +8,6 @@ category: "AI"
 draft: false
 ---
 
-<!-- source: 博客备选笔记/ECC深度使用实战手册.md -->
 # Everything Claude Code 深度使用实战手册（Windows 版）
 
 ## 1. 这份手册解决什么问题

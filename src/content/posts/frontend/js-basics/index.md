@@ -8,9 +8,7 @@ category: "前端"
 draft: false
 ---
 
-<!-- source: blog/笔记/2.js基础.md -->
-
-这篇笔记记录 JavaScript 入门阶段的基础语法，包括变量声明、函数写法、对象、JSON 和 DOM 操作。当前仍是课堂笔记形态，后续可以按语法专题拆分。
+这篇笔记记录 JavaScript 入门阶段的基础语法，包括变量声明、函数写法、对象、JSON 和 DOM 操作。
 
 ## 本文要点
 
@@ -31,7 +29,7 @@ draft: false
   - 在早期的js中，声明变量还可以使用var,但是并不严谨（不推荐）
 #### 2. 输出语句
 - window.alert()：弹出警告框（使用频次较高）
-- console.log()：写入浏器控制台（使用频次较高）
+- console.log()：写入浏览器控制台（使用频次较高）
 - document.write()：向HTML的body内输出内容
 
 #### 3. 函数
@@ -70,7 +68,7 @@ let 对象名 = {
 };
 ```
 示例：
-```javascript
+```html
 <script>
     //自定义对象
     let user = {

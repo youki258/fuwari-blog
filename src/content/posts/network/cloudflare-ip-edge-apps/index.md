@@ -8,8 +8,6 @@ category: "网络与架构"
 draft: false
 ---
 
-<!-- source: 博客备选笔记/Cloudflare 如何实现一个 IP 承载数千网站？边缘应用.md -->
-
 参考讨论：[XTLS/BBS#23](https://github.com/XTLS/BBS/issues/23)
 
 Cloudflare 一个 IP（如 `104.16.x.x`）能同时承载数千甚至上万个网站，背后是 CDN 的几项核心技术叠加：反向代理 + SNI/Host 路由、Anycast、边缘计算。

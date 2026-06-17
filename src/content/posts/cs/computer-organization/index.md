@@ -3,11 +3,9 @@ title: "计算机组成原理笔记"
 published: 2026-02-20
 updated: 2026-02-20
 description: "计算机组成原理核心知识点总结：冯诺依曼架构、CPU组成、指令系统、补码运算、存储系统"
-image: ""
 tags: ["计算机组成", "CPU", "存储器", "补码", "冯诺依曼", "408"]
 category: "计算机基础"
 draft: false
-lang: "zh-CN"
 ---
 
 ## 1. 计算机系统概述

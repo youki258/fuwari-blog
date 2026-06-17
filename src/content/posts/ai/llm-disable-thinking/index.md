@@ -8,7 +8,6 @@ category: "AI"
 draft: false
 ---
 
-<!-- source: 博客备选笔记/LLM使用（关闭思考）.md -->
 根据阿里云百炼（DashScope）最新的官方接口文档，**Qwen3.5 系列模型（包括 qwen3.5-flash）在默认情况下是强制开启混合思考模式的**。
 
 当模型在系统底层被设定为优先生成思考 Token 时，单纯用文字形式的 System Prompt（如 "Do not use reasoning"）很难彻底压制它，这也是为什么你的翻译依然很慢的原因。

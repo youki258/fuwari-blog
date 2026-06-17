@@ -8,8 +8,6 @@ category: "CTF"
 draft: false
 ---
 
-<!-- source: CTF/初识CTF.md -->
-
 本文记录符号执行的核心思想，以及在 CTF 逆向题中如何用它自动求解 flag。
 
 ### 符号执行是什么

@@ -8,9 +8,7 @@ category: "前端"
 draft: false
 ---
 
-<!-- source: blog/笔记/3.js监听.md -->
-
-这篇笔记整理 JavaScript 事件监听的基础概念和常见事件。正文中的示例代码来自课堂记录，后续精修时需要统一修补 HTML 示例的闭合符号。
+这篇笔记整理 JavaScript 事件监听的基础概念和常见事件。
 
 ## 本文要点
 
@@ -122,7 +120,7 @@ draft: false
             console.log("键盘被按下了...");
         })
 
-        //keydown: 某个键盘的键被抬起
+        //keyup: 某个键盘的键被抬起
         document.querySelector('#username').addEventListener('keyup', () => {
             console.log("键盘被抬起了...");
         })

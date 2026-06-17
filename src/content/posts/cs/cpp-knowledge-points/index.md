@@ -8,7 +8,6 @@ category: "计算机基础"
 draft: false
 ---
 
-<!-- source: 码蹄杯/注意.md -->
 ## **sort(first, last)**
 
 - `first`：指向排序范围的起始位置（包含）。
@@ -104,4 +103,4 @@ cout << c;    // 输出 7
 
 ![image-20250731112731778](./remote-02.png)
 
-push_back（）用于在容器的**末尾**添加一个新元素。
+push_back()用于在容器的**末尾**添加一个新元素。

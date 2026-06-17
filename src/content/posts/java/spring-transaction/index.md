@@ -8,8 +8,6 @@ category: "Java 全栈"
 draft: false
 ---
 
-<!-- source: blog/笔记/13.事务管理.md -->
-
 这篇笔记整理 Spring 中事务管理的使用场景和基础写法。核心问题是：当一个业务操作包含多次数据库写入时，如何保证它们要么全部成功，要么全部失败。
 
 ## 本文要点
@@ -19,9 +17,9 @@ draft: false
 - 异常类型、传播行为和回滚规则会影响事务是否生效。
 - 事务一般放在业务层，而不是控制器或数据访问层。
 
-1. ### Spring事务管理
+### 1. Spring事务管理
 
-1. #### 分析
+#### 1. 分析
 
 在上述实现的新增员工的功能中，一旦在保存员工基本信息后出现异常。 我们就会发现，员工信息保存成功，但是工作经历信息保存失败，造成了数据的不完整不一致。
 
@@ -51,7 +49,7 @@ draft: false
 
 所以在spring框架当中就已经把事务控制的代码都已经封装好了，并不需要我们手动实现。我们使用了spring框架，我们只需要通过一个简单的注解@Transactional就搞定了。
 
-1. #### Transactional注解
+#### 1. Transactional注解
 
 **注解：**@Transactional
 
@@ -108,7 +106,7 @@ logging:
 
 打开数据库，我们会看到 `emp` 表 与 `emp_expr` 表中都没有对应的数据信息，保证了数据的一致性、完整性。
 
-1. #### 事务进阶
+#### 1. 事务进阶
 
 前面我们通过spring事务管理注解@Transactional已经控制了业务层方法的事务。接下来我们要来详细的介绍一下@Transactional事务管理注解的使用细节。我们这里主要介绍@Transactional注解当中的两个常见的属性：
 
@@ -117,7 +115,7 @@ logging:
 
 我们先来学习下rollbackFor属性。
 
-1. ##### rollbackFor
+##### 1. rollbackFor
 
 我们在之前编写的业务方法上添加了@Transactional注解，来实现事务管理。
 
@@ -226,9 +224,9 @@ public void save(Emp emp) throws Exception {
 - 在Spring的事务管理中，默认只有运行时异常 RuntimeException才会回滚。
 - 如果还需要回滚指定类型的异常，可以通过rollbackFor属性来指定。
 
-1. ##### propagation
+##### 1. propagation
 
-1. ###### 介绍
+###### 1. 介绍
 
 我们接着继续学习@Transactional注解当中的第二个属性propagation，这个属性是用来配置事务的传播行为的。
 
@@ -259,7 +257,7 @@ public void save(Emp emp) throws Exception {
 > 1. REQUIRED（默认值）
 > 2. REQUIRES_NEW
 
-1. ###### 案例
+###### 1. 案例
 
 接下来我们就通过一个案例来演示下事务传播行为propagation属性的使用。
 
@@ -429,7 +427,7 @@ public class EmpLogServiceImpl implements EmpLogService {
 - **REQUIRED：**大部分情况下都是用该传播行为即可。
 - **REQUIRES_NEW：**当我们不希望事务之间相互影响时，可以使用该传播行为。比如：下订单前需要记录日志，不论订单保存成功与否，都需要保证日志记录能够记录成功。
 
-1. ### 事务四大特性
+### 1. 事务四大特性
 
 面试题：事务有哪些特性？
 

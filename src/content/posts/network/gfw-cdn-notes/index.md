@@ -8,8 +8,6 @@ category: "网络与架构"
 draft: false
 ---
 
-<!-- source: 博客备选笔记/GFW识别 CDN相关.md -->
-
 参考讨论：[GFW 大战 Cloudflare，以及积至公司推荐的火爆翻墙项目](https://github.com/XTLS/BBS/issues/23)
 
 ## 1. SNI（服务器名称指示）—— 明文的"门牌号"

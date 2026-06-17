@@ -8,8 +8,6 @@ category: "Java 全栈"
 draft: false
 ---
 
-<!-- source: blog/笔记/10.Restful&Apifox&增删改查.md -->
-
 这篇笔记整理 RESTful 接口风格、Apifox 调试工具以及 Spring Boot 中 CRUD 接口的基础写法。后续精修时，可以把接口设计原则和代码实践拆成两个部分。
 
 ## 本文要点
@@ -58,7 +56,7 @@ draft: false
 
 
 
-1. #### 接口测试
+#### 1. 接口测试
 
 经过测试，我们发现，现在我们其实是可以通过任何方式的请求来访问查询部门的这个接口的。 而在接口文档中，明确要求该接口的请求方式为GET，那么如何限制请求方式呢？
 
@@ -93,9 +91,8 @@ draft: false
 - PUT方式：@PutMapping
 - DELETE方式：@DeleteMapping
 
-1. #### 数据封装
+#### 1. 数据封装
 
--  1<!-- 日志输出级别 -->2<root level="info">3    <!--输出到控制台-->4    <appender-ref ref="STDOUT" />5    <!--输出到文件-->6    <appender-ref ref="FILE" />7</root>XML
 - 如果实体类属性名和数据库表查询返回的字段名不一致，不能自动封装。
 
  解决方案：
@@ -123,11 +120,11 @@ mybatis:
 
 
 
-1. ### 前后端联调
+### 1. 前后端联调
 
-2. #### 联调测试
+#### 2. 联调测试
 
-3. #### 请求访问流程
+#### 3. 请求访问流程
 
 ![img](./01.png)
 
@@ -164,7 +161,7 @@ mybatis:
 
 
 
-1. ## 删除部门
+## 1. 删除部门
 
 - **方案二：通过Spring提供的** **`@RequestParam`** **注解，将请求参数绑定给方法形参**
 
@@ -185,14 +182,14 @@ public Result delete(@RequestParam("id") Integer deptId){
 ```Java
 @DeleteMapping("/depts")
 public Result delete(Integer id){
-    System.out.println("根据ID删除部门: " + deptId);
+    System.out.println("根据ID删除部门: " + id);
     return Result.success();
 }
 ```
 
 对于以上的这三种方案呢，我们**推荐第三种方案**。
 
-1. ### 代码实现
+### 1. 代码实现
 
 **1). Controller层**
 
@@ -245,9 +242,9 @@ void deleteById(Integer id);
 
 对于 DML 语句来说，执行完毕，也是有返回值的，返回值代表的是增删改操作，影响的记录数，所以可以将执行 DML 语句的方法返回值设置为 Integer。 但是一般开发时，是不需要这个返回值的，所以也可以设置为void。
 
-1. ## 新增部门
+## 1. 新增部门
 
-1. ### json参数接收
+### 1. json参数接收
 
 我们看到，在controller中，需要接收前端传递的请求参数。 那接下来，我们就先来看看在服务器端的Controller程序中，如何获取json格式的参数。 
 
@@ -258,7 +255,7 @@ void deleteById(Integer id);
 
 ![img](./04.png)
 
-1. ### 代码实现
+### 1. 代码实现
 
 **1). Controller层**
 
@@ -311,23 +308,23 @@ void insert(Dept dept);
 
 如果在mapper接口中，需要传递多个参数，可以把多个参数封装到一个对象中。 在SQL语句中获取参数的时候，`#{...}` 里面写的是对象的属性名【注意是属性名，不是表的字段名】。
 
-1. ## 修改部门
+## 1. 修改部门
 
 对于任何业务的修改功能来说，一般都会分为两步进行：查询回显、修改数据。
 
-1. ### 查询回显
+### 1. 查询回显
 
-1. #### 需求
+#### 1. 需求
 
 当我们点击 "编辑" 的时候，需要根据ID查询部门数据，然后用于页面回显展示。
 
 ![img](./05.png)
 
-1. #### 接口描述
+#### 1. 接口描述
 
 参照参照课程资料中提供的接口文档。 `部门管理` -> `根据ID查询`
 
-1. #### 路径参数接收
+#### 1. 路径参数接收
 
 `/depts/1`，`/depts/2` 这种在url中传递的参数，我们称之为**路径参数**。 那么如何接收这样的路径参数呢 ？
 
@@ -337,7 +334,7 @@ void insert(Dept dept);
 
 如果路径参数名与controller方法形参名称一致，`@PathVariable`注解的value属性是可以省略的。
 
-1. #### 代码实现
+#### 1. 代码实现
 
 **1). Controller层**
 
@@ -386,9 +383,9 @@ public Dept getById(Integer id) {
 Dept getById(Integer id);
 ```
 
-1. ### 修改数据
+### 1. 修改数据
 
-1. #### 需求
+#### 1. 需求
 
 查询回显回来之后，就可以对部门的信息进行修改了，修改完毕之后，点击确定，此时，就需要根据ID修改部门的数据。
 
@@ -396,7 +393,7 @@ Dept getById(Integer id);
 
 通过接口文档，我们可以看到前端传递的请求参数是json格式的请求参数，在Controller的方法中，我们可以通过 `@RequestBody` 注解来接收，并将其封装到一个对象中。
 
-1. #### 代码实现
+#### 1. 代码实现
 
 **1). Controller层**
 
@@ -448,7 +445,7 @@ public void update(Dept dept) {
 void update(Dept dept);
 ```
 
-1. #### @RequestMapping
+#### 1. @RequestMapping
 
 到此呢，关于基本的部门的增删改查功能，我们已经实现了。  我们会发现，我们在 `DeptController` 中所定义的方法，所有的请求路径，都是 `/depts` 开头的，只要操作的是部门数据，请求路径都是 `/depts` 开头。 
 

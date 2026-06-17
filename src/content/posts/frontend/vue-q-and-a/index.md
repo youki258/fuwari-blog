@@ -8,8 +8,6 @@ category: "前端"
 draft: false
 ---
 
-<!-- source: blog/笔记/blog记录/问题.md -->
-
 ### 1. `{{}}` 是什么？
 
 **文本插值语法**

@@ -8,7 +8,6 @@ category: "网络与架构"
 draft: false
 ---
 
-<!-- source: 博客备选笔记/VMware虚拟机Linux固定IP配置（解决网卡未托管_无网问题）.md -->
 # VMware虚拟机Linux固定IP配置（解决网卡未托管/无网问题）
 
 ## 一、问题背景

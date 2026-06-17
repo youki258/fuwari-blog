@@ -8,8 +8,6 @@ category: "工具"
 draft: false
 ---
 
-<!-- source: 26寒假学习/日记系统开发/VMware workstation下载.md -->
-
 ## 背景
 
 VMware 于 2023 年 11 月被 Broadcom 收购。2024 年 5 月起，**VMware Workstation Pro 个人使用免费**（商业用途仍需付费）。原 VMware Workstation Player 已合并进 Pro 版本。

@@ -8,8 +8,6 @@ category: "AI"
 draft: false
 ---
 
-<!-- source: 25暑假/5/鸢尾花/1选择器.md + 2knn.md + 3.md -->
-
 ## 人工智能、机器学习与深度学习的关系
 
 - **人工智能（AI）**

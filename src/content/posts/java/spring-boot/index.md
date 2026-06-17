@@ -8,8 +8,6 @@ category: "Java 全栈"
 draft: false
 ---
 
-<!-- source: blog/笔记/7.SpringBoot.md -->
-
 这篇笔记从 HTTP 协议基础切入，逐步整理 Spring Boot Web 开发里的请求处理、响应格式和分层解耦。正文内容较长，后续精修时适合拆成多篇专题文章。
 
 ## 本文要点
@@ -100,7 +98,7 @@ GET请求和POST请求的区别：
 - 响应头(以上图中黄色部分)：响应数据的第二行开始。格式为key：value形式
 	- http是个无状态的协议，所以可以在请求头和响应头中设置一些信息和想要执行的动作，这样，对方在收到信息后，就可以知道你是谁，你想干什么
 	- 常见的HTTP响应头有:
-```Java
+```text
 		Content-Type：表示该响应内容的类型，例如text/html，image/jpeg ；
 		
 		Content-Length：表示该响应内容的长度（字节数）；
@@ -133,7 +131,7 @@ GET请求和POST请求的区别：
 - `500 Internal Server Error`  服务端发生不可预期的错误
 
 #####  设置响应数据
->**貌似不重要**
+> 以下内容了解即可，实际开发中较少直接使用。
 
 
 Web服务器对HTTP协议的响应数据进行了封装(HttpServletResponse)，并在调用Controller方法的时候传递给了该方法。这样，就使得程序员不必直接对协议进行操作，让Web开发更加便捷。
@@ -179,7 +177,7 @@ public class ResponseController {
 
 ###  2. SpringBootWeb 
 
-> **好复杂，不知道怎么写**
+> SpringBoot 的自动配置原理较复杂，核心是 @SpringBootApplication 注解的组合使用。
 
 **@ResponseBody注解：**
 
@@ -216,7 +214,7 @@ public class ResponseController {
 - Serivce层调用Dao层（逻辑处理过程中需要用到的一些数据要从Dao层获取）
 - Dao层操作文件中的数据（Dao拿到的数据会返回给Service层）
 
-> **其他见讲义，实在不会写了**
+> 更多分层解耦实践请参考官方文档。
 
 ##### 2. 分层解耦
 
@@ -250,6 +248,7 @@ public class ResponseController {
 
 - **bean对象：**IOC容器中创建、管理的对象，称之为：bean对象。
 
+### 1. IOC&DI入门
 
 
 
@@ -300,11 +299,7 @@ public class ResponseController {
 
 
 
-
-
-
-
-1. ### IOC&DI入门
+### 1. IOC&DI入门
 
 **1). 将Service及Dao层的实现类，交给IOC容器管理**
 
@@ -401,7 +396,7 @@ public class UserController {
 
 启动服务，运行测试。 打开浏览器，地址栏直接访问：http://localhost:8080/user.html 。 依然正常访问，就说明入门程序完成了。 已经完成了层与层之间的解耦。
 
-1. ### IOC详解
+### 1. IOC详解
 
 通过IOC和DI的入门程序呢，我们已经基本了解了IOC和DI的基础操作。接下来呢，我们学习下IOC控制反转和DI依赖注入的细节。
 
@@ -477,7 +472,7 @@ public class UserDaoImpl implements UserDao {
 
 所以，我们在项目开发中，只需要按照如上项目结构，将项目中的所有的业务类，都放在启动类所在包的子包中，就无需考虑组件扫描问题。
 
-1. ### DI详解
+### 1. DI详解
 
 上一小节我们讲解了控制反转IOC的细节，接下来呢，我们学习依赖注解DI的细节。
 
@@ -489,7 +484,7 @@ public class UserDaoImpl implements UserDao {
 
 > 入门程序举例：在EmpController运行的时候，就要到IOC容器当中去查找EmpService这个类型的对象，而我们的IOC容器中刚好有一个EmpService这个类型的对象，所以就找到了这个类型的对象完成注入操作。
 
-1. #### @Autowired用法
+#### 1. @Autowired用法
 
 @Autowired 进行依赖注入，常见的方式，有如下三种：
 
@@ -555,7 +550,7 @@ public class UserController {
 
 在项目开发中，基于@Autowired进行依赖注入时，基本都是第一种和第二种方式。（官方推荐第二种方式，因为会更加规范）但是在企业项目开发中，很多的项目中，也会选择第一种方式因为更加简洁、高效（在规范性方面进行了妥协）。
 
-1. #### 注意事项
+#### 1. 注意事项
 
 那如果在IOC容器中，存在多个相同类型的bean对象，会出现什么情况呢？
 

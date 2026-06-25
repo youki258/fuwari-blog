@@ -387,6 +387,18 @@ const setup = () => {
 		}
 	})
 */
+	// Skip Swup's transition animation on first load to avoid double animation
+	// (Swup's is-animating transition + CSS onload-animation keyframe both firing)
+	// Replace the default handler so we can skip adding animation classes on first visit
+	let isFirstVisit = true;
+	window.swup.hooks.on('animation:out:start', (visit) => {
+		if (isFirstVisit) {
+			isFirstVisit = false;
+			// Don't add animation classes — let CSS onload-animation handle the initial fade-in
+		} else {
+			document.documentElement.classList.add('is-changing', 'is-animating', 'is-leaving');
+		}
+	}, { replace: true });
 	window.swup.hooks.on('link:click', () => {
 		// Remove the delay for the first time page load
 		document.documentElement.style.setProperty('--content-delay', '0ms')

@@ -115,7 +115,7 @@ draft: false
 - Vue的组件有两种不同的风格：**组合式API** 和 **选项式API**
 - **组合式API：**是Vue3提供的一种基于函数的组件编写方式，通过使用函数来组织和复用组件的逻辑。它提供了一种更灵活、更可组合的方式来编写组件。代码形式如下：
 
-```HTML
+```html
 <script setup>
 import { ref, onMounted } from 'vue';
 const count = ref(0); //声明响应式变量
@@ -146,7 +146,7 @@ onMounted(() => { //声明钩子函数
 
 **选项式API：**可以用包含多个选项的对象来描述组件的逻辑，如：`data`，`methods`，`mounted`等。选项定义的属性都会暴露在函数内部的`this`上，它会指向当前的组件实例。
 
-```HTML
+```html
 <script>
 export default{
    data() {

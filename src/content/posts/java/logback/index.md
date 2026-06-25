@@ -37,7 +37,7 @@ draft: false
 
 **2). 引入配置文件** **`logback.xml`**  **（资料中已经提供，拷贝进来，放在** **`src/main/resources`** **目录下； 或者直接AI生成）**
 
-```XML
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
     <!-- 控制台输出 -->
@@ -57,7 +57,7 @@ draft: false
 
 **3). 记录日志：定义日志记录对象Logger，记录日志**
 
-```Java
+```java
 public class LogTest {
     
     //定义日志记录对象
@@ -94,7 +94,7 @@ Logback日志框架的配置文件叫 `logback.xml` 。
 
 **1). 如果需要输出日志到控制台。添加如下配置：**
 
-```XML
+```xml
 <!-- 控制台输出 -->
 <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
     <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
@@ -106,7 +106,7 @@ Logback日志框架的配置文件叫 `logback.xml` 。
 
 **2). 如果需要输出日志到文件。添加如下配置：**
 
-```XML
+```xml
 <!-- 按照每天生成日志文件 -->
 <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
     <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
@@ -127,7 +127,7 @@ Logback日志框架的配置文件叫 `logback.xml` 。
 
 **3). 日志开关配置 （开启日志（ALL），取消日志（OFF））**
 
-```XML
+```xml
 <!-- 日志输出级别 -->
 <root level="ALL">
     <!--输出到控制台-->
@@ -151,7 +151,7 @@ Logback日志框架的配置文件叫 `logback.xml` 。
 
 可以在配置文件`logback.xml`中，灵活的控制输出那些类型的日志。（大于等于配置的日志级别的日志才会输出）
 
-```XML
+```xml
 <!-- 日志输出级别 -->
 <root level="info">
     <!--输出到控制台-->

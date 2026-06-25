@@ -108,7 +108,7 @@ JUnit提供了一些辅助方法，用来帮我们确定被测试的方法是否
 
 示例演示：
 
-```Java
+```java
 package com.itheima;
 
 import org.junit.jupiter.api.*;
@@ -149,7 +149,7 @@ public class UserServiceTest {
 
 演示 `@BeforeEach`，`@AfterEach`，`@BeforeAll`，`@AfterAll` 注解：
 
-```Java
+```java
 public class UserServiceTest {
 
     @BeforeEach

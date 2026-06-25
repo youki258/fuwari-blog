@@ -63,7 +63,7 @@ draft: false
 
 接下来，我们就可以在业务方法save上加上 `@Transactional` 来控制事务 。
 
-```Java
+```java
 @Transactional
 @Override
 public void save(Emp emp) {
@@ -89,7 +89,7 @@ public void save(Emp emp) {
 
 说明：可以在`application.yml`配置文件中开启事务管理日志，这样就可以在控制看到和事务相关的日志信息了
 
-```YAML
+```yaml
 #spring事务管理日志
 logging: 
   level: 
@@ -119,7 +119,7 @@ logging:
 
 我们在之前编写的业务方法上添加了@Transactional注解，来实现事务管理。
 
-```Java
+```java
 @Transactional
 @Override
 public void save(Emp emp) {
@@ -145,7 +145,7 @@ public void save(Emp emp) {
 
 下面我们在做一个测试，我们修改业务功能代码，在模拟异常的位置上直接抛出Exception异常（编译时异常）
 
-```Java
+```java
 @Transactional
 @Override
 public void save(Emp emp) {
@@ -186,7 +186,7 @@ public void save(Emp emp) {
 
 假如我们想让所有的异常都回滚，需要来配置@Transactional注解当中的rollbackFor属性，通过rollbackFor这个属性可以指定出现何种异常类型回滚事务。
 
-```Java
+```java
 @Transactional(rollbackFor = Exception.class)
 @Override
 public void save(Emp emp) throws Exception {
@@ -272,7 +272,7 @@ public void save(Emp emp) throws Exception {
 
 1). 创建数据库表 `emp_log` 日志表
 
-```SQL
+```sql
 -- 创建员工日志表
 create table emp_log(
     id int unsigned primary key auto_increment comment 'ID, 主键',
@@ -283,7 +283,7 @@ create table emp_log(
 
 2). 引入资料中提供的实体类：EmpLog
 
-```Java
+```java
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -296,7 +296,7 @@ public class EmpLog {
 
 3). 引入资料中提供的Mapper接口：EmpLogMapper
 
-```Java
+```java
 @Mapper
 public interface EmpLogMapper {
         //插入日志
@@ -307,7 +307,7 @@ public interface EmpLogMapper {
 
 4). 引入资料中提供的业务接口：EmpLogService
 
-```Java
+```java
 public interface EmpLogService {
         //记录新增员工日志
     public void insertLog(EmpLog empLog);
@@ -316,7 +316,7 @@ public interface EmpLogService {
 
 5). 引入资料中提供的业务实现类：EmpLogServiceImpl
 
-```Java
+```java
 @Service
 public class EmpLogServiceImpl implements EmpLogService {
 
@@ -335,7 +335,7 @@ public class EmpLogServiceImpl implements EmpLogService {
 
 业务实现类：EmpServiceImpl
 
-```Java
+```java
 @Autowired
 private EmpMapper empMapper;
 @Autowired
@@ -401,7 +401,7 @@ public void save(Emp emp) {
 
 Propagation.REQUIRES_NEW  ：不论是否有事务，都创建新事务  ，运行在一个独立的事务中。
 
-```Java
+```java
 @Service
 public class EmpLogServiceImpl implements EmpLogService {
 

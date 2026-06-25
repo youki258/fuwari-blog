@@ -59,7 +59,7 @@ draft: false
 
 - 方式二：在controller方法上使用，@RequestMapping的衍生注解 @GetMapping。 该注解就是标识当前方法，必须以GET方式请求。
 
-```Java
+```java
 	@RestController
 	public class DeptController {
 	
@@ -103,7 +103,7 @@ draft: false
 
 在application.yml中做如下配置，开启开关。
 
-```YAML
+```yaml
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
@@ -149,7 +149,7 @@ mybatis:
 
 - **方案二：通过Spring提供的** **`@RequestParam`** **注解，将请求参数绑定给方法形参**
 
-```Java
+```java
 @DeleteMapping("/depts")
 public Result delete(@RequestParam("id") Integer deptId){
     System.out.println("根据ID删除部门: " + deptId);
@@ -163,7 +163,7 @@ public Result delete(@RequestParam("id") Integer deptId){
 
 - **方案三：如果请求参数名与形参变量名相同，直接定义方法形参即可接收。（省略@RequestParam）**
 
-```Java
+```java
 @DeleteMapping("/depts")
 public Result delete(Integer id){
     System.out.println("根据ID删除部门: " + id);
@@ -179,7 +179,7 @@ public Result delete(Integer id){
 
 在 `DeptMapper`  中，增加 `delete` 方法，代码实现如下：
 
-```Java
+```java
 /**
  * 根据id删除部门 - delete http://localhost:8080/depts?id=1
  */
@@ -195,7 +195,7 @@ public Result delete(Integer id){
 
 在 `DeptService` 中，增加 `deleteById` 方法，代码实现如下：
 
-```Java
+```java
 /**
  * 根据id删除部门
  */
@@ -204,7 +204,7 @@ void deleteById(Integer id);
 
 在 `DeptServiceImpl` 中，增加 `deleteById` 方法，代码实现如下：
 
-```Java
+```java
 public void deleteById(Integer id) {
     deptMapper.deleteById(id);
 }
@@ -214,7 +214,7 @@ public void deleteById(Integer id) {
 
 在 `DeptMapper` 中，增加 `deleteById` 方法，代码实现如下：
 
-```Java
+```java
 /**
  * 根据id删除部门
  */
@@ -245,7 +245,7 @@ void deleteById(Integer id);
 
 在`DeptController`中增加方法save，具体代码如下：
 
-```Java
+```java
 /**
  * 新增部门 - POST http://localhost:8080/depts   请求参数：{"name":"研发部"}
  */
@@ -261,7 +261,7 @@ public Result save(@RequestBody Dept dept){
 
 在`DeptService`中增加接口方法save，具体代码如下：
 
-```Java
+```java
 /**
  * 新增部门
  */
@@ -270,7 +270,7 @@ void save(Dept dept);
 
 在`DeptServiceImpl`中增加save方法，完成添加部门的操作，具体代码如下：
 
-```Java
+```java
 public void save(Dept dept) {
     //补全基础属性
     dept.setCreateTime(LocalDateTime.now());
@@ -282,7 +282,7 @@ public void save(Dept dept) {
 
 **3). Mapper层**
 
-```Java
+```java
 /**
  * 保存部门
  */
@@ -324,7 +324,7 @@ void insert(Dept dept);
 
 在 `DeptController` 中增加 `getById`方法，具体代码如下：
 
-```Java
+```java
 /**
  * 根据ID查询 - GET http://localhost:8080/depts/1
  */
@@ -340,7 +340,7 @@ public Result getById(@PathVariable Integer id){
 
 在 `DeptService` 中增加 `getById`方法，具体代码如下：
 
-```Java
+```java
 /**
  * 根据id查询部门
  */
@@ -349,7 +349,7 @@ Dept getById(Integer id);
 
 在 `DeptServiceImpl` 中增加 `getById`方法，具体代码如下：
 
-```Java
+```java
 public Dept getById(Integer id) {
     return deptMapper.getById(id);
 }
@@ -359,7 +359,7 @@ public Dept getById(Integer id) {
 
 在 `DeptMapper` 中增加 `getById` 方法，具体代码如下：
 
-```Java
+```java
 /**
 * 根据ID查询部门数据
 */
@@ -383,7 +383,7 @@ Dept getById(Integer id);
 
 在 `DeptController` 中增加 `update` 方法，具体代码如下：
 
-```Java
+```java
 /**
  * 修改部门 - PUT http://localhost:8080/depts  请求参数：{"id":1,"name":"研发部"}
  */
@@ -399,7 +399,7 @@ public Result update(@RequestBody Dept dept){
 
 在 `DeptService` 中增加 `update` 方法。
 
-```Java
+```java
 /**
  * 修改部门
  */
@@ -408,7 +408,7 @@ void update(Dept dept);
 
 在 `DeptServiceImpl` 中增加 `update` 方法。 由于是修改操作，每一次修改数据，都需要更新updateTime。所以，具体代码如下：
 
-```Java
+```java
 public void update(Dept dept) {
     //补全基础属性
     dept.setUpdateTime(LocalDateTime.now());
@@ -421,7 +421,7 @@ public void update(Dept dept) {
 
 在 `DeptMapper` 中增加 `update` 方法，具体代码如下：
 
-```Java
+```java
 /**
  * 更新部门
  */

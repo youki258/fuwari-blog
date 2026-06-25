@@ -61,7 +61,7 @@ VueRouter主要由以下三个部分组成，如下所示：
 - 使用 `<router-view>` 组件来渲染根据路由动态变化的内容。
 - 确保每个 `<el-menu-item>` 的 `index` 属性值与你想要导航到的路径相匹配。
 
-```HTML
+```html
 <script setup>
 // 无需额外导入，因为我们只是使用了 Element Plus 和 Vue Router 的基本功能
 </script>
@@ -178,7 +178,7 @@ a {
 
 **2). 在 router/index.js 中配置请求路径与组件之间的关系。**
 
-```JavaScript
+```javascript
 import { createRouter, createWebHistory} from 'vue-router';
 
 import IndexView from '@/views/index/index.vue';
@@ -227,7 +227,7 @@ export default router;
 
 那接下来，我们就来优化一下路由的配置。最终配置形式如下，在 `router/index.js` 中做如下配置：
 
-```JavaScript
+```javascript
 import { createRouter, createWebHistory } from 'vue-router'
 
 import IndexView from '@/views/index/index.vue'
@@ -287,7 +287,7 @@ export default router
 
 1). 为了解决上述问题，我们在前端项目开发时，通常会定义一个请求处理的工具类  - `src/utils/request.js` 。 在这个工具类中，对axios进行了封装。 具体代码如下：
 
-```JavaScript
+```javascript
 import axios from 'axios'
 
 //创建axios实例对象
@@ -311,7 +311,7 @@ export default request
 
 2). 而与服务端进行异步交互的逻辑，通常会按模块，封装在一个单独的API中，如：`src/api/dept.js`
 
-```JavaScript
+```javascript
 import request from "@/utils/request"
 
 //列表查询
@@ -365,7 +365,7 @@ const handleDelete = (id) => {
 
 ![img](./13.png)
 
-```JavaScript
+```javascript
 import { fileURLToPath, URL } from 'node:url'
 
 import { defineConfig } from 'vite'

@@ -8,11 +8,11 @@ import type {
 import { LinkPreset } from "./types/config";
 
 export const siteConfig: SiteConfig = {
-	title: "evil的公开笔记",
-	subtitle: "从私人 Obsidian 笔记库整理出的技术草稿",
+	title: "youki的笔记",
+	subtitle: " ",
 	lang: "zh_CN", // Language code, e.g. 'en', 'zh_CN', 'ja', etc.
 	themeColor: {
-		hue: 200, // Default hue for the theme color, from 0 to 360. e.g. red: 0, teal: 200, cyan: 250, pink: 345
+		hue: 255, // Default hue for the theme color, from 0 to 360. e.g. red: 0, teal: 200, cyan: 250, pink: 345
 		fixed: false, // Hide the theme color picker for visitors
 	},
 	banner: {
@@ -40,18 +40,19 @@ export const siteConfig: SiteConfig = {
 };
 
 export const navBarConfig: NavBarConfig = {
-	links: [
-		LinkPreset.Home,
-		LinkPreset.Archive,
-		LinkPreset.About,
-	],
+	links: [LinkPreset.Home, LinkPreset.Archive, LinkPreset.About],
 };
 
 export const profileConfig: ProfileConfig = {
-	avatar: "assets/images/demo-avatar.png", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
-	name: "evil",
-	bio: "网络工程、后端开发、云原生与 AI 工具学习笔记。",
-	links: [],
+	avatar: "assets/images/avatar.png", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
+	name: "youki",
+	bio: "一些无处安放的笔记",
+	links: [
+		{ name: "GitHub", url: "https://github.com/neuroevil258", icon: "fa6-brands:github" },
+		{ name: "Bilibili", url: "https://space.bilibili.com/486963320", icon: "simple-icons:bilibili" },
+		{ name: "Telegram", url: "https://t.me/Evil_Neuro258", icon: "fa6-brands:telegram" },
+		{ name: "Email", url: "mailto:neuroevil258@gmail.com", icon: "fa6-solid:envelope" },
+	],
 };
 
 export const licenseConfig: LicenseConfig = {

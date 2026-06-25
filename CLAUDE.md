@@ -12,6 +12,7 @@ Fuwari-based static blog built with **Astro 6.4 + Svelte + Tailwind CSS**. Conte
 |---|---|
 | `pnpm dev` | Dev server at `localhost:4321` |
 | `pnpm build` | Production build + Pagefind indexing → `dist/` |
+| `pnpm preview` | Preview production build locally |
 | `pnpm type-check` | TypeScript type checking (`tsc --noEmit`) |
 | `pnpm lint` | Biome lint + auto-fix on `src/` |
 | `pnpm format` | Biome format on `src/` |
@@ -19,6 +20,10 @@ Fuwari-based static blog built with **Astro 6.4 + Svelte + Tailwind CSS**. Conte
 | `pnpm new-post <filename>` | Scaffold a new post in `src/content/posts/` |
 | `pnpm test:guards` | Run import security guard tests |
 | `pnpm sync:notes` | Import vault drafts into `src/content/posts/` |
+| `pnpm import:drafts:fresh` | Clean import (removes existing imports first) |
+| `pnpm import:quarantine` | Import notes that failed security checks for manual review |
+| `pnpm localize:images` | Download remote images referenced in posts to local assets |
+| `pnpm normalize:posts` | Normalize post directory names to consistent slug format |
 | `pnpm scan:public` | Scan published content for leaked secrets/PII |
 | `pnpm verify` | Full pipeline: guards → sync → type-check → build → scan |
 | `pnpm build:fresh` | Sync notes then build |
@@ -30,6 +35,10 @@ Package manager is **pnpm** (enforced via `preinstall` script). Node.js >= 20 re
 ### Content Pipeline
 
 Posts live in `src/content/posts/` as `index.md` files inside named directories (e.g. `blog/notes/09-jdbc-mybatis/index.md`). The content collection schema is defined in [src/content.config.ts](src/content.config.ts) using Astro's glob loader with a custom slug generator that strips `index.md` and normalizes path separators.
+
+Two collections exist:
+- **posts** — Blog posts with full frontmatter schema
+- **spec** — Special pages (e.g. `about.md`) with minimal schema
 
 Frontmatter schema (from [src/content.config.ts](src/content.config.ts)):
 - `title` (required), `published` (required date), `draft` (default false)
@@ -50,6 +59,14 @@ The vault-to-site pipeline imports notes from an external Obsidian vault (`expor
 - **[scripts/normalize-post-directories.mjs](scripts/normalize-post-directories.mjs)** — Normalizes post directory names to consistent slug format.
 - **[scripts/export-vault-notes.mjs](scripts/export-vault-notes.mjs)** — Exports processed notes back to vault format.
 
+### Vault Import Policy (export-manifest.json)
+
+The import pipeline enforces security via `export-manifest.json`:
+- **privatePaths** — Directories excluded from import (e.g. `.obsidian`, `.trash`, `密码`, `密钥`, `日记`)
+- **blockedExtensions** — File types that cannot be imported (e.g. `.pem`, `.key`, `.env`, `.pdf`)
+- **reviewTerms** — Keywords that trigger quarantine review (e.g. `密码`, `token`, `secret`)
+- **entries[]** — Per-path overrides with `status: "private"` to explicitly block sensitive content
+
 ### Page Routing
 
 - [`[...page].astro`](src/pages/%5B...page%5D.astro) — Homepage with paginated post list (PAGE_SIZE = 8)
@@ -64,7 +81,7 @@ The vault-to-site pipeline imports notes from an external Obsidian vault (`expor
 
 ### Component Structure
 
-- **Interactive components** use Svelte (`.svelte`): [ArchivePanel](src/components/ArchivePanel.svelte), [LightDarkSwitch](src/components/LightDarkSwitch.svelte)
+- **Interactive components** use Svelte (`.svelte`): [ArchivePanel](src/components/ArchivePanel.svelte), [LightDarkSwitch](src/components/LightDarkSwitch.svelte), [Search](src/components/Search.svelte), [DisplaySettings](src/components/widget/DisplaySettings.svelte)
 - **Static components** use Astro (`.astro`): PostCard, Navbar, Sidebar widgets, Footer
 - **Widgets** in [src/components/widget/](src/components/widget/): Profile, Categories, Tags, TOC, SideBar
 
@@ -88,7 +105,7 @@ Tailwind CSS 3 with `@tailwindcss/typography`. Stylus (`.styl`) for component-le
 
 ### i18n
 
-Translation files in [src/i18n/languages/](src/i18n/languages/). Site language set in `src/config.ts` → `siteConfig.lang`. Per-post language override via `lang` frontmatter. Translation lookup via `i18n(I18nKey.xxx)`.
+Translation files in [src/i18n/languages/](src/i18n/languages/). Site language set in `src/config.ts` → `siteConfig.lang` (currently `zh_CN`). Per-post language override via `lang` frontmatter. Translation lookup via `i18n(I18nKey.xxx)`.
 
 ## Code Style
 

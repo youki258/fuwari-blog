@@ -46,6 +46,7 @@ export default defineConfig({
 			updateHead: true,
 			updateBodyClass: false,
 			globalInstance: true,
+			skipInitialAnimation: true, // avoid double animation on first load (Swup transition + CSS onload-animation)
 		}),
 		icon({
 			include: {

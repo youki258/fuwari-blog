@@ -48,10 +48,26 @@ export const profileConfig: ProfileConfig = {
 	name: "youki",
 	bio: "一些无处安放的笔记",
 	links: [
-		{ name: "GitHub", url: "https://github.com/neuroevil258", icon: "fa6-brands:github" },
-		{ name: "Bilibili", url: "https://space.bilibili.com/486963320", icon: "simple-icons:bilibili" },
-		{ name: "Telegram", url: "https://t.me/Evil_Neuro258", icon: "fa6-brands:telegram" },
-		{ name: "Email", url: "mailto:neuroevil258@gmail.com", icon: "fa6-solid:envelope" },
+		{
+			name: "GitHub",
+			url: "https://github.com/neuroevil258",
+			icon: "fa6-brands:github",
+		},
+		{
+			name: "Bilibili",
+			url: "https://space.bilibili.com/486963320",
+			icon: "simple-icons:bilibili",
+		},
+		{
+			name: "Telegram",
+			url: "https://t.me/Evil_Neuro258",
+			icon: "fa6-brands:telegram",
+		},
+		{
+			name: "Email",
+			url: "mailto:neuroevil258@gmail.com",
+			icon: "fa6-solid:envelope",
+		},
 	],
 };
 

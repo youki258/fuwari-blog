@@ -182,8 +182,6 @@ export default{
 
 Element：是饿了么公司前端开发团队提供的一套基于 Vue3 的网站组件库，用于快速构建网页。
 
-
-
 Element 提供了很多组件（组成网页的部件）供我们使用。例如 超链接、按钮、图片、表格等等。
 
 官方网站：https://element-plus.org/zh-CN/#/zh-CN

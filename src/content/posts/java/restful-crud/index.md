@@ -47,9 +47,6 @@ draft: false
 我们看到如果是基于REST风格，定义URL，URL将会**更加简洁、更加规范、更加优雅**。
 
 
-
-
-
 介绍：Apifox是一款集成了Api文档、Api调试、Api Mock、Api测试的一体化协作平台。
 
 作用：接口文档管理、接口请求测试、Mock服务。

@@ -53,10 +53,6 @@ class SpringbootMybatisQuickstartApplicationTests {
 mybatis.configuration.log-impl=org.apache.ibatis.logging.stdout.StdOutImpl
 ```
 
-
-
-
-
 #### 数据库连接池
 
 数据库连接池的好处：
@@ -64,10 +60,6 @@ mybatis.configuration.log-impl=org.apache.ibatis.logging.stdout.StdOutImpl
 - 资源重用
 - 提升系统响应速度
 - 避免数据库连接遗漏
-
-
-
-
 
 #### 1. 增删改查操作
 
@@ -116,8 +108,6 @@ public void insert(User user);
 public void update(User user);
 ```
 
-
-
 ##### 1. 查询
 
 - 需求：根据用户名和密码查询用户信息
@@ -135,8 +125,6 @@ public User findByUsernameAndPassword(@Param("username") String username, @Param
 @param注解的作用是为接口的方法形参起名字的。（由于用户名唯一的，所以查询返回的结果最多只有一个，可以直接封装到一个对象中）
 
 **说明：**基于官方骨架创建的springboot项目中，接口编译时会保留方法形参名，@Param注解可以省略 (#{形参名})。
-
-
 
 **在Mybatis中使用XML映射文件方式开发，需要符合一定的规范：**
 

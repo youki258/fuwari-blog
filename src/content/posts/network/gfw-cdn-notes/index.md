@@ -1,7 +1,7 @@
 ---
 title: "GFW 识别 CDN 相关笔记"
-published: 2026-04-08
-updated: 2026-04-08
+published: 2025-07-27
+updated: 2025-07-27
 description: "GFW 识别 Cloudflare CDN 代理的多重手段：SNI 明文、DNS 情报、流量指纹"
 tags: ["GFW","CDN","网络"]
 category: "网络与架构"
@@ -35,26 +35,26 @@ draft: false
 **识别逻辑：**
 
 - GFW 可以维护一个"Workers 子域名黑名单"
-    
+  
 - 只要检测到 SNI 包含 `workers.dev`、`pages.dev` 等特征，或匹配已知的翻墙 Worker 子域名，就直接阻断
-    
+  
 - 即使你用自定义域名（如 `my-proxy.com`），如果 GFW 发现这个域名指向 Cloudflare Workers IP 且有异常流量模式，也会被标记
 
 **长时间连接检测：**
 
 - 正常 HTTPS 连接平均持续 30-60 秒
-    
+  
 - 代理连接可能持续 30 分钟以上，且期间一直有数据传输
-    
+  
 - GFW 标记"持续活跃的 HTTPS 长连接"为可疑
-    
+  
 
 **流量指纹（Packet Size & Timing）：**
 
 - 你的代理工具（如 Clash、V2Ray）在加密数据时，会产生特定大小的数据包
-    
+  
 - 比如每 2 秒发送一个 1400 字节的心跳包
-    
+  
 - GFW 通过机器学习识别这种"机械式"的流量模式
 
 
@@ -63,15 +63,15 @@ draft: false
 假设你在用 edgetunnel（一个基于 Workers 的代理）：
 
 1. **DNS 阶段**：你的电脑查询 `edgetunnel.yourname.workers.dev` → **可疑**
-    
+   
 2. **TLS 握手阶段**：SNI 明文显示 `yourname.workers.dev` → **确认是 Workers**
-    
+   
 3. **指纹检测**：JA3 显示这不是浏览器，是代理客户端 → **确认是代理**
-    
+   
 4. **流量分析**：连接持续 2 小时，上下行流量对称，心跳包规律 → **确认是代理隧道**
-    
+   
 5. **IP 分析**：你连接的 Cloudflare IP 是 `104.16.x.x`，不是最优节点 → **确认使用了优选 IP**
-    
+   
 
 **结论：阻断该连接，或限速，或记录你的 IP 进行重点监控。**
 

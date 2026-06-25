@@ -161,6 +161,5 @@ git reset --soft HEAD~1
 
 ## 图形化工具
 
-- **Sourcetree**：免费 Git GUI，适合初学者 — [下载](https://www.sourcetreeapp.com/)
 - **PyCharm 集成**：内置 Git 支持，VCS 菜单直接操作
 - **VSCode 集成**：左侧源代码管理面板，支持 diff、提交、推送

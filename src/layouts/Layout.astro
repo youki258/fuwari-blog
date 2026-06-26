@@ -369,8 +369,8 @@ function showBanner() {
 
 function init() {
 	// disableAnimation()()		// TODO
-	loadTheme();
-	loadHue();
+	// loadTheme() and loadHue() already run in the <head> inline script,
+	// calling them again causes unnecessary reflows that restart CSS animations
 	initCustomScrollbar();
 	showBanner();
 }

@@ -111,6 +111,10 @@ const bannerOffset =
 
 		<!-- Set the theme before the page is rendered to avoid a flash -->
 		<script is:inline define:vars={{DEFAULT_THEME, LIGHT_MODE, DARK_MODE, AUTO_MODE, BANNER_HEIGHT_EXTEND, PAGE_WIDTH, configHue}}>
+			// Disable transitions on initial load to prevent double animation
+			// (theme toggle + OverlayScrollbars init cause reflows that restart CSS animations)
+			document.documentElement.classList.add('no-transition-on-load');
+
 			// Load the theme from local storage
 			const theme = localStorage.getItem('theme') || DEFAULT_THEME;
 			switch (theme) {
@@ -373,6 +377,13 @@ function init() {
 
 /* Load settings when entering the site */
 init();
+
+// Re-enable transitions after initial load is complete
+requestAnimationFrame(() => {
+	requestAnimationFrame(() => {
+		document.documentElement.classList.remove('no-transition-on-load');
+	});
+});
 
 const setup = () => {
 	// TODO: temp solution to change the height of the banner

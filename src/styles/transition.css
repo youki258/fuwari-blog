@@ -1,3 +1,10 @@
+/* Disable all transitions/animations during initial load to prevent double animation */
+html.no-transition-on-load,
+html.no-transition-on-load * {
+    transition: none !important;
+    animation: none !important;
+}
+
 /* Page transition animations with Swup */
 html.is-changing .transition-swup-fade {
     @apply transition-all duration-200

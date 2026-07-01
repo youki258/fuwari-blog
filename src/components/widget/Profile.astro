@@ -24,11 +24,11 @@ const config = profileConfig;
         <div class="text-center text-neutral-400 mb-2.5 transition">{config.bio}</div>
         <div class="flex flex-wrap gap-2 justify-center mb-1">
             {config.links.length > 1 && config.links.map(item =>
-                    <a rel="me" aria-label={item.name} href={item.url} target="_blank" class="btn-regular rounded-lg h-10 w-10 active:scale-90">
+                    <a rel="me" aria-label={item.name} href={item.obfuscate ? "#" : item.url} data-mail={item.obfuscate ? item.url : undefined} target="_blank" class="btn-regular rounded-lg h-10 w-10 active:scale-90">
                         <Icon name={item.icon} class="text-[1.5rem]"></Icon>
                     </a>
             )}
-            {config.links.length == 1 && <a rel="me" aria-label={config.links[0].name} href={config.links[0].url} target="_blank"
+            {config.links.length == 1 && <a rel="me" aria-label={config.links[0].name} href={config.links[0].obfuscate ? "#" : config.links[0].url} data-mail={config.links[0].obfuscate ? config.links[0].url : undefined} target="_blank"
                                             class="btn-regular rounded-lg h-10 gap-2 px-3 font-bold active:scale-95">
                 <Icon name={config.links[0].icon} class="text-[1.5rem]"></Icon>
                 {config.links[0].name}
@@ -36,4 +36,20 @@ const config = profileConfig;
         </div>
     </div>
 </div>
+<script is:inline>
+    // Decode obfuscated contact links (base64) on click so the raw value
+    // (e.g. mailto:) never appears as plaintext in the rendered HTML.
+    document.addEventListener('click', (e) => {
+        const a = e.target instanceof Element ? e.target.closest('a[data-mail]') : null;
+        if (!a) return;
+        e.preventDefault();
+        try {
+            const decoded = atob(a.getAttribute('data-mail') || '');
+            window.location.href = decoded;
+        } catch (err) {
+            console.error('Failed to decode contact link', err);
+        }
+    });
+</script>
+
 

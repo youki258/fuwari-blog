@@ -65,8 +65,9 @@ export const profileConfig: ProfileConfig = {
 		},
 		{
 			name: "Email",
-			url: "mailto:neuroevil258@gmail.com",
+			url: "bWFpbHRvOm5ldXJvZXZpbDI1OEBnbWFpbC5jb20=",
 			icon: "fa6-solid:envelope",
+			obfuscate: true,
 		},
 	],
 };

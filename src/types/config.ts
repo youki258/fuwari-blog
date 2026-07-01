@@ -68,6 +68,12 @@ export type ProfileConfig = {
 		name: string;
 		url: string;
 		icon: string;
+		/**
+		 * If true, the url is stored base64-encoded in a data attribute
+		 * and decoded on click via JS, to avoid rendering the raw value
+		 * (e.g. mailto:) as plaintext into the HTML.
+		 */
+		obfuscate?: boolean;
 	}[];
 };
 

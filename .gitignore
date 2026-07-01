@@ -16,6 +16,13 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 dev-server*.log
+dev-server*.err.log
+
+# Windows reserved name accidentally created files
+nul
+
+# local vault manifest (machine-specific, see export-manifest.example.json)
+export-manifest.json
 
 # environment variables
 .env
@@ -35,3 +42,6 @@ yarn.lock
 .idea
 *.iml
 .workbuddy/
+
+# AtomCode local-scope configs (machine-specific)
+.atomcode/

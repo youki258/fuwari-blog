@@ -25,14 +25,6 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content, headings, remarkPluginFrontmatter } = await render(entry);
-const showLocalLocator = import.meta.env.DEV;
-const sourceMatch = entry.body.match(/<!--\s*(?:source|quarantine-source):\s*([^>]+?)\s*-->/);
-const sourceNotePath = sourceMatch?.[1]?.trim() || "";
-const quarantineReasonMatch = entry.body.match(/<!--\s*quarantine-reason:\s*([^>]+?)\s*-->/);
-const quarantineReason = quarantineReasonMatch?.[1]?.trim() || "";
-const previewPath = `/posts/${entry.id}/`;
-const localPostDir = path.join(process.cwd(), "src", "content", "posts", entry.id);
-const localPostFile = path.join(localPostDir, "index.md");
 
 const jsonLd = {
 	"@context": "https://schema.org",
@@ -101,32 +93,6 @@ const jsonLd = {
                 ></PostMetadata>
                 {!entry.data.image && <div class="border-[var(--line-divider)] border-dashed border-b-[1px] mb-5"></div>}
             </div>
-
-            {showLocalLocator && <div data-pagefind-ignore class="onload-animation mb-5 rounded-lg border border-black/10 dark:border-white/10 bg-black/[0.03] dark:bg-white/[0.04] px-4 py-3 text-xs text-black/60 dark:text-white/60">
-                <div class="font-semibold text-black/75 dark:text-white/75 mb-2">本地定位</div>
-                <div class="grid gap-1.5">
-                    <div class="grid gap-1 md:grid-cols-[5rem_minmax(0,1fr)]">
-                        <span>预览地址</span>
-                        <code class="break-all rounded bg-black/5 dark:bg-white/10 px-1.5 py-0.5 text-black/75 dark:text-white/75">{previewPath}</code>
-                    </div>
-                    <div class="grid gap-1 md:grid-cols-[5rem_minmax(0,1fr)]">
-                        <span>文章目录</span>
-                        <code class="break-all rounded bg-black/5 dark:bg-white/10 px-1.5 py-0.5 text-black/75 dark:text-white/75">{localPostDir}</code>
-                    </div>
-                    <div class="grid gap-1 md:grid-cols-[5rem_minmax(0,1fr)]">
-                        <span>入口文件</span>
-                        <code class="break-all rounded bg-black/5 dark:bg-white/10 px-1.5 py-0.5 text-black/75 dark:text-white/75">{localPostFile}</code>
-                    </div>
-                    {sourceNotePath && <div class="grid gap-1 md:grid-cols-[5rem_minmax(0,1fr)]">
-                        <span>来源笔记</span>
-                        <code class="break-all rounded bg-black/5 dark:bg-white/10 px-1.5 py-0.5 text-black/75 dark:text-white/75">{sourceNotePath}</code>
-                    </div>}
-                    {quarantineReason && <div class="grid gap-1 md:grid-cols-[5rem_minmax(0,1fr)]">
-                        <span>隔离原因</span>
-                        <code class="break-all rounded bg-black/5 dark:bg-white/10 px-1.5 py-0.5 text-black/75 dark:text-white/75">{quarantineReason}</code>
-                    </div>}
-                </div>
-            </div>}
 
             <!-- always show cover as long as it has one -->
 

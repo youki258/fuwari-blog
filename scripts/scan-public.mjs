@@ -4,10 +4,9 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const siteRoot = path.resolve(__dirname, "..");
-const manifestPath = path.join(siteRoot, "export-manifest.json");
 const scanRoots = [path.join(siteRoot, "src", "content", "posts"), path.join(siteRoot, "dist")];
-const defaultPrivatePaths = [".git"];
 
+// Patterns that should block a release: real credentials / keys.
 const fatalPatterns = [
   { name: "private key", pattern: /-----BEGIN [A-Z ]*PRIVATE KEY-----/ },
   { name: "aws access key", pattern: /\bAKIA[0-9A-Z]{16}\b/ },
@@ -15,6 +14,7 @@ const fatalPatterns = [
   { name: "literal password assignment", pattern: /(password|passwd|pwd|密码)\s*[:=]\s*["'][^"']{6,}["']/i }
 ];
 
+// Patterns that warrant review but do not block: PII / sensitive terms.
 const warningPatterns = [
   { name: "Chinese sensitive term", pattern: /密码|密钥|阿里云/g },
   { name: "token/secret term", pattern: /\b(token|secret|pem)\b/gi },
@@ -25,30 +25,6 @@ const warningPatterns = [
 
 function toPosix(filePath) {
   return filePath.replaceAll("\\", "/");
-}
-
-function normalizePolicyPath(value) {
-  return toPosix(path.normalize(String(value).replaceAll("\\", "/"))).replace(/\/$/, "");
-}
-
-function isPathUnder(relativePath, privatePath) {
-  const normalized = normalizePolicyPath(relativePath);
-  const forbidden = normalizePolicyPath(privatePath);
-  return normalized === forbidden || normalized.startsWith(`${forbidden}/`) || normalized.includes(`/${forbidden}/`);
-}
-
-async function loadPolicy() {
-  const manifest = JSON.parse(await readFile(manifestPath, "utf8"));
-  const sensitive = manifest.sensitive || {};
-  const privateEntryPaths = (manifest.entries || [])
-    .filter((entry) => entry.status === "private" && entry.source)
-    .map((entry) => entry.source);
-  return {
-    privatePaths: [...new Set([...(sensitive.privatePaths || []), ...privateEntryPaths, ...defaultPrivatePaths])].map(
-      normalizePolicyPath
-    ),
-    blockedExtensions: new Set((sensitive.blockedExtensions || []).map((ext) => ext.toLowerCase()))
-  };
 }
 
 async function exists(filePath) {
@@ -75,26 +51,6 @@ async function walk(dir) {
   return files;
 }
 
-function checkPath(filePath, policy) {
-  const relative = toPosix(path.relative(siteRoot, filePath));
-  const ext = path.extname(filePath).toLowerCase();
-  const basename = path.basename(filePath).toLowerCase();
-  const failures = [];
-
-  if (policy.blockedExtensions.has(ext) || basename === ".env" || basename.startsWith(".env.")) {
-    failures.push(`blocked extension: ${relative}`);
-  }
-  for (const privatePath of policy.privatePaths) {
-    if (isPathUnder(relative, privatePath)) failures.push(`private path fragment "${privatePath}": ${relative}`);
-  }
-  return failures;
-}
-
-function isQuarantineSource(filePath) {
-  const relative = toPosix(path.relative(siteRoot, filePath));
-  return relative === "src/content/posts/quarantine" || relative.startsWith("src/content/posts/quarantine/");
-}
-
 async function checkContent(filePath) {
   const ext = path.extname(filePath).toLowerCase();
   if (![".md", ".html", ".js", ".css", ".json", ".xml", ".txt"].includes(ext)) {
@@ -117,7 +73,6 @@ async function checkContent(filePath) {
 }
 
 async function main() {
-  const policy = await loadPolicy();
   const files = [];
   for (const root of scanRoots) files.push(...(await walk(root)));
 
@@ -125,8 +80,6 @@ async function main() {
   const warnings = [];
 
   for (const file of files) {
-    if (isQuarantineSource(file)) continue;
-    failures.push(...checkPath(file, policy));
     const content = await checkContent(file);
     failures.push(...content.failures);
     warnings.push(...content.warnings);
@@ -144,7 +97,7 @@ async function main() {
     return;
   }
 
-  console.log(`Privacy scan passed for ${files.length} generated files.`);
+  console.log(`Privacy scan passed for ${files.length} files.`);
 }
 
 main().catch((error) => {

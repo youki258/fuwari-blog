@@ -4,9 +4,6 @@ dist/
 # generated types
 .astro/
 
-# local quarantine drafts
-src/content/posts/quarantine/
-
 # dependencies
 node_modules/
 
@@ -20,9 +17,6 @@ dev-server*.err.log
 
 # Windows reserved name accidentally created files
 nul
-
-# local vault manifest (machine-specific, see export-manifest.example.json)
-export-manifest.json
 
 # environment variables
 .env
@@ -45,3 +39,10 @@ yarn.lock
 
 # AtomCode local-scope configs (machine-specific)
 .atomcode/
+
+
+.deveco/
+
+
+
+.claude/

@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Fuwari-based static blog built with **Astro 6.4 + Svelte + Tailwind CSS**. Content is authored in an Obsidian vault and synced into the site via import scripts. The site language is `zh_CN`.
+Fuwari-based static blog built with **Astro 6.4 + Svelte + Tailwind CSS**. Posts are authored directly as Markdown under `src/content/posts/`. The site language is `zh_CN`.
 
 ## Commands
 
@@ -18,15 +18,9 @@ Fuwari-based static blog built with **Astro 6.4 + Svelte + Tailwind CSS**. Conte
 | `pnpm format` | Biome format on `src/` |
 | `pnpm check` | Astro diagnostic check |
 | `pnpm new-post <filename>` | Scaffold a new post in `src/content/posts/` |
-| `pnpm test:guards` | Run import security guard tests |
-| `pnpm sync:notes` | Import vault drafts into `src/content/posts/` |
-| `pnpm import:drafts:fresh` | Clean import (removes existing imports first) |
-| `pnpm import:quarantine` | Import notes that failed security checks for manual review |
 | `pnpm localize:images` | Download remote images referenced in posts to local assets |
-| `pnpm normalize:posts` | Normalize post directory names to consistent slug format |
 | `pnpm scan:public` | Scan published content for leaked secrets/PII |
-| `pnpm verify` | Full pipeline: guards → sync → type-check → build → scan |
-| `pnpm build:fresh` | Sync notes then build |
+| `pnpm verify` | Full pipeline: type-check → build → scan |
 
 Package manager is **pnpm** (enforced via `preinstall` script). Node.js >= 20 required.
 
@@ -47,25 +41,11 @@ Frontmatter schema (from [src/content.config.ts](src/content.config.ts)):
 
 Draft posts are excluded in production builds (`import.meta.env.PROD`).
 
-### Import Scripts (scripts/)
+### Maintenance Scripts (scripts/)
 
-The vault-to-site pipeline imports notes from an external Obsidian vault (`export-manifest.json` → `sourceVault`) into `src/content/posts/`:
-
-- **[scripts/import-vault-drafts.mjs](scripts/import-vault-drafts.mjs)** — Main importer. Reads `export-manifest.json` for policy (private paths, blocked extensions, credential patterns), scans the vault, applies security guards (credential detection, path traversal prevention, personal note exclusion), copies notes + images with slug normalization.
-- **[scripts/import-quarantine-notes.mjs](scripts/import-quarantine-notes.mjs)** — Imports notes that failed security checks into a quarantine area for manual review.
 - **[scripts/scan-public.mjs](scripts/scan-public.mjs)** — Post-build scanner that checks `src/content/posts/` and `dist/` for leaked secrets, emails, phone numbers, IPs.
-- **[scripts/test-guards.mjs](scripts/test-guards.mjs)** — Unit tests for import policy functions (credential detection, slug generation, path safety).
 - **[scripts/localize-remote-images.mjs](scripts/localize-remote-images.mjs)** — Downloads remote images referenced in posts to local assets.
-- **[scripts/normalize-post-directories.mjs](scripts/normalize-post-directories.mjs)** — Normalizes post directory names to consistent slug format.
-- **[scripts/export-vault-notes.mjs](scripts/export-vault-notes.mjs)** — Exports processed notes back to vault format.
-
-### Vault Import Policy (export-manifest.json)
-
-The import pipeline enforces security via `export-manifest.json`:
-- **privatePaths** — Directories excluded from import (e.g. `.obsidian`, `.trash`, `密码`, `密钥`, `日记`)
-- **blockedExtensions** — File types that cannot be imported (e.g. `.pem`, `.key`, `.env`, `.pdf`)
-- **reviewTerms** — Keywords that trigger quarantine review (e.g. `密码`, `token`, `secret`)
-- **entries[]** — Per-path overrides with `status: "private"` to explicitly block sensitive content
+- **[scripts/new-post.js](scripts/new-post.js)** — Scaffolds a new post in `src/content/posts/`.
 
 ### Page Routing
 
@@ -117,5 +97,4 @@ Translation files in [src/i18n/languages/](src/i18n/languages/). Site language s
 ## Key Config Files
 
 - [src/config.ts](src/config.ts) — Site metadata, navbar, profile, license, code theme
-- [export-manifest.json](export-manifest.json) — Vault import policy (private paths, blocked extensions, entry statuses)
 - [astro.config.mjs](astro.config.mjs) — Astro integrations, markdown plugins, Vite config

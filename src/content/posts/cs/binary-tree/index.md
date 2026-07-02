@@ -3,7 +3,7 @@ title: "二叉树基础笔记"
 published: 2025-12-16
 updated: 2025-12-16
 description: "二叉树的顺序存储、链式存储、线索二叉树详解"
-tags: ["数据结构","二叉树","408"]
+tags: ["数据结构","二叉树","考研408"]
 category: "计算机基础"
 draft: false
 ---

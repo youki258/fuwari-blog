@@ -3,7 +3,7 @@ title: "李宏毅机器学习笔记：线性模型与梯度下降"
 published: 2025-12-28
 updated: 2025-12-28
 description: "李宏毅 ML/DL 课程第一节课笔记：线性模型、Loss、梯度下降、Hard Sigmoid、激活函数到深度学习"
-tags: ["机器学习","深度学习","梯度下降","李宏毅"]
+tags: ["机器学习","深度学习","梯度下降"]
 category: "AI"
 draft: false
 ---

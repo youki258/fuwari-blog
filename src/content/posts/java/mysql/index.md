@@ -3,7 +3,7 @@ title: "MySQL 基础与 SQL 语句笔记"
 published: 2025-06-21
 updated: 2025-06-21
 description: "整理数据库、关系型数据库、SQL 分类、表操作和 MySQL 常用语法。"
-tags: ["MySQL","SQL","数据库","后端"]
+tags: ["MySQL"]
 category: "Java 全栈"
 draft: false
 ---

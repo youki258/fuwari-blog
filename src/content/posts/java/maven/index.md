@@ -3,7 +3,7 @@ title: "Maven 项目构建与依赖管理笔记"
 published: 2025-05-01
 updated: 2025-05-01
 description: "整理 Maven 的项目结构、坐标、依赖配置、仓库模型和构建生命周期。"
-tags: ["Maven","Java","后端","构建工具"]
+tags: ["Maven","Java"]
 category: "Java 全栈"
 draft: false
 ---

@@ -3,7 +3,7 @@ title: "RESTful、Apifox 与 CRUD 接口实践"
 published: 2025-05-14
 updated: 2025-05-14
 description: "整理 REST 风格 URL、HTTP 动词、Apifox 接口调试和基础 CRUD 接口实现。"
-tags: ["RESTful","Apifox","CRUD","Spring Boot"]
+tags: ["RESTful","CRUD","Spring Boot"]
 category: "Java 全栈"
 draft: false
 ---

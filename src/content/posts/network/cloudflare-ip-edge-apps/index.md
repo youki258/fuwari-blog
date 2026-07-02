@@ -3,7 +3,7 @@ title: "Cloudflare 边缘应用：一个 IP 承载数千网站"
 published: 2026-04-10
 updated: 2026-04-21
 description: "Cloudflare 一个 IP 承载数千网站的原理：SNI/Host 路由、Anycast、边缘计算"
-tags: ["Cloudflare","CDN","边缘计算"]
+tags: ["Cloudflare","CDN"]
 category: "网络与架构"
 draft: false
 ---

@@ -3,7 +3,7 @@ title: "Word 排版技巧"
 published: 2026-04-22
 updated: 2026-04-22
 description: "图片题注、交叉引用、三线表制作、PDF编辑等Word排版实用技巧"
-tags: ["Word","排版","办公"]
+tags: ["Word"]
 category: "工具"
 draft: false
 ---

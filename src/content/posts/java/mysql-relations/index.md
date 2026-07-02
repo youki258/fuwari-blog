@@ -3,7 +3,7 @@ title: "数据库多表关系与 MyBatis 查询笔记"
 published: 2025-05-14
 updated: 2025-05-14
 description: "整理一对多、多对多、外键约束、逻辑外键和 MyBatis 多表查询。"
-tags: ["MySQL","MyBatis","多表关系","后端"]
+tags: ["MySQL","MyBatis"]
 category: "Java 全栈"
 draft: false
 ---

@@ -3,7 +3,7 @@ title: "校园网 IP 切换原理"
 published: 2026-04-02
 updated: 2026-04-06
 description: "校园网 NAT 出口会频繁切换公网 IP，但日常上网几乎无感知——已建立的连接不受影响，只有新连接才使用新 IP"
-tags: ["校园网","NAT","网络"]
+tags: ["NAT","计算机网络"]
 category: "网络与架构"
 draft: false
 ---

@@ -3,7 +3,7 @@ title: "Vue 基础语法与数据驱动视图笔记"
 published: 2025-05-12
 updated: 2025-05-12
 description: "整理 Vue 渐进式框架概念、数据驱动视图、插值表达式、常用指令和生命周期。"
-tags: ["Vue","前端","JavaScript","数据驱动"]
+tags: ["Vue","JavaScript"]
 category: "前端"
 draft: false
 ---

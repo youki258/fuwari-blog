@@ -3,7 +3,7 @@ title: "GFW 识别 CDN 相关笔记"
 published: 2025-07-27
 updated: 2025-07-27
 description: "GFW 识别 Cloudflare CDN 代理的多重手段：SNI 明文、DNS 情报、流量指纹"
-tags: ["GFW","CDN","网络"]
+tags: ["GFW","CDN","计算机网络"]
 category: "网络与架构"
 draft: false
 ---

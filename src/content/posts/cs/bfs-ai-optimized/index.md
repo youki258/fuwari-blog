@@ -3,7 +3,7 @@ title: "常用算法笔记：BFS、贪心、前缀和与差分"
 published: 2025-06-05
 updated: 2025-06-05
 description: "BFS 广度优先搜索、贪心算法、前缀和与差分、字典序最小序列构造"
-tags: ["BFS","算法","C++","贪心","前缀和","差分"]
+tags: ["BFS","C++","贪心","前缀和","差分"]
 category: "计算机基础"
 draft: false
 ---

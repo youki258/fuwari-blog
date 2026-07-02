@@ -3,7 +3,7 @@ title: "CLI Agent 实践指南：从 Claude Code 到通用方法论"
 published: 2026-04-25
 updated: 2026-05-16
 description: "以 Claude Code 为主例，对比 Codex CLI / GitHub Copilot CLI，提炼 CLI Agent 编程助手的通用方法：Plan 模式、必学命令、上下文管理、安全权限、实践经验"
-tags: ["CLI","命令行","AI编程","Claude Code","Codex","Copilot"]
+tags: ["CLI"]
 category: "工具"
 draft: false
 ---

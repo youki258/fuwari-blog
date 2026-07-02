@@ -3,7 +3,7 @@ title: "路由聚合与路由选择协议"
 published: 2025-08-01
 updated: 2025-08-01
 description: "路由聚合、变长子网掩码、常见路由选择协议详解"
-tags: ["计算机网络","路由聚合","路由协议","VLSM","408"]
+tags: ["计算机网络","VLSM","考研408"]
 category: "网络与架构"
 draft: false
 ---

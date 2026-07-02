@@ -3,7 +3,7 @@ title: "虚拟机网络配置"
 published: 2026-03-07
 updated: 2026-06-25
 description: "从 IP 规划到故障修复，一文搞定 VMware 虚拟机固定 IP，覆盖 nmcli 与 network.service 两种方案"
-tags: ["虚拟机","VMware","网络配置"]
+tags: ["虚拟机","VMware"]
 category: "网络与架构"
 draft: false
 ---

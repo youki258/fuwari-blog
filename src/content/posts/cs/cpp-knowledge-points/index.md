@@ -3,7 +3,7 @@ title: "C++ 知识点"
 published: 2025-07-31
 updated: 2026-05-01
 description: "C++ 常用知识点速查：sort、max、getline、按位运算、vector"
-tags: ["C++","STL","sort","语法"]
+tags: ["C++","STL","排序算法"]
 category: "计算机基础"
 draft: false
 ---

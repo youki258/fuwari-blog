@@ -3,7 +3,7 @@ title: "VSCode + SSH + Docker 完整配置流程"
 published: 2026-04-25
 updated: 2026-04-25
 description: "从全新 Linux 机器到 VSCode 免密管理 Docker 的完整可复用配置流程"
-tags: ["VSCode","SSH","Docker","远程开发"]
+tags: ["VSCode","SSH","Docker"]
 category: "工具"
 draft: false
 ---

@@ -3,7 +3,7 @@ title: "VMware Workstation 下载指南"
 published: 2026-04-08
 updated: 2026-04-08
 description: "VMware Workstation Pro 下载与中文界面配置指南，个人使用免费"
-tags: ["VMware","虚拟机","下载"]
+tags: ["VMware","虚拟机"]
 category: "工具"
 draft: false
 ---

@@ -3,7 +3,7 @@ title: "HTML、CSS 基础与页面布局笔记"
 published: 2025-04-11
 updated: 2025-04-11
 description: "整理 CSS 引入方式、颜色写法、选择器、路径、盒子模型、Flex 布局和表单标签。"
-tags: ["HTML", "CSS", "前端", "布局"]
+tags: ["HTML", "CSS"]
 category: "前端"
 draft: false
 ---

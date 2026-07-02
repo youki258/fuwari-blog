@@ -3,7 +3,7 @@ title: "登录认证与 JWT 令牌笔记"
 published: 2025-06-21
 updated: 2025-06-21
 description: "整理登录接口、认证流程、JWT 令牌生成解析、过滤器和拦截器。"
-tags: ["JWT","登录认证","Spring Boot","后端"]
+tags: ["JWT","Spring Boot"]
 category: "Java 全栈"
 draft: false
 ---

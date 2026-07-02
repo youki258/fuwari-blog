@@ -3,7 +3,7 @@ title: "前后端分离开发笔记"
 published: 2025-06-21
 updated: 2025-06-21
 description: "前后端分离开发笔记：工程拆分、Vue Router 路由、Axios 接口调用与跨域处理"
-tags: ["Vue","前后端分离","Vue Router","API"]
+tags: ["Vue","Vue Router","API"]
 category: "前端"
 draft: false
 ---

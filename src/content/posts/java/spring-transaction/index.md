@@ -3,7 +3,7 @@ title: "Spring 事务管理学习笔记"
 published: 2025-06-21
 updated: 2025-06-21
 description: "整理事务一致性问题、@Transactional 注解、回滚规则和 Spring 事务控制。"
-tags: ["Spring","事务","Java","后端"]
+tags: ["Spring Boot","Java"]
 category: "Java 全栈"
 draft: false
 ---

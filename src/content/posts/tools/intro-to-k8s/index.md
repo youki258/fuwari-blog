@@ -3,7 +3,7 @@ title: "初识 Kubernetes：从 Service 与 CoreDNS 理解服务发现"
 published: 2026-05-27
 updated: 2026-06-16
 description: "从 Service、CoreDNS 到完整调用链，理解 K8s 服务发现的核心机制与单机部署的本质区别"
-tags: ["Kubernetes","K8s","容器编排","Service","CoreDNS"]
+tags: ["Kubernetes"]
 category: "工具"
 draft: false
 ---

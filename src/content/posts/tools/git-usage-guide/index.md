@@ -3,7 +3,7 @@ title: "Git 使用指南"
 published: 2025-11-14
 updated: 2025-11-14
 description: "Git 安装配置、基础工作流、分支管理、常用技巧速查"
-tags: ["Git","SSH","Sourcetree","版本控制"]
+tags: ["Git","SSH"]
 category: "工具"
 draft: false
 ---

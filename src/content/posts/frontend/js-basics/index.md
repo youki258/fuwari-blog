@@ -3,7 +3,7 @@ title: "JavaScript 基础语法笔记"
 published: 2025-05-03
 updated: 2025-05-03
 description: "整理 JavaScript 变量、输出语句、函数、自定义对象、JSON 和 DOM 基础。"
-tags: ["JavaScript","前端","DOM","JSON"]
+tags: ["JavaScript","DOM","JSON"]
 category: "前端"
 draft: false
 ---

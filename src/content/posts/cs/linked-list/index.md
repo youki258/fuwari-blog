@@ -8,7 +8,7 @@ category: "计算机基础"
 draft: false
 ---
 
-### 一、链表概念
+## 1. 链表概念
 
 1. **与数组的区别**
 	- 数组：连续内存空间，随机访问高效（O(1)），但插入/删除需移动元素（O(n)）
@@ -27,7 +27,7 @@ struct ListNode {
 
 ---
 
-### 二、链表底层机制
+## 2. 链表底层机制
 
 1. **内存分配原理**
 	- 节点内存非连续 → **动态分配**（C++用`new`/`delete`）
@@ -45,9 +45,9 @@ struct ListNode {
 
 ---
 
-### 三、链表五大基础操作（C++实现）
+## 3. 链表五大基础操作（C++实现）
 
-#### **1. 遍历链表**
+### **3.1. 遍历链表**
 
 ```cpp
 void traverse(ListNode* head) {
@@ -59,7 +59,7 @@ void traverse(ListNode* head) {
 }
 ```
 
-#### **2. 插入节点**
+### **3.2. 插入节点**
 
 - **头部插入**
 
@@ -99,7 +99,7 @@ void traverse(ListNode* head) {
 	}
 	```
 
-#### **3. 删除节点**
+### **3.3. 删除节点**
 
 ```cpp
 void deleteNode(ListNode*& head, int val) {
@@ -125,7 +125,7 @@ void deleteNode(ListNode*& head, int val) {
 }
 ```
 
-#### **4. 修改节点值**
+### **3.4. 修改节点值**
 
 ```cpp
 void updateNode(ListNode* head, int oldVal, int newVal) {
@@ -140,7 +140,7 @@ void updateNode(ListNode* head, int oldVal, int newVal) {
 }
 ```
 
-#### **5. 查找节点**
+### **3.5. 查找节点**
 
 ```cpp
 ListNode* searchNode(ListNode* head, int val) {
@@ -157,7 +157,7 @@ ListNode* searchNode(ListNode* head, int val) {
 
 ---
 
-### 四、关键点
+## 4. 关键点
 
 1. **头指针的特殊处理**
 	- 头节点可能被修改 → 使用`ListNode*&`（指针引用）或二级指针
@@ -184,7 +184,7 @@ delete dummy;
 
 ---
 
-### 五、链表 vs 数组
+## 5. 链表 vs 数组
 
 | 特性 | 数组 | 链表 |
 |---|---|---|
@@ -197,9 +197,9 @@ delete dummy;
 
 ---
 
-### 六、LeetCode 练习
+## 6. LeetCode 练习
 
-#### 1. 删除链表中的节点（LeetCode 237）
+### 6.1. 删除链表中的节点（LeetCode 237）
 
 **问题本质**：在只给定被删除节点（非尾节点）的情况下，实现节点删除
 
@@ -215,7 +215,7 @@ void deleteNode(struct ListNode* node) {
 - 时间复杂度 O(1)，空间复杂度 O(1)
 - 特例处理：不能删除尾节点（题目保证）
 
-#### 2. 反转链表（LeetCode 206）
+### 6.2. 反转链表（LeetCode 206）
 
 **迭代法**：
 
@@ -276,7 +276,7 @@ private:
 | 迭代法 | O(n) | O(1) | 内存敏感场景 |
 | 递归法 | O(n) | O(n) | 代码简洁要求场景 |
 
-#### 3. 设计链表（LeetCode 707）
+### 6.3. 设计链表（LeetCode 707）
 
 **双向链表实现框架**：
 
@@ -299,7 +299,7 @@ typedef struct {
 - size维护：避免多余遍历
 - 指针安全：每次操作前检查NULL
 
-#### 4. K 个一组翻转链表（LeetCode 25）
+### 6.4. K 个一组翻转链表（LeetCode 25）
 
 **问题描述**：给你链表的头节点 `head` ，每 `k` 个节点一组进行翻转，请你返回修改后的链表。如果节点总数不是 `k` 的整数倍，那么请将最后剩余的节点保持原有顺序。
 

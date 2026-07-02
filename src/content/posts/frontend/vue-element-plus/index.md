@@ -178,7 +178,7 @@ export default{
 
 ## ElementPlus
 
-### 介绍
+### 介绍（Element Plus）
 
 Element：是饿了么公司前端开发团队提供的一套基于 Vue3 的网站组件库，用于快速构建网页。
 

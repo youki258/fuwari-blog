@@ -12,7 +12,7 @@ draft: false
 
 ---
 
-## 一、Linux 端准备
+## 1. Linux 端准备
 
 ### 1.1 开启 SSH 服务
 
@@ -41,7 +41,7 @@ ip a
 
 ---
 
-## 二、Windows 端准备
+## 2. Windows 端准备
 
 ### 2.1 安装 VSCode 插件
 打开 VSCode，安装以下扩展：
@@ -66,7 +66,7 @@ ls $env:USERPROFILE\.ssh\
 
 ---
 
-## 三、配置免密登录（公私钥）
+## 3. 配置免密登录（公私钥）
 
 ### 3.1 将公钥上传到 Linux
 
@@ -131,7 +131,7 @@ ssh -i $env:USERPROFILE\.ssh\id_ed25519 kali@192.168.17.129
 
 ---
 
-## 四、Linux 端安装 Docker
+## 4. Linux 端安装 Docker
 
 ### 4.1 安装 Docker
 
@@ -165,7 +165,7 @@ sudo docker run hello-world
 
 ---
 
-## 五、解决 Docker 权限问题
+## 5. 解决 Docker 权限问题
 
 VSCode 连上后，Docker 插件可能提示无法访问 `/var/run/docker.sock`。
 
@@ -190,7 +190,7 @@ docker ps
 
 ---
 
-## 六、VSCode Docker 插件使用
+## 6. VSCode Docker 插件使用
 
 连接成功后，左侧边栏出现 Docker 图标，常用功能：
 
@@ -206,7 +206,7 @@ docker ps
 
 ---
 
-## 七、快速检查清单
+## 7. 快速检查清单
 
 每次复用或排查问题时，按以下顺序检查：
 
@@ -221,7 +221,7 @@ docker ps
 
 ---
 
-## 八、配置文件模板
+## 8. 配置文件模板
 
 **Windows SSH 配置**（`C:\Users\用户名\.ssh\config`）：
 

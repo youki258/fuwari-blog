@@ -58,7 +58,7 @@ draft: false
 - GFW 通过机器学习识别这种"机械式"的流量模式
 
 
-## 综合举例：GFW 如何判定你在用 edgetunnel
+## 2. 综合举例：GFW 如何判定你在用 edgetunnel
 
 假设你在用 edgetunnel（一个基于 Workers 的代理）：
 
@@ -101,7 +101,7 @@ GFW 识别 Workers 代理的多重手段：
    → 精准识别
 ```
 
-## 补充：为什么机场较少用 Hysteria
+## 3. 补充：为什么机场较少用 Hysteria
 
 一个常见疑问：Hysteria 协议出来挺久了，为什么少见机场采用？大致原因：
 

@@ -10,26 +10,26 @@ draft: false
 
 这篇笔记整理 HTML 与 CSS 入门阶段的常用知识点，重点是页面样式引入、选择器、路径写法和基础布局。
 
-##### 1. css引入方式
+## 1. css引入方式
 
 - 行内样式：`<h1 style="...">`
 - 内部样式：`<style>...</style>`
 - 外部样式：在 `xxx.css` 中编写样式，并通过 `<link href="...">` 引入
 
-##### 2.  颜色表示
+## 2. 颜色表示
 
 - 关键字：red
 - rgb表示法
 - rgba表示法: rgba(255,0,0,0.5)
 - 十六进制
 
-##### 3.常见选择器写法
+## 3. 常见选择器写法
 
 - 元素选择器：`标签名 { ... }`
 - 类选择器：`.class属性值 { ... }`
 - id选择器：`#id属性值 { ... }`
 
-##### 4. 路径的书写形式
+## 4. 路径的书写形式
 
 - 绝对路径:
   - 绝对磁盘路径：`<img src="C:\Users\Administrator\Desktop\HTML\img\logo.png">`（不要使用）
@@ -42,7 +42,7 @@ draft: false
 
 ### 盒子模型
 
-##### 1. 布局标签
+#### 1. 布局标签
 
 - 标签：`<div>` `<span>`
 
@@ -63,7 +63,7 @@ draft: false
 - `<hr>` 标签：水平分割线
 - `<br>` 标签：换行
 
-##### 2. flex布局  
+#### 2. flex布局  
 
 - 父元素：`display: flex;` 弹性布局
 - `flex-direction: row;`：默认为 row 水平布局，设置主轴
@@ -74,7 +74,7 @@ draft: false
 - `space-between`：先两边贴边，再平分剩余空间
 - `justify-content: space-around;`
 
-##### 3. 表单标签：`<form>`
+#### 3. 表单标签：`<form>`
 
 表单属性：
 
@@ -84,7 +84,7 @@ draft: false
 - post:表单数据在请求体中携带/大小没有限制
   。注意：表单项必须有name属性才可以提交。
 
-##### 4. 表单项标签
+#### 4. 表单项标签
 
 - `<input>` 的 `type` 属性：`text`、`password`、`radio`、`checkbox`、`file`、`date`、`datetime-local`、`time`、`hidden`、`button`、`submit`
 - `<select>` 定义下拉列表

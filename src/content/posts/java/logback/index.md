@@ -31,7 +31,7 @@ draft: false
 
 ![img](./01.png)
 
-### 1. Logback入门
+### 2. Logback入门
 
 **1). 准备工作：引入logback的依赖（springboot中无需引入，在springboot中已经传递了此依赖）**
 
@@ -84,7 +84,7 @@ public class LogTest {
 
 我们可以看到在输出的日志信息中，不仅输出了日志的信息，还包括：日志的输出时间、线程名、具体在那个类中输出的。 
 
-### 1. Logback配置文件
+### 3. Logback配置文件
 
 Logback日志框架的配置文件叫 `logback.xml` 。 
 
@@ -137,7 +137,7 @@ Logback日志框架的配置文件叫 `logback.xml` 。
 </root>
 ```
 
-### 1. Logback日志级别
+### 4. Logback日志级别
 
 日志级别指的是日志信息的类型，日志都会分级别，常见的日志级别如下（优先级由低到高）：
 

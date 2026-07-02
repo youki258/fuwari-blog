@@ -8,7 +8,7 @@ category: "网络与架构"
 draft: false
 ---
 
-## 一、为什么需要固定 IP？最稳妥的规划策略
+## 1. 为什么需要固定 IP？最稳妥的规划策略
 
 VMware NAT 默认通过 DHCP 分配 IP，地址会浮动，多台虚拟机同时开机还可能撞 IP，导致 SSH 频繁断连。最彻底的解决办法是：**设置静态 IP，并故意选在 DHCP 分配池之外**。
 
@@ -28,7 +28,7 @@ VMware NAT 默认通过 DHCP 分配 IP，地址会浮动，多台虚拟机同时
 
 ---
 
-## 二、前置检查：确保虚拟链路与 VMware 服务正常
+## 2. 前置检查：确保虚拟链路与 VMware 服务正常
 
 很多“配置完不通”的问题，根源不在 Linux 配置，而在虚拟机硬件或 Windows 服务。正式配 IP 之前，先过一遍下面几点。
 
@@ -59,7 +59,7 @@ ip addr show ens160   # 记得替换网卡名
 
 ---
 
-## 三、方案 A：NetworkManager 正常时的推荐做法（nmcli 一键搞定）
+## 3. 方案 A：NetworkManager 正常时的推荐做法（nmcli 一键搞定）
 
 大多数现代 Linux 发行版（CentOS 7+、Fedora、Ubuntu 等）默认使用 NetworkManager 管理网络。这种情况下 `nmcli` 是最安全、最不容易产生配置冲突的方式。
 
@@ -98,7 +98,7 @@ ping -c 3 baidu.com                        # 确认外网域名解析正常
 
 ---
 
-## 四、方案 B：当 NetworkManager 罢工时（未托管、device not found）
+## 4. 方案 B：当 NetworkManager 罢工时（未托管、device not found）
 
 有时候系统会出现以下症状：
 
@@ -179,7 +179,7 @@ sudo sysctl -w net.ipv6.conf.ens160.disable_ipv6=1 | sudo tee -a /etc/sysctl.con
 
 ---
 
-## 五、快速验证清单
+## 5. 快速验证清单
 
 无论用哪个方案，最后都跑一遍：
 
@@ -193,7 +193,7 @@ ping www.baidu.com -c 4      # 外网域名解析通
 
 ---
 
-## 六、故障速查表
+## 6. 故障速查表
 
 | 现象                        | 可能原因                                         | 快速处置                                                     |
 | --------------------------- | ------------------------------------------------ | ------------------------------------------------------------ |

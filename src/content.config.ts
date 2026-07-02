@@ -4,7 +4,10 @@ import { glob } from "astro/loaders";
 import { z } from "astro/zod";
 
 function entrySlugFromPath(entry: string): string {
-	return entry.replace(/\\/g, "/").replace(/\/index\.md$/i, "").replace(/\.md$/i, "");
+	return entry
+		.replace(/\\/g, "/")
+		.replace(/\/index\.md$/i, "")
+		.replace(/\.md$/i, "");
 }
 
 const postsSchema = z.object({

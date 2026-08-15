@@ -8,6 +8,8 @@
 
 在线访问：[**youki.me**](https://youki.me/)
 
+> 📄 给 AI 的发布指南见 [AGENTS.md](AGENTS.md)
+
 ## ✨ 特性
 
 - 基于 [Astro](https://astro.build) + [Tailwind CSS](https://tailwindcss.com) + [Svelte](https://svelte.dev) 构建
@@ -22,35 +24,6 @@
 - Cloudflare Worker 反向代理，隐藏源站地址
 - husky + lint-staged：提交前自动 Biome 格式化 / lint
 - CI 流水线：type-check → lint → build（Node 20 / 22 / 24）
-
-## 🚀 快速开始
-
-1. 克隆仓库并安装依赖：
-
-   ```sh
-   git clone git@github.com:youki258/fuwari-blog.git
-   cd fuwari-blog
-   pnpm install
-   ```
-
-2. 编辑 `src/config.ts`，配置站点标题、导航、侧边栏资料、License 等信息。
-3. 创建新文章（或直接在 `src/content/posts/` 下手写 `index.md`）：
-
-   ```sh
-   pnpm new-post <filename>
-   ```
-
-4. 本地预览：
-
-   ```sh
-   pnpm dev
-   ```
-
-5. 生产构建并部署：
-
-   ```sh
-   pnpm build
-   ```
 
 ## 📝 文章 Frontmatter
 
@@ -89,7 +62,7 @@ src/
 ├── layouts/            # Layout 与 MainGridLayout
 ├── plugins/            # 自定义 remark / rehype 插件
 └── config.ts           # 站点配置入口
-scripts/                # 维护脚本（new-post / scan-public / localize:images）
+scripts/                # 维护脚本（scan-public / localize:images）
 worker.js               # Cloudflare Worker 反向代理
 ```
 
@@ -102,7 +75,6 @@ worker.js               # Cloudflare Worker 反向代理
 | `pnpm dev` | 启动开发服务器，`localhost:4321` |
 | `pnpm build` | 生产构建 + Pagefind 索引，输出到 `./dist/` |
 | `pnpm preview` | 本地预览生产构建 |
-| `pnpm new-post <filename>` | 创建新文章 |
 | `pnpm localize:images` | 将文章中引用的远程图片下载到本地 |
 | `pnpm scan:public` | 扫描已发布内容中的密钥 / PII 泄露 |
 | `pnpm type-check` | TypeScript 类型检查 |

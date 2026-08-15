@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository. For how to publish a post, see [AGENTS.md](AGENTS.md).
 
 ## Project Overview
 
@@ -17,7 +17,6 @@ Fuwari-based static blog built with **Astro 6.4 + Svelte + Tailwind CSS**. Posts
 | `pnpm lint` | Biome lint + auto-fix on `src/` |
 | `pnpm format` | Biome format on `src/` |
 | `pnpm check` | Astro diagnostic check |
-| `pnpm new-post <filename>` | Scaffold a new post in `src/content/posts/` |
 | `pnpm localize:images` | Download remote images referenced in posts to local assets |
 | `pnpm scan:public` | Scan published content for leaked secrets/PII |
 | `pnpm verify` | Full pipeline: type-check → build → scan |
@@ -45,7 +44,6 @@ Draft posts are excluded in production builds (`import.meta.env.PROD`).
 
 - **[scripts/scan-public.mjs](scripts/scan-public.mjs)** — Post-build scanner that checks `src/content/posts/` and `dist/` for leaked secrets, emails, phone numbers, IPs.
 - **[scripts/localize-remote-images.mjs](scripts/localize-remote-images.mjs)** — Downloads remote images referenced in posts to local assets.
-- **[scripts/new-post.js](scripts/new-post.js)** — Scaffolds a new post in `src/content/posts/`.
 
 ### Page Routing
 

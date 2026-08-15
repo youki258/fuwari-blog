@@ -1,6 +1,8 @@
+@import AGENTS.md
+
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository. For how to publish a post, see [AGENTS.md](AGENTS.md).
+Claude Code-specific details below. The shared project guidance (publishing, security, boundaries) lives in AGENTS.md and is imported above.
 
 ## Project Overview
 

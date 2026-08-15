@@ -1,16 +1,16 @@
 # AGENTS.md
 
-本文件是给 AI 助手（opencode、Codex、Cursor、Claude Code 等）的项目指引。阅读时请优先关注本文档，完整架构细节见 [CLAUDE.md](CLAUDE.md)。
+本文件是给 AI 助手（opencode、Codex、Cursor、Claude Code 等）的项目指引，阅读时请优先关注。完整架构细节见 [CLAUDE.md](CLAUDE.md)。
 
-## 项目简介
+## Project
 
-基于 **Astro 6.4 + Svelte + Tailwind CSS** 的个人静态博客，站点语言 `zh_CN`。文章直接用 Markdown 写在 `src/content/posts/` 下。发布流程：新建 Markdown → 推送 `master` → CI 自动构建 → Cloudflare Pages 自动部署上线。
+基于 **Astro 6.4 + Svelte + Tailwind CSS** 的个人静态博客，站点语言 `zh_CN`。文章直接以 Markdown 写在 `src/content/posts/` 下。发布流程：新建 Markdown → 推送 `master` → CI 自动构建 → Cloudflare Pages 自动部署上线。
 
 ## 📝 发布一篇文章
 
 按现有目录约定手动创建文章（不使用 new-post 脚本）：
 
-```
+```text
 src/content/posts/<分类>/<slug>/index.md
 ```
 
@@ -26,7 +26,8 @@ src/content/posts/
         └── index.md
 ```
 
-分类用英文小写（如 `ai`、`cs`、`frontend`、`java`、`network`、`tools`），slug 用短横线命名。文章相关图片放同目录（如 `images/`）。
+- 分类用英文小写（如 `ai`、`cs`、`frontend`、`java`、`network`、`tools`），slug 用短横线命名
+- 文章相关图片放同目录（如 `images/`）
 
 ### Frontmatter
 
@@ -54,7 +55,7 @@ updated: 2026-08-15  # 可选，更新日期
 
 1. 本地验证：
    - `pnpm check` — Astro 诊断检查
-   - `pnpm verify` — 完整流水线：type-check → build → 泄露扫描（`scan:public` 会检查密钥 / PII，发布前务必通过）
+   - `pnpm verify` — 完整流水线：type-check → build → 泄露扫描（发布前务必通过）
 2. 提交并推送到 **`master`** 分支：
    ```sh
    git add src/content/posts/...
@@ -63,19 +64,25 @@ updated: 2026-08-15  # 可选，更新日期
    ```
 3. 推送后 CI 自动运行 type-check / lint / build，通过后 Cloudflare Pages 自动部署到线上。
 
-## ⚡ 常用命令
+## 🔒 Security
 
-| 命令 | 说明 |
-|:---|:---|
-| `pnpm dev` | 本地开发服务器，`localhost:4321` |
-| `pnpm build` | 生产构建 + Pagefind 索引 → `./dist/` |
-| `pnpm preview` | 本地预览生产构建 |
-| `pnpm check` | Astro 诊断检查 |
-| `pnpm verify` | type-check → build → 泄露扫描 |
-| `pnpm localize:images` | 将文章引用的远程图片下载到本地 |
-| `pnpm scan:public` | 扫描已发布内容中的密钥 / PII |
+- `pnpm scan:public` 会扫描已发布内容中的密钥 / PII，发布前务必通过
+- 联系链接以 base64 混淆存储，避免明文暴露邮箱
+- Cloudflare Worker 反向代理，不直接暴露源站地址
 
-## 📚 更多信息
+## Boundaries
 
-- 完整架构（内容管线、布局、插件、代码规范）见 [CLAUDE.md](CLAUDE.md)
-- 站点配置入口：`src/config.ts`
+### Always
+
+- 发布文章前必须通过 `pnpm verify`
+- 文章目录遵循 `<分类>/<slug>/index.md` 约定
+
+### Ask first
+
+- 修改 `src/config.ts`、布局、组件、插件等非内容代码
+- 增删依赖或改动 CI 配置
+
+### Never
+
+- 提交真实密钥、邮箱、手机号、IP 等敏感信息
+- 编辑 `dist/` 等生成产物

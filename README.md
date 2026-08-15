@@ -1,10 +1,10 @@
-# 🍥 youki的笔记
+# ouki的笔记
 
 ![Node.js >= 20](https://img.shields.io/badge/node.js-%3E%3D20-brightgreen)
 ![pnpm >= 9](https://img.shields.io/badge/pnpm-%3E%3D9-blue)
 ![Astro](https://img.shields.io/badge/Astro-6.4-black)
 
-基于 [Astro](https://astro.build) 的个人静态博客，记录 AI、全栈开发、服务器运维和网络相关的学习与实践。你可以把它当作一个数字花园——把想法做成可以访问的东西。
+基于 [Astro](https://astro.build) 的个人静态博客，记录 AI、全栈开发、服务器运维和网络相关的学习与实践。
 
 在线访问：[**youki.me**](https://youki.me/)
 

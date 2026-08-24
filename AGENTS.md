@@ -6,6 +6,16 @@
 
 基于 **Astro 6.4 + Svelte + Tailwind CSS** 的个人静态博客，站点语言 `zh_CN`。文章直接以 Markdown 写在 `src/content/posts/` 下。发布流程：新建 Markdown → 推送 `master` → CI 自动构建 → Cloudflare Pages 自动部署上线。
 
+## 🛠 常用命令
+
+- `pnpm dev` — 本地开发服务器
+- `pnpm check` — Astro 诊断；`pnpm type-check` — tsc 类型检查
+- `pnpm lint` / `pnpm format` — Biome 检查 / 格式化（仅 `./src`）
+- `pnpm build` — 构建 + Pagefind 索引；`pnpm verify` — type-check + build + 泄露扫描
+- 必须使用 pnpm（`preinstall` 用 only-allow 强制），Node >= 22.12.0
+
+主要目录：`src/content/posts/`（文章）、`src/pages/`（路由）、`src/components/`（Astro/Svelte 组件）、`src/config.ts`（站点配置）、`scripts/`（泄露扫描、图片本地化脚本）、`src/plugins/`（自定义 Astro 插件）。
+
 ## 📝 发布一篇文章
 
 按现有目录约定手动创建文章（不使用 new-post 脚本）：
